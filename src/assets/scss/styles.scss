@@ -8,3 +8,13 @@
 a:hover {
     text-decoration: none;
 }
+
+.ws-btn {
+  padding: 5px;
+  background-color: $mainBlue;
+  color: $mainWhite;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
