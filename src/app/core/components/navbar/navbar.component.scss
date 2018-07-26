@@ -1,15 +1,17 @@
 @import "~src/assets/scss/styles";
 
 .navbar {
-  height: 10vh;
+    &-logo {
+        font-family: "harabara";
+        font-size: 2rem;
+        color: $mainBrown;
 
-  &-logo {
-    font-family: "harabara";
-    font-size: 2rem;
-    color: rgb(124, 80, 15);
-
-    &:hover {
-      color: rgb(124, 80, 15);
+        &:hover {
+            color: $mainBrown;
+        }
     }
-  }
+
+    &-toggler-icon {
+        cursor: pointer;
+    }
 }

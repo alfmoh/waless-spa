@@ -1,0 +1,45 @@
+@import "~src/assets/scss/styles";
+
+.banner {
+    background: url("../../../../assets/images/home/headphones-yellow.jpg") no-repeat;
+    background-size: cover;
+    background-position: 70% 50%;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+
+    &-content {
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-family: 'Open Sans', sans-serif;
+        padding-left: 40px;
+
+        &__header {
+            font-weight: 600;
+            font-size: 2.5rem;
+            background-color: $mainWhite;
+            padding: 0 15px;
+            max-width: fit-content;
+
+            @include media-breakpoint-up(sm) {
+                font-size: 3.5rem;
+                max-width: fit-content;
+            }
+        }
+
+        &__sub-header {
+            font-size: 2rem;
+            max-width: fit-content;
+            padding: 0 17px;
+            margin-top: 3px;
+            background-color: $mainWhite;
+
+            @include media-breakpoint-up(sm) {
+                font-size: 3rem;
+                max-width: fit-content;
+            }
+        }
+    }
+}

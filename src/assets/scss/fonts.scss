@@ -1,20 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
+
 $aristotelica-path: "/assets/fonts/aristotelica_display_extralight.otf";
 $harabara_mais-path: "/assets/fonts/harabara_mais.otf";
 $font-family-brand: "aristotelica";
 
 @font-face {
-  font-family: 'aristotelica';
-  src:url($aristotelica-path) format("opentype");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'aristotelica';
+    src: url($aristotelica-path) format("opentype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'harabara';
-  src:url($harabara_mais-path) format("opentype");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'harabara';
+    src: url($harabara_mais-path) format("opentype");
+    font-weight: normal;
+    font-style: normal;
 }
-
-
-
