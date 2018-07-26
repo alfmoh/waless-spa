@@ -2,3 +2,8 @@
 @import "~node_modules/font-awesome/css/font-awesome.min.css";
 
 @import "./_variables";
+@import "./fonts";
+
+a:hover {
+  text-decoration: none;
+}
