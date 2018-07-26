@@ -10,11 +10,21 @@ a:hover {
 }
 
 .ws-btn {
-  padding: 5px;
-  background-color: $mainBlue;
-  color: $mainWhite;
+    padding: 5px;
+    background-color: $mainBlue;
+    color: $mainWhite;
 
-  &:hover {
-    cursor: pointer;
-  }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
