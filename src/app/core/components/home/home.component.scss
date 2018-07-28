@@ -122,14 +122,58 @@
     }
 }
 
-@keyframes slideIn {
-    0% {
-        margin-left: -50px;
-        opacity: 0;
-    }
+.pricing {
+    &-content {
+        font-family: "Open Sans", sans-serif;
+        text-align: center;
+        padding: 50px 0;
+        background: #f7ff00;
+        background: linear-gradient(to right, #db36a4, #f7ff00);
 
-    100% {
-        margin: 3px 0 0;
-        opacity: 1;
+        &__header {
+            margin-bottom: 20px;
+        }
+
+        &-options {
+            text-align: start;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+            grid-auto-rows: 1fr;
+            justify-content: center;
+
+            &__item {
+                margin: 10px 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                background: rgba(255, 255, 255, 0.5);
+
+                &__sub-header {
+                  font-size: .95rem;
+                  font-weight: 600;
+                }
+
+                &__sub-sub-header {
+                    font-size: 1.3rem;
+                    padding: 10px 0;
+                }
+
+                &__provisions {
+                    &__item {
+                        &:hover {
+                            cursor: pointer;
+                            list-style: circle;
+                        }
+                    }
+                }
+            }
+
+            &__button {
+                align-self: center;
+                padding: 5px 30px;
+                max-width: fit-content;
+                border-radius: 3px;
+            }
+        }
     }
 }
