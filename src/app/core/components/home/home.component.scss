@@ -148,9 +148,13 @@
                 justify-content: space-between;
                 background: rgba(255, 255, 255, 0.5);
 
+                &__header {
+                    font-weight: 600;
+                }
+
                 &__sub-header {
-                  font-size: .95rem;
-                  font-weight: 600;
+                    font-size: .95rem;
+                    font-weight: 600;
                 }
 
                 &__sub-sub-header {
@@ -173,6 +177,28 @@
                 padding: 5px 30px;
                 max-width: fit-content;
                 border-radius: 3px;
+            }
+        }
+    }
+}
+
+.site-footer {
+    &-content {
+        margin: 0;
+        padding: 0;
+        background: $mainBlue;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        color: $mainWhite;
+        padding: 20px 70px;
+        list-style: none;
+
+        &__item {
+            padding: 0 20px;
+
+            &:hover {
+                cursor: pointer;
             }
         }
     }
