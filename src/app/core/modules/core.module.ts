@@ -1,18 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AuthModule } from './auth.module';
+import { SharedModule } from "./../../shared/shared.module";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { NavbarComponent } from "../components/navbar/navbar.component";
 import { HomeComponent } from "../components/home/home.component";
 import { CoreRoutingModule } from "./core-routing.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreRoutingModule
-  ],
-  declarations: [
-    NavbarComponent,
-    HomeComponent
-  ],
-  exports:[NavbarComponent]
+  imports: [CommonModule, CoreRoutingModule, AuthModule, SharedModule],
+  declarations: [NavbarComponent, HomeComponent],
+  exports: [NavbarComponent, AuthModule]
 })
 export class CoreModule { }

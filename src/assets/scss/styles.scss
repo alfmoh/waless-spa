@@ -5,9 +5,7 @@
 @import "./_variables";
 @import "./fonts";
 
-a:hover {
-    text-decoration: none;
-}
+/*Reusables*/
 
 .ws-btn {
     padding: 5px;
@@ -19,16 +17,46 @@ a:hover {
     }
 }
 
-.ws-card  {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  padding: 20px 40px;
-  border-radius: 3.2px;
+.ws-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    padding: 20px 40px;
+    border-radius: 3.2px;
 
-  &:hover {
-      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
+    &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
 }
+
+.ws-error {
+  display: block;
+  color: red;
+}
+
+/*Bootstrap overrides*/
+
+a:hover {
+    text-decoration: none;
+}
+
+div.modal-content {
+    border-radius: 0;
+}
+
+.form-control {
+    border-radius: .1rem;
+}
+
+.nav-tabs .nav-link {
+    border-top-left-radius: .1rem;
+    border-top-right-radius: .1rem;
+}
+
+ul.nav.nav-tabs {
+  justify-content: flex-end !important;
+}
+
+/*Animations*/
 
 @keyframes fadeIn {
     from {

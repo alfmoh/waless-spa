@@ -1,0 +1,65 @@
+<div class="container">
+    <ngb-tabset>
+        <ngb-tab title="Login">
+          <ng-template ngbTabContent>
+            <form (ngSubmit)="login()" [formGroup]="loginForm">
+              <div class="form-group">
+                <label class="first-label" for="login-email">Email</label>
+                <input id="login-email" formControlName="email" type="email" class="form-control">
+                <div *ngIf="loginEmail.invalid && (loginEmail.dirty || loginEmail.touched)">
+                  <div *ngIf="loginEmail.errors.required">
+                    <span class="ws-error">Email is required</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password</label>
+                <input id="login-password" formControlName="password" type="password" class="form-control">
+                <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)">
+                  <div *ngIf="loginPassword.errors.required" >
+                    <span class="ws-error">Password is required</span>
+                  </div>
+                </div>
+              </div>
+              <button class="btn ws-btn" [disabled]="loginForm.invalid" type="submit">Login</button>
+            </form>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Register">
+          <ng-template ngbTabContent>
+            <form (ngSubmit)="register()" [formGroup]="regForm">
+              <div class="form-group">
+                <label class="first-label" for="reg-name">Username</label>
+                <input id="reg-name" formControlName="username" type="text" class="form-control">
+                <div *ngIf="regUsername.invalid && (regUsername.dirty || regUsername.touched)" >
+                  <div *ngIf="regUsername.errors.required">
+                    <span class="ws-error">Username is required</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="reg-email">Email</label>
+                <input id="reg-email" formControlName="email" type="email" class="form-control">
+                <div *ngIf="regEmail.invalid && (regEmail.dirty || regEmail.touched)" >
+                  <div *ngIf="regEmail.errors.required" >
+                    <span class="ws-error">Email is required</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="reg-password">Password</label>
+                <input id="reg-password" formControlName="password" type="password" class="form-control">
+                <div *ngIf="regPassword.invalid && (regPassword.dirty || regPassword.touched)" >
+                  <div *ngIf="regPassword.errors.required" >
+                    <span class="ws-error">Password is required</span>
+                  </div>
+                </div>
+              </div>
+              <button class="btn ws-btn" [disabled]="regForm.invalid" type="submit">Register</button>
+            </form>
+          </ng-template>
+        </ngb-tab>
+
+      </ngb-tabset>
+</div>
