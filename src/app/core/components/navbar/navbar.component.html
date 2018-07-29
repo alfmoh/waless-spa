@@ -11,7 +11,7 @@
 
     <div *ngIf="loggedIn()" class="dropdown">
       <span class="ws-btn navbar-right__auth dropdown-toggle">
-        Welcome user
+        {{authService.decodedToken?.email}}
       </span>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">

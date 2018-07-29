@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private alertify: AlertifyService,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
   ngOnInit() {}
