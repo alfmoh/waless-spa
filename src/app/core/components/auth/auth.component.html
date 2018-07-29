@@ -54,6 +54,12 @@
                   <div *ngIf="regPassword.errors.required" >
                     <span class="ws-error">Password is required</span>
                   </div>
+                  <div *ngIf="regPassword.errors.minlength" >
+                    <span class="ws-error">Password should be a mininum of 8 characters</span>
+                  </div>
+                  <div *ngIf="regPassword.errors.maxlength" >
+                    <span class="ws-error">Password should be a maximum of 12 characters</span>
+                  </div>
                 </div>
               </div>
               <button class="btn ws-btn" [disabled]="regForm.invalid" type="submit">Register</button>

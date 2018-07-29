@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
     this.regForm = fb.group({
       username: ["", Validators.required],
       email: ["", Validators.required],
-      password: ["", Validators.required]
+      password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(12)]]
     })
   }
 
@@ -56,7 +56,7 @@ export class AuthComponent implements OnInit {
         console.log("Registered sucessfully")
       }, err => console.log("Failed to register"))
     this.activeModal.close();
-   }
+  }
 
   submit(formType) {
     console.log(formType.value);
