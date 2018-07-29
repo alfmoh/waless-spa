@@ -1,8 +1,29 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top d-flex justify-content-between">
   <a class="navbar-logo" href="#">Waless</a>
   <div class="navbar-right">
-    <span class="navbar-right__join" (click)="auth(true)">Join</span>
-    <span class="navbar-right__login ws-btn" (click)="auth()">Login</span>
+
+    <div *ngIf="!loggedIn()" class="unauth">
+      <span class="navbar-right__join" (click)="auth(true)">Join</span>
+      <span class="navbar-right__auth ws-btn" (click)="auth()">Login</span>
+    </div>
+
+    <span class="navbar-right__auth ws-btn" (click)="logout()">Logout</span>
+
+    <div *ngIf="loggedIn()" class="dropdown">
+      <span class="ws-btn navbar-right__auth dropdown-toggle">
+        Welcome user
+      </span>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">
+          <i class="fa fa-user"></i> Edit Profile
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">
+          <i class="class fa fa-sign-out"></i> Logout
+        </a>
+      </div>
+    </div>
+
     <span class="navbar-toggler-icon"></span>
   </div>
 </nav>

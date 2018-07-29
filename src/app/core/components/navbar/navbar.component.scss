@@ -17,13 +17,16 @@
 
     &-right {
       font-family: "Open Sans",sans-serif;
+      display: flex;
+      align-items: center;
+
       &__join {
         margin-right: 25px;
         font-weight: 600;
         cursor: pointer;
       }
 
-        &__login {
+        &__auth {
           padding: 8px 20px;
           margin-right: 20px;
         }
