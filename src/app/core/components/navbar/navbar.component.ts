@@ -2,6 +2,7 @@ import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import { AuthComponent } from "./../auth/auth.component";
 import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "ws-navbar",
@@ -11,7 +12,8 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 export class NavbarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {}
@@ -22,8 +24,7 @@ export class NavbarComponent implements OnInit {
   }
 
   loggedIn() {
-    const token = localStorage.getItem("token");
-    return !!token;
+    return this.authService.loggedIn();
   }
 
   logout() {
