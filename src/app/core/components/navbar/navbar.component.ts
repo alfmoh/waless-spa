@@ -12,7 +12,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {}
 
-  auth() {
-    this.modalService.open(AuthComponent);
+  auth(join) {
+    const modalRef = this.modalService.open(AuthComponent);
+    if (join) modalRef.componentInstance.join = true;
   }
 }

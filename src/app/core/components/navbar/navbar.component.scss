@@ -15,9 +15,17 @@
         cursor: pointer;
     }
 
-    &-right__login {
-        font-family: "Open Sans",sans-serif;
-        padding: 8px 20px;
-        margin-right: 20px;
+    &-right {
+      font-family: "Open Sans",sans-serif;
+      &__join {
+        margin-right: 25px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+        &__login {
+          padding: 8px 20px;
+          margin-right: 20px;
+        }
     }
 }

@@ -1,5 +1,5 @@
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -10,6 +10,8 @@ export class AuthComponent implements OnInit {
 
   loginForm: FormGroup;
   regForm: FormGroup;
+  @ViewChild(NgbTabset) tabSet: NgbTabset;
+  join: boolean;
 
   constructor(private fb: FormBuilder, private activeModal: NgbActiveModal) {
     this.loginForm = fb.group({
@@ -25,6 +27,7 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+    setTimeout(() => { if (this.join) this.tabSet.select("ws-join"); })
   }
 
   get loginEmail() { return this.loginForm.get("email"); }
