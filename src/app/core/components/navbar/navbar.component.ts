@@ -1,3 +1,4 @@
+import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import { AuthComponent } from "./../auth/auth.component";
 import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -8,7 +9,10 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ["./navbar.component.scss"]
 })
 export class NavbarComponent implements OnInit {
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private alertify: AlertifyService
+  ) {}
 
   ngOnInit() {}
 
@@ -24,6 +28,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     localStorage.removeItem("token");
-    console.log("Logged out");
+    this.alertify.message("Logged out");
   }
 }

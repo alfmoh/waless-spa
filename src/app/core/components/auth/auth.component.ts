@@ -2,6 +2,7 @@ import { AuthService } from './../../services/auth.service';
 import { NgbActiveModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AlertifyService } from "../../../shared/services/Alertify.service";
 
 @Component({
   templateUrl: './auth.component.html',
@@ -15,6 +16,7 @@ export class AuthComponent implements OnInit {
   join: boolean;
 
   constructor(
+    private alertify: AlertifyService,
     private authService: AuthService,
     private fb: FormBuilder,
     private activeModal: NgbActiveModal) {
@@ -45,22 +47,16 @@ export class AuthComponent implements OnInit {
   login() {
     this.authService.login(this.loginForm.value)
       .subscribe(next => {
-        console.log("Logged in sucessfully")
-      }, err => console.log(err.statusText))
+        this.alertify.success("Logged In");
+      }, err => this.alertify.error(err.statusText))
     this.activeModal.close();
   }
 
   register() {
     this.authService.register(this.regForm.value)
       .subscribe(next => {
-        console.log("Registered sucessfully")
-      }, err => console.log(err.error))
+        this.alertify.success("Registered sucessfully")
+      }, err => this.alertify.error(err.error))
     this.activeModal.close();
   }
-
-  submit(formType) {
-    console.log(formType.value);
-    this.activeModal.close();
-  }
-
 }
