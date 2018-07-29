@@ -16,19 +16,36 @@
     }
 
     &-right {
-      font-family: "Open Sans",sans-serif;
-      display: flex;
-      align-items: center;
+        font-family: "Open Sans",sans-serif;
+        display: flex;
+        align-items: center;
 
-      &__join {
-        margin-right: 25px;
-        font-weight: 600;
-        cursor: pointer;
-      }
+        &__join {
+            margin-right: 25px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
         &__auth {
-          padding: 8px 20px;
-          margin-right: 20px;
+            padding: 8px 20px;
+            margin-right: 20px;
         }
     }
+
+    &-dropdown {
+        &__menu-item {
+            font-size: .9rem;
+            cursor: pointer;
+            padding: 5px 10px;
+
+            &:hover {
+                background-color: $mainBlue;
+                color: white;
+            }
+        }
+    }
+}
+
+.dropdown-menu.show {
+    text-align: center;
 }

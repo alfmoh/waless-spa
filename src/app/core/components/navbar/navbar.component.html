@@ -7,20 +7,14 @@
       <span class="navbar-right__auth ws-btn" (click)="auth()">Login</span>
     </div>
 
-    <span class="navbar-right__auth ws-btn" (click)="logout()">Logout</span>
-
-    <div *ngIf="loggedIn()" class="dropdown">
-      <span class="ws-btn navbar-right__auth dropdown-toggle">
+    <div *ngIf="loggedIn()" class="dropdown navbar-dropdown" ngbDropdown>
+      <span class="ws-btn navbar-right__auth dropdown-toggle" ngbDropdownToggle>
         {{authService.decodedToken?.email}}
       </span>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">
-          <i class="fa fa-user"></i> Edit Profile
-        </a>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <span class="navbar-dropdown__menu-item">Edit Profile</span>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">
-          <i class="class fa fa-sign-out"></i> Logout
-        </a>
+        <span class="navbar-dropdown__menu-item" (click)="logout()">Logout</span>
       </div>
     </div>
 
