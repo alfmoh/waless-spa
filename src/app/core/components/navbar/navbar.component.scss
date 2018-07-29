@@ -27,20 +27,30 @@
         }
 
         &__auth {
-            padding: 8px 20px;
-            margin-right: 20px;
+            padding: 5px 15px;
+            margin-right: 15px;
+            font-size: .9rem;
+
+            @include media-breakpoint-up(sm) {
+              font-size: 1rem;
+              margin-right: 20px;
+              padding: 8px 20px;
+          }
         }
     }
 
     &-dropdown {
         &__menu-item {
-            font-size: .9rem;
+            font-size: .8rem;
             cursor: pointer;
-            padding: 5px 10px;
+
+            @include media-breakpoint-up(sm) {
+              font-size: .9rem;
+          }
 
             &:hover {
                 background-color: $mainBlue;
-                color: white;
+                color: $mainWhite;
             }
         }
     }
