@@ -50,7 +50,13 @@ export class AuthComponent implements OnInit {
     this.activeModal.close();
   }
 
-  register() { this.submit(this.regForm) }
+  register() {
+    this.authService.register(this.regForm.value)
+      .subscribe(next => {
+        console.log("Registered sucessfully")
+      }, err => console.log("Failed to register"))
+    this.activeModal.close();
+   }
 
   submit(formType) {
     console.log(formType.value);
