@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
     this.authService.login(this.loginForm.value)
       .subscribe(next => {
         console.log("Logged in sucessfully")
-      }, err => console.log("Failed to login"))
+      }, err => console.log(err.statusText))
     this.activeModal.close();
   }
 
@@ -54,7 +54,7 @@ export class AuthComponent implements OnInit {
     this.authService.register(this.regForm.value)
       .subscribe(next => {
         console.log("Registered sucessfully")
-      }, err => console.log("Failed to register"))
+      }, err => console.log(err.error))
     this.activeModal.close();
   }
 
