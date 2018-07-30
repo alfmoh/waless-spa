@@ -1,18 +1,23 @@
 <ws-leftsidebar></ws-leftsidebar>
 <div class="browse">
-  <ul class="browse-list">
-    <li *ngFor="let album of albums" class="browse-list__item">
-      <img [src]="album.cover_medium" class="browse-list__item__album-pic" alt="">
-      <div class="browse-list__item__album-details">
-        <div class="browse-list__item__album-details__names">
-          <span class="browse-list__item__artist-name">
+  <ul class="browse-albums">
+    <li *ngFor="let album of albums" class="browse-albums__album">
+      <div class="browse-albums__img-play">
+        <img [src]="album.cover_medium" class="browse-albums__album__pic" alt="">
+        <button class="browse-albums__album__btn">
+          <i class="fa fa-play"></i>
+        </button>
+      </div>
+      <div class="browse-albums__album__details">
+        <div class="browse-albums__album__details__names">
+          <span class="browse-albums__album__artist-name">
             {{album.artist.name}}
           </span>
-          <span class="browse-list__item__album-name">
+          <span class="browse-albums__album__name">
             {{album.title}}
           </span>
         </div>
-        <span title="song may contain explicit words" *ngIf="album.explicit_lyrics" class="browse-list__item__album-details__exp">Explicit</span>
+        <span title="song may contain explicit words" *ngIf="album.explicit_lyrics" class="browse-albums__album__details__exp">Explicit</span>
       </div>
     </li>
   </ul>

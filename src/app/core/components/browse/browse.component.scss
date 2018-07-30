@@ -4,7 +4,7 @@
     margin-top: 10vh;
     margin-left: 15%;
 
-    &-list {
+    &-albums {
         font-family: "Open Sans", sans-serif;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
@@ -12,13 +12,47 @@
         grid-gap: 20px;
         justify-content: center;
 
-        &__item {
-            list-style: none;
-            display: flex;
-            max-width: 250px;
-            flex-direction: column;
+        &__img-play {
+            position: relative;
 
-            &__album-details {
+            &:hover {
+                background: $mainBlack;
+
+                .browse-albums__album__pic {
+                    opacity: .3;
+                }
+
+                .browse-albums__album__btn {
+                    visibility: visible;
+                }
+            }
+        }
+
+        &__album {
+            list-style: none;
+            max-width: 250px;
+
+            &__name {
+                opacity: .7;
+            }
+
+            &__btn {
+                position: absolute;
+                top: calc(50% - 30px);
+                left: calc(50% - 30px);
+                width: 60px;
+                height: 60px;
+                background-color: transparent;
+                border-radius: 30px;
+                border-color: $mainWhite;
+                color: $mainWhite;
+                border-width: 3px;
+                font-size: 20px;
+                padding-left: 12px;
+                visibility: hidden;
+            }
+
+            &__details {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -42,14 +76,10 @@
                 font-weight: bold;
             }
 
-            &__album-pic {
+            &__pic {
                 object-fit: contain;
                 cursor: pointer;
                 box-shadow: 0 10px 6px -6px #777;
-            }
-
-            &__album-name {
-                opacity: .7;
             }
         }
     }
