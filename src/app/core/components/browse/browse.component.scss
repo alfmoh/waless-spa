@@ -28,6 +28,7 @@
                     font-size: .6rem;
                     padding: 5px;
                     color: $mainWhite;
+                    cursor: help;
                 }
 
                 &__names {
@@ -43,6 +44,7 @@
 
             &__album-pic {
                 object-fit: contain;
+                cursor: pointer;
                 box-shadow: 0 10px 6px -6px #777;
             }
 
