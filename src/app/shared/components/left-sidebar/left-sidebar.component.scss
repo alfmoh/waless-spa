@@ -10,13 +10,13 @@
 }
 
 .sidebar {
-    font-family: 'aristotelica';
+    font-family: 'Open Sans', sans-serif;
 
     &-content {
         list-style: none;
         margin-top: 30px;
         letter-spacing: 1.7px;
-        font-size: 1.1rem;
+        font-size: 1rem;
 
         &__item {
             cursor: pointer;

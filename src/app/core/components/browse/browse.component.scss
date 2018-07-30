@@ -1,6 +1,54 @@
 @import "~src/assets/scss/styles";
 
-.root {
-  margin-top: 10vh;
-  margin-left: 15%;
+.browse {
+    margin-top: 10vh;
+    margin-left: 15%;
+
+    &-list {
+        font-family: "Open Sans", sans-serif;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+        grid-auto-rows: 1fr;
+        grid-gap: 20px;
+        justify-content: center;
+
+        &__item {
+            list-style: none;
+            display: flex;
+            max-width: 250px;
+            flex-direction: column;
+
+            &__album-details {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                &__exp {
+                    background-color: rgb(248, 71, 71);
+                    font-size: .6rem;
+                    padding: 5px;
+                    color: $mainWhite;
+                }
+
+                &__names {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            &__artist-name {
+                margin-top: 10px;
+                font-weight: bold;
+            }
+
+            &__album-pic {
+                object-fit: contain;
+                box-shadow: 0 10px 6px -6px #777;
+            }
+
+            &__album-name {
+                opacity: .7;
+            }
+        }
+    }
 }
