@@ -1,6 +1,9 @@
 @import "~src/assets/scss/styles";
 
 .navbar {
+  height: 10vh;
+  border: solid red;
+
     &-logo {
         font-family: "harabara";
         font-size: 2rem;
