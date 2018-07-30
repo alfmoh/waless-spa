@@ -1,0 +1,18 @@
+@import "~src/assets/scss/styles";
+
+.player {
+  position: fixed;
+  bottom: 0;
+  width: 85%;
+  &-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $lightBlack;
+    color: $mainWhite;
+
+    &__icon {
+      margin: 20px;
+    }
+  }
+}
