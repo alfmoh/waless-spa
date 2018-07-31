@@ -67,8 +67,15 @@ export class AuthComponent implements OnInit {
   }
 
   private afterAuth(alertifyMsg) {
+    let returnUrl = localStorage.getItem("returnUrl");
     this.alertify.success(alertifyMsg);
-    this.router.navigate(["browse"]);
+
+    if (returnUrl) {
+      this.router.navigate([returnUrl]).then(() => {
+        localStorage.removeItem("returnUrl");
+      })
+    }
+    else this.router.navigate(["browse"]);
     this.activeModal.close();
   }
 }

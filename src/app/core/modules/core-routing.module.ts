@@ -6,12 +6,13 @@ import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ArtistComponent } from "../components/artist/artist.component";
+import { AuthGuard } from "../../shared/helpers/AuthGuard";
 
 const coreRoutes: Routes = [
-  { path: "browse", component: BrowseComponent },
-  { path: "album/:id", component: AlbumComponent },
-  { path: "artist/:id", component: ArtistComponent },
-  { path: "queue", component: QueueComponent },
+  { path: "browse", component: BrowseComponent, canActivate: [AuthGuard] },
+  { path: "album/:id", component: AlbumComponent, canActivate: [AuthGuard] },
+  { path: "artist/:id", component: ArtistComponent, canActivate: [AuthGuard] },
+  { path: "queue", component: QueueComponent, canActivate: [AuthGuard] },
   { path: "", component: HomeComponent }
 ];
 
