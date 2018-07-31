@@ -14,11 +14,13 @@ export class NavbarComponent implements OnInit {
     private modalService: NgbModal,
     private alertify: AlertifyService,
     public authService: AuthService
-  ) {}
+  ) {
+    if (localStorage.getItem("returnUrl")) this.auth();
+  }
 
   ngOnInit() {}
 
-  auth(join) {
+  auth(join = false) {
     const modalRef = this.modalService.open(AuthComponent);
     if (join) modalRef.componentInstance.join = true;
   }
