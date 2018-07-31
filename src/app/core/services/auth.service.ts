@@ -16,14 +16,17 @@ export class AuthService {
   login(model: any) {
     return this.http.post(this.baseUrl + "login", model).pipe(
       map((response: any) => {
-        const user = response;
-        if (user) {
-          localStorage.setItem("token", user.tokenString);
-          this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
-          console.log(this.decodedToken)
-        }
+        this.setToken(response);
       })
     );
+  }
+
+  private setToken(response: any) {
+    const user = response;
+    if (user) {
+      localStorage.setItem("token", user.tokenString);
+      this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
+    }
   }
 
   loggedIn() {
@@ -32,6 +35,10 @@ export class AuthService {
   }
 
   register(model: any) {
-    return this.http.post(this.baseUrl + "register",model);
+    return this.http.post(this.baseUrl + "register", model).pipe(
+      map((response: any) => {
+        this.setToken(response);
+      })
+    );
   }
 }

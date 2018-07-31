@@ -3,6 +3,7 @@
         <ngb-tab title="Login">
           <ng-template ngbTabContent>
             <form (ngSubmit)="login()" [formGroup]="loginForm">
+              <div *ngIf="loginError" class="ws-error">Your email or password is incorrect</div>
               <div class="form-group">
                 <label class="first-label" for="login-email">Email</label>
                 <input id="login-email" formControlName="email" type="email" class="form-control">
@@ -29,6 +30,7 @@
         <ngb-tab id="ws-join" title="Register">
           <ng-template ngbTabContent>
             <form (ngSubmit)="register()" [formGroup]="regForm">
+              <div *ngIf="regError" class="ws-error">{{regError}}</div>
               <div class="form-group">
                 <label class="first-label" for="reg-name">Username</label>
                 <input id="reg-name" formControlName="username" type="text" class="form-control">

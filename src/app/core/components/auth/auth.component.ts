@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AlertifyService } from "../../../shared/services/Alertify.service";
+import { Router } from "@angular/router";
 
 @Component({
   templateUrl: './auth.component.html',
@@ -14,8 +15,11 @@ export class AuthComponent implements OnInit {
   regForm: FormGroup;
   @ViewChild(NgbTabset) tabSet: NgbTabset;
   join: boolean;
+  loginError: boolean;
+  regError: any;
 
   constructor(
+    private router: Router,
     private alertify: AlertifyService,
     private authService: AuthService,
     private fb: FormBuilder,
@@ -47,16 +51,24 @@ export class AuthComponent implements OnInit {
   login() {
     this.authService.login(this.loginForm.value)
       .subscribe(next => {
-        this.alertify.success("Logged In");
-      }, err => this.alertify.error(err.statusText))
-    this.activeModal.close();
+        this.afterAuth("Logged In");
+      }, err => {
+        this.loginError = true;
+      })
   }
 
   register() {
     this.authService.register(this.regForm.value)
       .subscribe(next => {
-        this.alertify.success("Registered sucessfully")
-      }, err => this.alertify.error(err.error))
+        this.afterAuth("Registered sucessfully");
+      }, err => {
+        this.regError = err.error;
+      })
+  }
+
+  private afterAuth(alertifyMsg) {
+    this.alertify.success(alertifyMsg);
+    this.router.navigate(["browse"]);
     this.activeModal.close();
   }
 }
