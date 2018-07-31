@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -6,7 +7,7 @@ import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.com
 import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
-  imports: [CommonModule, NgbModule, ReactiveFormsModule],
+  imports: [CommonModule, NgbModule, ReactiveFormsModule, RouterModule.forChild([])],
   declarations: [LeftSidebarComponent, PlayerComponent],
   exports: [NgbModule, ReactiveFormsModule, LeftSidebarComponent, PlayerComponent]
 })

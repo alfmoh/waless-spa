@@ -1,3 +1,4 @@
+import { Artist } from './Artist';
 export class Album {
   id: number;
   title: string;
@@ -7,5 +8,8 @@ export class Album {
   cover_big: string;
   cover_xl: string;
   tracklist: string;
+  explicit_lyrics: boolean;
+  position: number;
+  artist: Artist;
   type: string;
 }

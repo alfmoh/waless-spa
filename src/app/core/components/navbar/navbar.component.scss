@@ -2,17 +2,6 @@
 
 .navbar {
   height: 10vh;
-  border: solid red;
-
-    &-logo {
-        font-family: "harabara";
-        font-size: 2rem;
-        color: $mainBrown;
-
-        &:hover {
-            color: $mainBrown;
-        }
-    }
 
     &-toggler-icon {
         cursor: pointer;

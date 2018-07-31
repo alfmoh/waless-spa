@@ -35,6 +35,16 @@
   color: red;
 }
 
+.ws-logo {
+  font-family: "harabara";
+  font-size: 2rem;
+  color: $mainBrown;
+
+  &:hover {
+      color: $mainBrown;
+  }
+}
+
 /*Bootstrap overrides*/
 
 a:hover {

@@ -34,7 +34,12 @@
             max-width: 250px;
 
             &__name {
+                cursor: pointer;
                 opacity: .7;
+
+                &:hover {
+                  text-decoration: underline;
+                }
             }
 
             &__btn {
@@ -76,6 +81,11 @@
             &__artist-name {
                 margin-top: 10px;
                 font-weight: bold;
+                cursor: pointer;
+
+                &:hover {
+                  text-decoration: underline;
+                }
             }
 
             &__pic {
