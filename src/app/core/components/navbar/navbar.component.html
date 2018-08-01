@@ -6,7 +6,7 @@
       <span class="navbar-right__join" (click)="auth(true)">Join</span>
       <span class="navbar-right__auth ws-btn" (click)="auth()">Login</span>
     </div>
-
+    <div routerLink="browse" [ngStyle]="{'margin-right':'20px'}" class="ws-btn">Browse</div>
     <div *ngIf="loggedIn()" class="dropdown navbar-dropdown" ngbDropdown>
       <span class="ws-btn navbar-right__auth dropdown-toggle" ngbDropdownToggle>
         {{authService.decodedToken?.email}}

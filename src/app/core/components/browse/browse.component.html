@@ -4,7 +4,7 @@
     <li *ngFor="let album of albums" class="browse-albums__album">
       <div class="browse-albums__img-play">
         <img [src]="album.cover_medium" class="browse-albums__album__pic" alt="">
-        <button class="browse-albums__album__btn">
+        <button class="browse-albums__album__btn" (click)="play(album.id)">
           <i class="fa fa-play"></i>
         </button>
       </div>
