@@ -3,8 +3,8 @@ import { Track } from "./../models/Track";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { SharedModule } from "../shared.module";
 import { Album } from "../models/Album";
+import { Artist } from "../models/Artist";
 
 @Injectable({
   providedIn: "root"
@@ -30,5 +30,9 @@ export class DeezerService {
     return this.http
       .get<Track>(this.baseUrl + "album/" + albumId + "/tracks")
       .pipe(map((response: any) => response.data));
+  }
+
+  getArtist(artistId:number):Observable<Artist> {
+    return this.http.get<Artist>(this.baseUrl + "/artist/" + artistId);
   }
 }

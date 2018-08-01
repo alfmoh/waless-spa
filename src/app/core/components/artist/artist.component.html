@@ -1,3 +1,12 @@
-<p>
-  artist works!
-</p>
+<div *ngIf="artist" class="artist ws-shift" [ngStyle]="{'background': 'linear-gradient(to bottom, rgba(25,25,25, .9), rgba(0,0,0, .95)),'
+              + 'url(' + artist.picture_big + ')' + '20% 40%/cover '+ ' no-repeat'}">
+  <div class="artist-content">
+    <div class="artist-content-details">
+      <img class="artist-content-details__pic" [src]="artist.picture"/>
+      <div class="artist-content-details-sub-details">
+          <div class="artist-content-details-sub-details__name">{{artist.name}}</div>
+          <div class="artist-content-details-sub-details__fans">Fans - {{artist.nb_fan | number}}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+@import "~src/assets/scss/styles";
+
+.artist {
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &-content {
+    color: $mainWhite;
+    font-family: "Open Sans", sans-serif;
+    padding-top: 50px;
+    padding-left: 50px;
+
+    &-details {
+      display: flex;
+
+      &__pic {
+        border-radius: 50%;
+      }
+
+      &-sub-details {
+        margin-left: 40px;
+
+        &__name {
+          font-size: 3rem;
+          font-weight: 600;
+        }
+
+        &__fans {
+          font-size: .9rem;
+          padding-left: 4px;
+        }
+      }
+    }
+  }
+}

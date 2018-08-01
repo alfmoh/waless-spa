@@ -1,29 +1,31 @@
-<div class="sidebar">
-    <a class="ws-logo" routerLink="">Waless</a>
-  <ul class="sidebar-content sidebar-browse">
-    <h6 class="sidebar-content__header">BROWSE</h6>
-    <li class="sidebar-browse__item sidebar-content__item">
-      <i class="fa fa-home"></i>
-      <span class="sidebar-content__list-text">Home</span>
-    </li>
-    <li class="sidebar-browse__item sidebar-content__item">
-      <i class="fa fa-play"></i>
-      <span class="sidebar-content__list-text">Radio</span>
-    </li>
-  </ul>
-  <ul class="sidebar-content sidebar-collection">
-    <h6 class="sidebar-content__header">COLLECTION</h6>
-    <li class="sidebar-collection__item sidebar-content__item">
-      <i class="fa fa-heart"></i>
-      <span class="sidebar-content__list-text">Favourites</span>
-    </li>
-    <li class="sidebar-collection__item sidebar-content__item">
-      <i class="fa fa-list"></i>
-      <span class="sidebar-content__list-text">Playlists</span>
-    </li>
-    <li class="sidebar-collection__item sidebar-content__item">
-        <i class="fa fa-circle-o"></i>
-        <span class="sidebar-content__list-text">Albums</span>
-    </li>
-  </ul>
+<div *ngIf="!returnUrl">
+    <div *ngIf="router.url != '/'" class="sidebar">
+      <a class="ws-logo" routerLink="">Waless</a>
+    <ul class="sidebar-content sidebar-browse">
+      <h6 class="sidebar-content__header">BROWSE</h6>
+      <li class="sidebar-browse__item sidebar-content__item">
+        <i class="fa fa-home"></i>
+        <span routerLink="browse" class="sidebar-content__list-text">Home</span>
+      </li>
+      <li class="sidebar-browse__item sidebar-content__item">
+        <i class="fa fa-play"></i>
+        <span class="sidebar-content__list-text">Radio</span>
+      </li>
+    </ul>
+    <ul class="sidebar-content sidebar-collection">
+      <h6 class="sidebar-content__header">COLLECTION</h6>
+      <li class="sidebar-collection__item sidebar-content__item">
+        <i class="fa fa-heart"></i>
+        <span class="sidebar-content__list-text">Favourites</span>
+      </li>
+      <li class="sidebar-collection__item sidebar-content__item">
+        <i class="fa fa-list"></i>
+        <span class="sidebar-content__list-text">Playlists</span>
+      </li>
+      <li class="sidebar-collection__item sidebar-content__item">
+          <i class="fa fa-circle-o"></i>
+          <span class="sidebar-content__list-text">Albums</span>
+      </li>
+    </ul>
+  </div>
 </div>
