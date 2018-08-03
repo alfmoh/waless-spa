@@ -3,10 +3,11 @@
 .artist {
     min-height: 100vh;
     color: $mainWhite;
+    background-color: $grayBlack;
+    font-family: "Open Sans", sans-serif;
 
     &-content {
         color: $mainWhite;
-        font-family: "Open Sans", sans-serif;
         padding-top: 50px;
         padding-left: 50px;
 
@@ -74,12 +75,33 @@
         &-tb {
             display: inline-block;
             max-width: 70%;
-            margin: 0 auto;
+            margin-left: 75px;
+
+            &__header {
+                font-family: 'aristotelica';
+                letter-spacing: 3px;
+            }
 
             &-table {
                 padding: 0;
                 margin-bottom: 0;
                 padding-bottom: 20px;
+
+                &__header {
+                    font-family: 'aristotelica';
+                    letter-spacing: 3px;
+                }
+
+                &-tracks {
+                    &__album {
+                        color: $mainGray;
+                    }
+
+                    &__duration {
+                        color: $mainGray;
+                        font-size: .9rem;
+                    }
+                }
             }
         }
 
@@ -87,6 +109,11 @@
             margin-left: -80px;
             padding: 0 30px;
             margin-right: 80px;
+
+            &__header {
+                font-family: 'aristotelica';
+                letter-spacing: 3px;
+            }
 
             &-albums {
                 padding: 0;
