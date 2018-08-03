@@ -76,6 +76,20 @@ div.modal-content {
     border-top: none !important;
 }
 
+.alertify .ajs-footer {
+  border: none;
+  border-radius: 0;
+}
+
+.alertify .ajs-header {
+  border: none;
+  border-radius: 0;
+}
+
+.alertify .ajs-dialog {
+  border-radius: 0;
+}
+
 /*Animations*/
 
 @keyframes fadeIn {

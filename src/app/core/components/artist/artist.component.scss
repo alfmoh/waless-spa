@@ -29,6 +29,13 @@
                     font-size: .9rem;
                     padding-left: 4px;
                 }
+
+                &__desc {
+                    margin-top: 20px;
+                    max-width: 60%;
+                    cursor: pointer;
+                    font-size: .94rem;
+                }
             }
         }
     }

@@ -26,4 +26,14 @@ export class AlertifyService {
   message(message: string) {
     alertify.message(message);
   }
+
+  alert(title, message: string) {
+    alertify.defaults.theme.ok = "ws-btn";
+    alertify.dialog("alert").set({
+      title,
+      message,
+      transition:'zoom',
+      movable: false
+    }).set('label', 'OK').show();
+  }
 }
