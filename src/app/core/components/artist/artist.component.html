@@ -5,35 +5,48 @@
     <div class="artist-content-details">
       <img class="artist-content-details__pic" [src]="artist.picture_medium" />
       <div class="artist-content-details-sub-details">
-        <div class="artist-content-details-sub-details__name">{{artist.name}}</div>
+        <div class="artist-content-details-sub-details__name">
+          {{artist.name}}
+          <i class="fa fa-play-circle artist-content-details-sub-details__play"></i>
+        </div>
         <div class="artist-content-details-sub-details__fans">Fans - {{artist.nb_fan | number}}</div>
-        <div (click)="openDialog()" class="artist-content-details-sub-details__desc">
-          {{(artistDesc | slice: 0:150)+"..."}}
+        <div class="artist-content-details-sub-details__desc">
+          <div class="artist-content-details-sub-details-desc-func">
+            <div (click)="openDialog()" class="artist-content-details-sub-details-desc-func__desc">
+              {{(artistDesc | slice: 0:150)+"..."}}
+            </div>
+            <div class="artist-content-details-sub-details-desc-func__func">
+              <i class="fa fa-share-alt-square artist-content-details-sub-details-desc-func__func__share"></i>
+              <i class="fa fa-plus artist-content-details-sub-details-desc-func__func__add"></i>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="artist-collection">
-
-    <table class="artist-collection-table table ws-table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Album</th>
-          <th scope="col">Duration</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let track of topTracks, let i=index">
-          <th scope="row">{{i+1}}</th>
-          <td>{{track.title_short}}</td>
-          <td>{{track.album.title}}</td>
-          <td>{{(track.duration /60 | number: '1.2-2') | trackDuration}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="artist-collection-tb">
+      <h4 class="artist-collection-tb__header">Top Tracks</h4>
+      <table class="artist-collection-tb-table table ws-table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Album</th>
+            <th scope="col">Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let track of topTracks, let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{track.title_short}}</td>
+            <td>{{track.album.title}}</td>
+            <td>{{(track.duration /60 | number: '1.2-2') | trackDuration}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="artist-collection-content">
       <h4 class="artist-collection-content__header">Top Albums</h4>

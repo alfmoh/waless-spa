@@ -16,6 +16,6 @@ export class TrackDurationPipe implements PipeTransform {
 
     min = min + 1;
     secs = secs % 60;
-    return this.transform(secs);
+    return this.transform(+(min + "." + secs));
   }
 }

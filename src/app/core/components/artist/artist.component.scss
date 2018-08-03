@@ -25,16 +25,41 @@
                     font-weight: 600;
                 }
 
+                &__play {
+                    cursor: pointer;
+                }
+
                 &__fans {
                     font-size: .9rem;
                     padding-left: 4px;
                 }
 
-                &__desc {
-                    margin-top: 20px;
-                    max-width: 60%;
-                    cursor: pointer;
-                    font-size: .94rem;
+                &-desc-func {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    align-items: center;
+
+                    &__desc {
+                        margin-top: 20px;
+                        cursor: pointer;
+                        font-size: .94rem;
+                        border-right: solid 1px;
+                    }
+
+                    &__func {
+                        display: flex;
+                        font-size: 1.5rem;
+
+                        &__share {
+                            cursor: pointer;
+                            margin: 0 30px;
+                        }
+
+                        &__add {
+                            cursor: pointer;
+                            margin: 0 30px;
+                        }
+                    }
                 }
             }
         }
@@ -46,12 +71,16 @@
         display: grid;
         grid-template-columns: 3fr 1fr;
 
-        &-table {
-            padding: 0;
-            margin-bottom: 0;
-            padding-bottom: 20px;
+        &-tb {
+            display: inline-block;
             max-width: 70%;
             margin: 0 auto;
+
+            &-table {
+                padding: 0;
+                margin-bottom: 0;
+                padding-bottom: 20px;
+            }
         }
 
         &-content {
