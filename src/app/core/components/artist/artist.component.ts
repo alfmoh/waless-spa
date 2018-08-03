@@ -32,7 +32,8 @@ export class ArtistComponent implements OnInit {
   constructor(
     private alertify: AlertifyService,
     private deezer: DeezerService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.artistId = this.route.snapshot.paramMap.get("id");
@@ -41,13 +42,13 @@ export class ArtistComponent implements OnInit {
         .getArtist(this.artistId)
         .subscribe(artist => (this.artist = artist));
       this.deezer.getArtistTopTracks(this.artistId).subscribe(topTracks => {
-        this.artistAlbums = topTracks.map(track => track.album).slice(0, 5);
+        this.artistAlbums = topTracks.map(track => track.album).slice(0, 8);
         return (this.topTracks = topTracks.slice(0, 10));
       });
     }
   }
 
-  openDialog(){
-    this.alertify.alert("Artist Description", this.artistDesc);
+  openDialog() {
+    this.alertify.alert("Biography", this.artistDesc);
   }
 }

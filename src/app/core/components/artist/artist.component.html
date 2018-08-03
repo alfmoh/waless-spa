@@ -49,9 +49,9 @@
       <h4 class="artist-collection-content__header">Top Albums</h4>
       <ul class="artist-collection-content-albums">
         <li class="artist-collection-content-albums__album" *ngFor="let album of artistAlbums">
-          <img class="artist-collection-content-albums__album__pic" [src]="album.cover" [alt]="album.title">
+          <img class="artist-collection-content-albums__album__pic" [src]="album.cover_medium" [alt]="album.title">
           <span class="artist-collection-content-albums__album__name">
-            <strong>{{album.title}}</strong>
+            <strong>{{album.title | titlecase}}</strong>
           </span>
         </li>
       </ul>
