@@ -1,36 +1,73 @@
 @import "~src/assets/scss/styles";
 
 .artist {
-  min-height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  &-content {
+    min-height: 100vh;
     color: $mainWhite;
-    font-family: "Open Sans", sans-serif;
-    padding-top: 50px;
-    padding-left: 50px;
 
-    &-details {
-      display: flex;
+    &-content {
+        color: $mainWhite;
+        font-family: "Open Sans", sans-serif;
+        padding-top: 50px;
+        padding-left: 50px;
 
-      &__pic {
-        border-radius: 50%;
-      }
+        &-details {
+            display: flex;
 
-      &-sub-details {
-        margin-left: 40px;
+            &__pic {
+                border-radius: 50%;
+            }
 
-        &__name {
-          font-size: 3rem;
-          font-weight: 600;
+            &-sub-details {
+                margin-left: 40px;
+
+                &__name {
+                    font-size: 3rem;
+                    font-weight: 600;
+                }
+
+                &__fans {
+                    font-size: .9rem;
+                    padding-left: 4px;
+                }
+            }
         }
-
-        &__fans {
-          font-size: .9rem;
-          padding-left: 4px;
-        }
-      }
     }
-  }
+
+    &-collection {
+        margin-top: 60px;
+        padding-bottom: 40px;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+
+        &-table {
+            padding: 0;
+            margin-bottom: 0;
+            padding-bottom: 20px;
+            max-width: 70%;
+            margin: 0 auto;
+        }
+
+        &-content {
+            margin-left: -80px;
+            padding: 0 30px;
+            margin-right: 80px;
+
+            &-albums {
+                padding: 0;
+                margin: 0;
+
+                &__album {
+                    display: flex;
+                    list-style: none;
+                    margin: 20px 0;
+
+                    &__name {
+                        margin-left: 20px;
+                        opacity: .8;
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
 }

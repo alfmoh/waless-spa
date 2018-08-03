@@ -1,4 +1,4 @@
-<div *ngIf="!returnUrl">
+<div *ngIf="auth.loggedIn()">
     <div *ngIf="router.url != '/'" class="sidebar">
       <a class="ws-logo" routerLink="">Waless</a>
     <ul class="sidebar-content sidebar-browse">

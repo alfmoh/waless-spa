@@ -1,3 +1,4 @@
+import { AuthService } from "./../../../core/services/auth.service";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 
@@ -7,11 +8,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./left-sidebar.component.scss"]
 })
 export class LeftSidebarComponent implements OnInit {
-  returnUrl;
-
-  constructor(public router: Router) {
-    this.returnUrl = localStorage.getItem("returnUrl");
-  }
+  constructor(public router: Router, public auth: AuthService) {}
 
   ngOnInit() {}
 }

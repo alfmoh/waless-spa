@@ -31,22 +31,22 @@
 }
 
 .ws-error {
-  display: block;
-  color: red;
+    display: block;
+    color: red;
 }
 
 .ws-shift {
-  margin-left: 15%;
+    margin-left: 15%;
 }
 
 .ws-logo {
-  font-family: "harabara";
-  font-size: 2rem;
-  color: $mainBrown;
+    font-family: "harabara";
+    font-size: 2rem;
+    color: $mainBrown;
 
-  &:hover {
-      color: $mainBrown;
-  }
+    &:hover {
+        color: $mainBrown;
+    }
 }
 
 /*Bootstrap overrides*/
@@ -60,7 +60,7 @@ div.modal-content {
 }
 
 .modal-content {
-  max-width: 80%;
+    max-width: 80%;
 }
 
 .form-control {
@@ -70,6 +70,10 @@ div.modal-content {
 .nav-tabs .nav-link {
     border-top-left-radius: .1rem;
     border-top-right-radius: .1rem;
+}
+
+.ws-table td, .ws-table th {
+    border-top: none !important;
 }
 
 /*Animations*/
