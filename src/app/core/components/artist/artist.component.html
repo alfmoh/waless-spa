@@ -56,7 +56,10 @@
     </div>
 
     <div class="artist-collection-content">
-      <h4 class="artist-collection-content__header">Albums</h4>
+      <div class="artist-collection-content__top">
+          <h4 class="artist-collection-content__top__header">Albums</h4>
+          <span class="artist-collection-content__top__show-all ws-btn">Show All</span>
+      </div>
       <ul class="artist-collection-content-albums">
         <li class="artist-collection-content-albums__album" *ngFor="let album of artistAlbums">
           <img class="artist-collection-content-albums__album__pic" [src]="album.cover_medium" [alt]="album.title">
