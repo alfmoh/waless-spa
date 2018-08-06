@@ -31,14 +31,24 @@
         <thead>
           <tr>
             <th class="artist-collection-tb-table__header" scope="col">Name</th>
+            <th class="artist-collection-tb-table__ellipsis" scope="col"></th>
             <th class="artist-collection-tb-table__header" scope="col">Album</th>
             <th class="artist-collection-tb-table__header" scope="col">Duration</th>
           </tr>
         </thead>
         <tbody>
           <tr class="artist-collection-tb-table-tracks" *ngFor="let track of topTracks, let i=index">
-            <td class="artist-collection-tb-table-tracks__title">{{track.title_short | titlecase}}</td>
-            <td class="artist-collection-tb-table-tracks__album">{{track.album.title | titlecase}}</td>
+            <td class="artist-collection-tb-table-tracks__title">
+              <span class="artist-collection-tb-table-tracks__numbers">{{i+1}}</span>
+              <i class="fa fa-play-circle artist-collection-tb-table-tracks__play-icon"></i>
+              {{track.title_short | titlecase}}
+            </td>
+            <td class="artist-collection-tb-table-tracks__ellipsis">
+              <i class="fa fa-ellipsis-h artist-collection-tb-table-tracks__ellipsis-icon"></i>
+            </td>
+            <td class="artist-collection-tb-table-tracks__album">
+              <span class="artist-collection-tb-table-tracks__album__text">{{track.album.title | titlecase}}</span>
+            </td>
             <td class="artist-collection-tb-table-tracks__duration">{{(track.duration /60 | number: '1.2-2') | trackDuration}}</td>
           </tr>
         </tbody>
@@ -46,7 +56,7 @@
     </div>
 
     <div class="artist-collection-content">
-      <h4 class="artist-collection-content__header">Top Albums</h4>
+      <h4 class="artist-collection-content__header">Albums</h4>
       <ul class="artist-collection-content-albums">
         <li class="artist-collection-content-albums__album" *ngFor="let album of artistAlbums">
           <img class="artist-collection-content-albums__album__pic" [src]="album.cover_medium" [alt]="album.title">

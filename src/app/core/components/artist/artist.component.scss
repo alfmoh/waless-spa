@@ -91,14 +91,58 @@
                     letter-spacing: 3px;
                 }
 
+                &__ellipsis {
+                    padding: 0 20px !important;
+                }
+
                 &-tracks {
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.3);
+
+                        .artist-collection-tb-table-tracks__play-icon,
+                        .artist-collection-tb-table-tracks__ellipsis-icon {
+                            display: inline;
+                        }
+
+                        .artist-collection-tb-table-tracks__numbers {
+                            display: none;
+                        }
+                    }
+
                     &__album {
                         color: $mainGray;
+
+                        &__text {
+                            cursor: pointer;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
                     }
 
                     &__duration {
                         color: $mainGray;
                         font-size: .9rem;
+                    }
+
+                    &__play-icon {
+                        padding-right: 10px;
+                        cursor: pointer;
+                        display: none;
+                    }
+
+                    &__ellipsis {
+                        text-align: center;
+                    }
+
+                    &__ellipsis-icon {
+                        cursor: pointer;
+                        display: none;
+                    }
+
+                    &__numbers {
+                        padding-right: 10px;
                     }
                 }
             }
