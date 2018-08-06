@@ -1,5 +1,7 @@
+import { Router } from "@angular/router";
 import { PlayerService } from "./../../../core/services/player.service";
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../../core/services/auth.service";
 
 @Component({
   selector: "ws-player",
@@ -7,7 +9,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./player.component.scss"]
 })
 export class PlayerComponent implements OnInit {
-  constructor(private player: PlayerService) {}
+  constructor(
+    private player: PlayerService,
+    public router: Router,
+    public auth: AuthService
+  ) {}
 
   ngOnInit() {}
 
