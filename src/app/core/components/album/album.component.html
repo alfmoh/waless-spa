@@ -1,3 +1,29 @@
-<p>
-  album works!
-</p>
+<div *ngIf="album" class="album ws-shift">
+  <div class="album-cover">
+    <img class="album-cover__pic" [src]="album.cover_medium" [alt]="album.title">
+  </div>
+  <div class="album-content">
+    <h3 class="album-content__title">{{album.title | titlecase}}</h3>
+    <h5 [routerLink]="['/artist', album.artist.id]" class="album-content__artist ws-focus-border">{{album.artist.name | titlecase}}</h5>
+    <span class="album-content__date">{{album.release_date | date:"y"}}</span>
+    <span class="album-content__track-num">{{albumTracks.length}}
+      <span class="album-content__track-num__text">tracks</span>
+    </span>
+
+    <div class="album-content-actions">
+      <span class="album-content-actions__play ws-btn">Play</span>
+      <i class="album-content-actions__fav fa fa-heart-o"></i>
+      <i class="album-content-actions__more fa fa-ellipsis-h"></i>
+    </div>
+
+    <ul class="album-content-tracks ws-ul-reset">
+      <li *ngFor="let track of albumTracks" class="album-content-tracks__track">
+        <div class="album-content-tracks__track__title">{{track.title | titlecase}}</div>
+        <div class="album-content-tracks__track-dur-more">
+          <span class="album-content-tracks__track-dur-more__duration">{{(track.duration /60 | number: '1.2-2') | trackDuration}}</span>
+          <i class="album-content-tracks__track-dur-more__more fa fa-ellipsis-h"></i>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

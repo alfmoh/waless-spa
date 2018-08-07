@@ -1,8 +1,7 @@
 import { Album } from "./Album";
-
 import { Artist } from "./Artist";
 
-export class Track {
+export interface Track {
   id: number;
   title: string;
   title_short: string;
@@ -16,4 +15,3 @@ export class Track {
   album: Album;
   type: string;
 }
-

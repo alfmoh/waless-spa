@@ -49,6 +49,17 @@
     }
 }
 
+.ws-ul-reset {
+    margin: 0;
+    padding: 0;
+}
+
+.ws-focus-border {
+    &:focus {
+        outline: none;
+    }
+}
+
 /*Bootstrap overrides*/
 
 a:hover {

@@ -97,7 +97,7 @@
 
                 &-tracks {
                     &:hover {
-                        background-color: rgba(0, 0, 0, 0.3);
+                        background-color: $transparentBlack;
 
                         .artist-collection-tb-table-tracks__play-icon,
                         .artist-collection-tb-table-tracks__ellipsis-icon {

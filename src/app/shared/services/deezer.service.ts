@@ -41,4 +41,8 @@ export class DeezerService {
       .get<Track>(this.baseUrl + "/artist/" + artistId + "/top?limit=20")
       .pipe(map((response: any) => response.data));
   }
+
+  getAlbum(albumId: number): Observable<Album> {
+    return this.http.get<Album>(this.baseUrl + "/album/" + albumId);
+  }
 }
