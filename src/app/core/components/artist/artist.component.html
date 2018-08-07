@@ -47,7 +47,9 @@
               <i class="fa fa-ellipsis-h artist-collection-tb-table-tracks__ellipsis-icon"></i>
             </td>
             <td class="artist-collection-tb-table-tracks__album">
-              <span class="artist-collection-tb-table-tracks__album__text">{{track.album.title | titlecase}}</span>
+              <span [routerLink]="['/album',track.album.id]" class="artist-collection-tb-table-tracks__album__text ws-focus-border">
+                {{track.album.title | titlecase}}
+              </span>
             </td>
             <td class="artist-collection-tb-table-tracks__duration">{{(track.duration /60 | number: '1.2-2') | trackDuration}}</td>
           </tr>
@@ -63,7 +65,7 @@
       <ul class="artist-collection-content-albums">
         <li class="artist-collection-content-albums__album" *ngFor="let album of artistAlbums">
           <img class="artist-collection-content-albums__album__pic" [src]="album.cover_medium" [alt]="album.title">
-          <span class="artist-collection-content-albums__album__name">
+          <span [routerLink]="['/album', album.id]" class="artist-collection-content-albums__album__name ws-focus-border">
             <strong>{{album.title | titlecase}}</strong>
           </span>
         </li>

@@ -9,14 +9,14 @@
       </div>
       <div class="browse-albums__album__details">
         <div class="browse-albums__album__details__names">
-          <span class="browse-albums__album__name" [routerLink]="['/album', album.id]">
+          <span class="browse-albums__album__name ws-focus-border" [routerLink]="['/album', album.id]">
             {{album.title | titlecase}}
           </span>
-          <span class="browse-albums__album__artist-name" [routerLink]="['/artist', album.artist.id]">
+          <span class="browse-albums__album__artist-name ws-focus-border" [routerLink]="['/artist', album.artist.id]">
             {{album.artist.name | titlecase}}
           </span>
         </div>
-        <span title="song may contain explicit words" *ngIf="album.explicit_lyrics" class="browse-albums__album__details__exp">Explicit</span>
+        <span title="songs may contain explicit words" *ngIf="album.explicit_lyrics" class="browse-albums__album__details__exp">Explicit</span>
       </div>
     </li>
   </ul>

@@ -21,10 +21,26 @@
     }
 
     &-content {
+        &-title-ex {
+            display: flex;
+            align-items: center;
+
+            &__explicit {
+                @include explicit;
+
+                height: fit-content;
+                margin-left: 10px;
+                background-color: rgba(117, 60, 29, 0.68);
+                font-size: 0.68rem;
+                padding: 0 10px;
+            }
+        }
+
         &__date {
             padding-right: 20px;
             border-right: solid 1px;
             font-size: .89rem;
+            opacity: .7;
         }
 
         &__track-num {

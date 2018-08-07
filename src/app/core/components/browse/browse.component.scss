@@ -66,11 +66,7 @@
                 align-items: center;
 
                 &__exp {
-                    background-color: rgb(248, 71, 71);
-                    font-size: .6rem;
-                    padding: 5px;
-                    color: $mainWhite;
-                    cursor: help;
+                    @include explicit;
                 }
 
                 &__names {

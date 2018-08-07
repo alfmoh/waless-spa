@@ -33,16 +33,16 @@ export class DeezerService {
   }
 
   getArtist(artistId: number): Observable<Artist> {
-    return this.http.get<Artist>(this.baseUrl + "/artist/" + artistId);
+    return this.http.get<Artist>(this.baseUrl + "artist/" + artistId);
   }
 
   getArtistTopTracks(artistId: number): Observable<Track[]> {
     return this.http
-      .get<Track>(this.baseUrl + "/artist/" + artistId + "/top?limit=20")
+      .get<Track>(this.baseUrl + "artist/" + artistId + "/top?limit=20")
       .pipe(map((response: any) => response.data));
   }
 
   getAlbum(albumId: number): Observable<Album> {
-    return this.http.get<Album>(this.baseUrl + "/album/" + albumId);
+    return this.http.get<Album>(this.baseUrl + "album/" + albumId);
   }
 }

@@ -1,13 +1,20 @@
+<ng-template #pluralTracks>
+  <span class="album-content__track-num__text">tracks</span>
+</ng-template>
+
 <div *ngIf="album" class="album ws-shift">
   <div class="album-cover">
     <img class="album-cover__pic" [src]="album.cover_medium" [alt]="album.title">
   </div>
   <div class="album-content">
-    <h3 class="album-content__title">{{album.title | titlecase}}</h3>
+    <div class="album-content-title-ex">
+      <h3 class="album-content-title-ex__title">{{album.title | titlecase}}</h3>
+      <span title="songs may contain explicit words" class="album-content-title-ex__explicit" *ngIf="album.explicit_lyrics">Explicit</span>
+    </div>
     <h5 [routerLink]="['/artist', album.artist.id]" class="album-content__artist ws-focus-border">{{album.artist.name | titlecase}}</h5>
     <span class="album-content__date">{{album.release_date | date:"y"}}</span>
     <span class="album-content__track-num">{{albumTracks.length}}
-      <span class="album-content__track-num__text">tracks</span>
+      <span *ngIf="albumTracks.length == 1;else pluralTracks" class="album-content__track-num__text">track</span>
     </span>
 
     <div class="album-content-actions">
