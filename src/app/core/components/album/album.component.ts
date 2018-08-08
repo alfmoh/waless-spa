@@ -39,14 +39,6 @@ export class AlbumComponent implements OnInit, OnDestroy {
     this.subPlaying = event.playing$.subscribe(event$ => this.playerHandler.playing(event$));
   }
 
-  start(album) {
-    if(this.playerHandler.isPlaying) this.playerHandler.stop();
-    this.deezer.getTrackList(album.tracklist).subscribe((tracks: Track[]) => {
-      this.playerHandler.initTracks(tracks);
-      this.playerHandler.play();
-    });
-  }
-
   ngOnDestroy() {
     this.subOnEnd.unsubscribe();
     this.subPlaying.unsubscribe();

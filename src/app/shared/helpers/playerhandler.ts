@@ -1,5 +1,7 @@
 import { PlayerService } from "./../../core/services/player.service";
 import { Injectable } from "@angular/core";
+import { DeezerService } from "../services/deezer.service";
+import { Track } from "../models/Track";
 
 @Injectable({
   providedIn: "root"
@@ -9,7 +11,10 @@ export class PlayerHanlder {
   tracks: any;
   index: number;
 
-  constructor(private playerService: PlayerService) {}
+  constructor(
+    private playerService: PlayerService,
+    private deezer: DeezerService
+  ) { }
 
   initTracks(tracks): void {
     this.tracks = tracks;
@@ -30,7 +35,6 @@ export class PlayerHanlder {
   }
 
   next() {
-    console.log("next()")
     this.playerService.playNext();
   }
 
@@ -39,11 +43,19 @@ export class PlayerHanlder {
   }
 
   playing(playing) {
-    console.log(playing)
     this.isPlaying = playing;
   }
 
   onEnd() {
     this.playerService.playNext();
+  }
+
+  start(album) {
+    if (this.isPlaying) this.stop();
+    this.deezer.getTrackList(album.tracklist)
+      .subscribe((tracks: Track[]) => {
+        this.initTracks(tracks);
+        this.play();
+      });
   }
 }
