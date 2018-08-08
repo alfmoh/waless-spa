@@ -17,6 +17,7 @@ export class PlayerHanlder {
   }
 
   play() {
+    this.isPlaying = true;
     this.playerService.play();
   }
 
@@ -25,10 +26,11 @@ export class PlayerHanlder {
   }
 
   stop() {
-    if (this.isPlaying) this.playerService.stop();
+    this.playerService.stop();
   }
 
   next() {
+    console.log("next()")
     this.playerService.playNext();
   }
 
@@ -37,11 +39,11 @@ export class PlayerHanlder {
   }
 
   playing(playing) {
+    console.log(playing)
     this.isPlaying = playing;
   }
 
   onEnd() {
     this.playerService.playNext();
-    this.index += 1;
   }
 }
