@@ -1,3 +1,4 @@
+import { HttpClientJsonpModule } from '@angular/common/http';
 import { TrackDurationPipe } from "./pipes/TrackDuration.pipe";
 import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
@@ -12,6 +13,7 @@ import { PlayerComponent } from "./components/player/player.component";
     CommonModule,
     NgbModule,
     ReactiveFormsModule,
+    HttpClientJsonpModule,
     RouterModule.forChild([])
   ],
   declarations: [LeftSidebarComponent, PlayerComponent, TrackDurationPipe],
