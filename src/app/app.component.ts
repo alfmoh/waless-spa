@@ -1,3 +1,5 @@
+import { DeezerService } from './shared/services/deezer.service';
+import { PlayerService } from './core/services/player.service';
 import { AuthService } from "./core/services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";

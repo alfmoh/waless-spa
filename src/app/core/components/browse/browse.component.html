@@ -3,7 +3,7 @@
     <li *ngFor="let album of albums" class="browse-albums__album">
       <div class="browse-albums__img-play">
         <img [src]="album.cover_medium" class="browse-albums__album__pic" alt="">
-        <button class="browse-albums__album__btn" (click)="play(album.id)">
+        <button class="browse-albums__album__btn" (click)="start(album)">
           <i class="fa fa-play"></i>
         </button>
       </div>
@@ -21,3 +21,11 @@
     </li>
   </ul>
 </div>
+<ws-player
+  [playing]="playerHandler.isPlaying"
+  (play)="playerHandler.play()"
+  (pause)="playerHandler.pause()"
+  (stop)="playerHandler.stop()"
+  (next)="playerHandler.next()"
+  (previous)="playerHandler.previous()">
+</ws-player>

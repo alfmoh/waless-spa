@@ -1,7 +1,4 @@
-import { Router } from "@angular/router";
-import { PlayerService } from "./../../../core/services/player.service";
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../../core/services/auth.service";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "ws-player",
@@ -9,19 +6,19 @@ import { AuthService } from "../../../core/services/auth.service";
   styleUrls: ["./player.component.scss"]
 })
 export class PlayerComponent implements OnInit {
-  constructor(
-    private player: PlayerService,
-    public router: Router,
-    public auth: AuthService
-  ) {}
+  @Input() playing: boolean;
+  @Output() play = new EventEmitter();
+  @Output() pause = new EventEmitter();
+  @Output() stop = new EventEmitter();
+  @Output() previous = new EventEmitter();
+  @Output() next = new EventEmitter();
+
+  constructor() {}
 
   ngOnInit() {}
 
-  play() {
-    this.player.play();
-  }
-
-  pause() {
-    this.player.pause();
+  togglePlay(): void {
+    if (this.playing) this.pause.emit(null);
+    else this.play.emit(null);
   }
 }

@@ -20,6 +20,11 @@ export class DeezerService {
       .jsonp(`${this.baseUrl}chart?${this.jsonUrl}`, "JSONP_CALLBACK")
       .pipe(map((response: any) => response.tracks.data));
   }
+  getTrackList(url:string): Observable<Track[]> {
+    return this.http
+      .jsonp(`${url}?${this.jsonUrl}`, "JSONP_CALLBACK")
+      .pipe(map((response: any) => response.data));
+  }
 
   getAlbumns(): Observable<Album[]> {
     return this.http

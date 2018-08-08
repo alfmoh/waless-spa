@@ -1,23 +1,22 @@
-<div *ngIf="auth.loggedIn()">
-  <div *ngIf="router.url != '/'">
-    <div class="player ws-shift">
-      <div class="player-icons">
-        <div class="player-icons__icon player-icons__backward">
-          <i class="fa fa-backward"></i>
-        </div>
-        <div class="player-icons__icon player-icons__play" (click)="play()">
-          <i class="fa fa-play"></i>
-        </div>
-        <div class="player-icons__icon player-icons__pause" (click)="pause()">
-          <i class="fa fa-pause"></i>
-        </div>
-        <div class="player-icons__icon player-icons__forward">
-          <i class="fa fa-forward"></i>
-        </div>
-        <div [routerLink]="['/queue']" class="player-icons__icon player-icons__playlist">
-          <i class="fa fa-list"></i>
-        </div>
-      </div>
+<div class="player ws-shift">
+  <div class="player-icons">
+    <div (click)="previous.emit(null)" class="player-icons__icon player-icons__backward">
+      <i class="fa fa-backward"></i>
+    </div>
+    <div class="player-icons__icon player-icons__play" (click)="togglePlay()">
+      <i class="fa fa-play"></i>
+    </div>
+    <div class="player-icons__icon player-icons__pause" (click)="pause.emit(null)">
+      <i class="fa fa-pause"></i>
+    </div>
+    <div class="player-icons__icon player-icons__pause" (click)="stop.emit(null)">
+      <i class="fa fa-stop"></i>
+    </div>
+    <div class="player-icons__icon player-icons__forward" (click)="next.emit(null)">
+      <i class="fa fa-forward"></i>
+    </div>
+    <div [routerLink]="['/queue']" class="player-icons__icon player-icons__playlist">
+      <i class="fa fa-list"></i>
     </div>
   </div>
 </div>

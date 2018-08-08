@@ -1,47 +1,67 @@
-import { DeezerService } from "./../../shared/services/deezer.service";
-import { Injectable } from "@angular/core";
-import { Howl } from "howler";
-import { Track } from "../../shared/models/Track";
+import { Injectable, EventEmitter } from "@angular/core";
+import { PlaylistTrack } from "../../shared/models/PlaylistTrack";
+import { PlayerEvents } from "../../shared/models/PlayerEvents";
+import {
+  initPlaylist,
+  newSong,
+  stop,
+  pause,
+  play
+} from "../../shared/helpers/playerfunctions";
 
 @Injectable({
   providedIn: "root"
 })
 export class PlayerService {
-  track: Howl;
-  tracks: Howl[];
-  index = 0;
+  private playList: PlaylistTrack[];
+  private index: number;
+  playerEvents: PlayerEvents;
 
-  constructor(private deezer: DeezerService) {}
-
-  getAlbumTracks(albumId: number) {
-    this.deezer.getAlbumTracks(albumId).subscribe((tracks: Track[]) => {
-      const playlist = tracks.map(track => {
-        return new Howl({ src: track.preview });
-      });
-      this.tracks = playlist;
-    });
-    this.play();
+  constructor() {
+    this.index = 0;
+    this.playerEvents = {
+      onEnd$: new EventEmitter(),
+      onStop$: new EventEmitter(),
+      onPlay$: new EventEmitter(),
+      onPause$: new EventEmitter(),
+      playing$: new EventEmitter()
+    };
   }
 
-  play() {
-    this.track = this.tracks[this.index];
-    this.track.play();
-    this.track.on("end", () => {
-      this.index++;
-      if (this.index != this.tracks.length) this.play();
-      if (this.index == this.tracks.length) {
-        this.index = 0;
-        this.tracks = [];
-        return;
-      }
-    });
+  init(tracks) {
+    this.playList = initPlaylist(tracks, this.playerEvents);
   }
 
-  pause() {
-    this.track.pause();
+  playNew(i) {
+    newSong(this.playList, i, this.index);
+    this.index = i;
+  }
+
+  playNext() {
+    let index = this.index + 1;
+    if (index < this.playList.length) {
+      this.playNew(index);
+      this.index = index;
+    }
+  }
+
+  playPrevious() {
+    let index = this.index - 1;
+    if (index >= 0) {
+      this.playNew(index);
+      this.index = index;
+    }
   }
 
   stop() {
-    this.track.stop();
+    stop(this.playList[this.index]);
+  }
+
+  play() {
+    play(this.playList[this.index]);
+  }
+
+  pause() {
+    pause(this.playList[this.index]);
   }
 }
