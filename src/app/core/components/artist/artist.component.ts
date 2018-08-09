@@ -1,17 +1,19 @@
+import { PlayerService } from "./../../services/player.service";
 import { DeezerService } from "./../../../shared/services/deezer.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Artist } from "../../../shared/models/Artist";
 import { Track } from "../../../shared/models/Track";
 import { Album } from "../../../shared/models/Album";
 import { AlertifyService } from "../../../shared/services/Alertify.service";
+import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 
 @Component({
   selector: "ws-artist",
   templateUrl: "./artist.component.html",
   styleUrls: ["./artist.component.scss"]
 })
-export class ArtistComponent implements OnInit {
+export class ArtistComponent implements OnInit, OnDestroy {
   artistId: any;
   artist: Artist;
   artistpic: string;
@@ -28,11 +30,15 @@ export class ArtistComponent implements OnInit {
   In maximus tincidunt quam, eget aliquet ipsum fringilla in.
   Etiam ut augue lectus. Vestibulum sapien lectus, consequat sagittis sem sed, tristique interdum ex.
   Vivamus vel egestas purus. Interdum et malesuada fames ac ante ipsum primis in faucibus.`;
+  subOnEnd: any;
+  subPlaying: any;
 
   constructor(
     private alertify: AlertifyService,
     private deezer: DeezerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public playerHandler: PlayerHanlder,
+    private playerService: PlayerService
   ) {}
 
   ngOnInit() {
@@ -46,9 +52,25 @@ export class ArtistComponent implements OnInit {
         return (this.topTracks = topTracks.slice(0, 10));
       });
     }
+
+    let event = this.playerService.playerEvents;
+    this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
+    this.subPlaying = event.playing$.subscribe(event$ =>
+      this.playerHandler.playing(event$)
+    );
   }
 
   openDialog() {
     this.alertify.alert("Biography", this.artistDesc);
+  }
+
+  startTrack(albumTracks, index) {
+    if (this.playerHandler.isPlaying) this.playerHandler.stop();
+    this.playerHandler.startSelectedTrack(albumTracks, index);
+  }
+
+  ngOnDestroy() {
+    this.subOnEnd.unsubscribe();
+    this.subPlaying.unsubscribe();
   }
 }

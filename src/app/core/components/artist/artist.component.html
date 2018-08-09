@@ -6,7 +6,7 @@
       <div class="artist-content-details-sub-details">
         <div class="artist-content-details-sub-details__name">
           {{artist.name}}
-          <i class="fa fa-play-circle artist-content-details-sub-details__play"></i>
+          <i class="fa fa-play-circle artist-content-details-sub-details__play" (click)="startTrack(topTracks,0)"></i>
         </div>
         <div class="artist-content-details-sub-details__fans">Fans - {{artist.nb_fan | number}}</div>
         <div class="artist-content-details-sub-details__desc">
@@ -40,7 +40,7 @@
           <tr class="artist-collection-tb-table-tracks" *ngFor="let track of topTracks, let i=index">
             <td class="artist-collection-tb-table-tracks__title">
               <span class="artist-collection-tb-table-tracks__numbers">{{i+1}}</span>
-              <i class="fa fa-play-circle artist-collection-tb-table-tracks__play-icon"></i>
+              <i class="fa fa-play-circle artist-collection-tb-table-tracks__play-icon" (click)="startTrack(topTracks,i)"></i>
               {{track.title_short | titlecase}}
             </td>
             <td class="artist-collection-tb-table-tracks__ellipsis">
@@ -74,3 +74,11 @@
   </div>
 
 </div>
+<ws-player
+  [playing]="playerHandler.isPlaying"
+  (play)="playerHandler.play()"
+  (pause)="playerHandler.pause()"
+  (stop)="playerHandler.stop()"
+  (next)="playerHandler.next()"
+  (previous)="playerHandler.previous()">
+</ws-player>

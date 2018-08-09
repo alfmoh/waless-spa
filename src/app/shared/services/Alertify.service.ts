@@ -28,7 +28,7 @@ export class AlertifyService {
   }
 
   alert(title, message: string) {
-    alertify.defaults.theme.ok = "ws-btn";
+    alertify.defaults.theme.ok = "ws-btn ws-focus-border";
     alertify.dialog("alert").set({
       title,
       message,
