@@ -1,0 +1,25 @@
+@import "~src/assets/scss/styles";
+
+.notfound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $grayBlack;
+    color: $smokeWhite;
+    height: 100vh;
+    font-size: 3rem;
+    text-align: center;
+
+    &-text {
+        max-width: 50%;
+        margin: 0 auto;
+    }
+
+    &-home {
+        &__home {
+            cursor: pointer;
+            padding: 3px;
+        }
+    }
+}

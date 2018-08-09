@@ -9,6 +9,7 @@ import { CommonModule } from "@angular/common";
 import { NavbarComponent } from "../components/navbar/navbar.component";
 import { HomeComponent } from "../components/home/home.component";
 import { CoreRoutingModule } from "./core-routing.module";
+import { NotFoundComponent } from "../components/notfound/notfound.component";
 
 @NgModule({
   imports: [CommonModule, CoreRoutingModule, AuthModule, SharedModule],
@@ -18,8 +19,9 @@ import { CoreRoutingModule } from "./core-routing.module";
     QueueComponent,
     AlbumComponent,
     ArtistComponent,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent
   ],
-  exports: [NavbarComponent, AuthModule]
+  exports: [NavbarComponent, AuthModule, NotFoundComponent]
 })
 export class CoreModule { }
