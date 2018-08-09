@@ -55,6 +55,7 @@ export class PlayerHanlder {
     this.deezer.getTrackList(album.tracklist)
       .subscribe((tracks: Track[]) => {
         this.initTracks(tracks);
+        this.playerService.index = 0;
         this.play();
       });
   }

@@ -14,7 +14,7 @@ import {
 })
 export class PlayerService {
   private playList: PlaylistTrack[];
-  private index: number;
+  index: number;
   playerEvents: PlayerEvents;
 
   constructor() {
