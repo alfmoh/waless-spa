@@ -8,7 +8,7 @@
   </div>
   <div class="album-content">
     <div class="album-content-title-ex">
-      <h3 class="album-content-title-ex__title">{{album.title | titlecase}}</h3>
+      <h3 class="album-content-title-ex__title">{{album.title}}</h3>
       <span title="songs may contain explicit words" class="album-content-title-ex__explicit" *ngIf="album.explicit_lyrics">Explicit</span>
     </div>
     <h5 [routerLink]="['/artist', album.artist.id]" class="album-content__artist ws-focus-border">{{album.artist.name | titlecase}}</h5>
@@ -24,7 +24,7 @@
     </div>
 
     <ul class="album-content-tracks ws-ul-reset">
-      <li *ngFor="let track of albumTracks" class="album-content-tracks__track">
+      <li *ngFor="let track of albumTracks; let i=index;" class="album-content-tracks__track" (click)="startTrack(albumTracks, i)" >
         <div class="album-content-tracks__track__title">{{track.title | titlecase}}</div>
         <div class="album-content-tracks__track-dur-more">
           <span class="album-content-tracks__track-dur-more__duration">{{(track.duration /60 | number: '1.2-2') | trackDuration}}</span>

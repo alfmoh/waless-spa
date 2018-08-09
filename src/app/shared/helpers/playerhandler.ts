@@ -58,4 +58,12 @@ export class PlayerHanlder {
         this.play();
       });
   }
+
+  startSelectedTrack(tracks,trackIndex) {
+    if (this.isPlaying) this.stop();
+
+    this.initTracks(tracks);
+    this.playerService.playNew(trackIndex);
+    this.isPlaying = true;
+  }
 }
