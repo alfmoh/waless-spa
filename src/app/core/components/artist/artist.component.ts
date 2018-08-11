@@ -7,6 +7,7 @@ import { Track } from "../../../shared/models/Track";
 import { Album } from "../../../shared/models/Album";
 import { AlertifyService } from "../../../shared/services/Alertify.service";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
+import { lorem } from "../../../shared/temp/_lorem";
 
 @Component({
   selector: "ws-artist",
@@ -20,16 +21,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
   topTracks: Track[];
   artistAlbums: Album[];
 
-  artistDesc = `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-  Recusandae animi eaque hic autem repellat repudiandae,
-  sapiente provident voluptatum cum tempora assumenda eligendi numquam.
-  Cum, corporis consequuntur. Quo sit hic voluptatum.
-  Etiam sed fermentum magna. Pellentesque dictum tristique felis a mattis.
-  Phasellus faucibus enim turpis, vel tincidunt sem sagittis eu.
-  Donec ante odio, facilisis nec lobortis in, auctor vel lectus.
-  In maximus tincidunt quam, eget aliquet ipsum fringilla in.
-  Etiam ut augue lectus. Vestibulum sapien lectus, consequat sagittis sem sed, tristique interdum ex.
-  Vivamus vel egestas purus. Interdum et malesuada fames ac ante ipsum primis in faucibus.`;
+  artistDesc = lorem;
   subOnEnd: any;
   subPlaying: any;
 

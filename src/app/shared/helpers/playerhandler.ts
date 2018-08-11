@@ -1,8 +1,9 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import { PlayerService } from "./../../core/services/player.service";
 import { Injectable } from "@angular/core";
 import { DeezerService } from "../services/deezer.service";
 import { Track } from "../models/Track";
+import { sampleTracks } from "../temp/_lorem";
 
 @Injectable({
   providedIn: "root"
@@ -10,15 +11,20 @@ import { Track } from "../models/Track";
 export class PlayerHanlder {
   isPlaying: boolean = false;
   index: number;
-  tracks$ = new BehaviorSubject<Track[]>([]);
+  tracks$ = new BehaviorSubject<any>(sampleTracks);
 
   constructor(
     private playerService: PlayerService,
     private deezer: DeezerService
   ) { }
 
-  initTracks(tracks): void {
-    this.tracks$.next(tracks);
+  initTracks(tracks: Track[]): void {
+
+    let obsArr = tracks.map(track => this.deezer.getTrack(track.id));
+    forkJoin(...obsArr).subscribe(trackArr => {
+      this.tracks$.next(trackArr);
+    })
+
     this.playerService.init(tracks);
   }
 

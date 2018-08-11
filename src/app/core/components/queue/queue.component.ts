@@ -1,5 +1,6 @@
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit } from "@angular/core";
+import { PlayerService } from "../../services/player.service";
 
 @Component({
   selector: "app-queue",
@@ -8,9 +9,25 @@ import { Component, OnInit } from "@angular/core";
 })
 export class QueueComponent implements OnInit {
   tracks$;
-  constructor(private playerHanlder: PlayerHanlder) {
-    this.tracks$ = this.playerHanlder.tracks$;
+  subOnEnd: any;
+  subPlaying: any;
+  constructor(
+    private playerService: PlayerService,
+    public playerHandler: PlayerHanlder
+  ) {
+    this.tracks$ = this.playerHandler.tracks$;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let event = this.playerService.playerEvents;
+    this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
+    this.subPlaying = event.playing$.subscribe(event$ =>
+      this.playerHandler.playing(event$)
+    );
+  }
+
+  ngOnDestroy() {
+    this.subOnEnd.unsubscribe();
+    this.subPlaying.unsubscribe();
+  }
 }

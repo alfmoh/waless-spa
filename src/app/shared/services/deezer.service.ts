@@ -63,4 +63,11 @@ export class DeezerService {
       "JSONP_CALLBACK"
     ) as Observable<Album>;
   }
+
+  getTrack(trackId: number): Observable<Track> {
+    return this.http.jsonp(
+      `${this.baseUrl}track/${trackId}?${this.jsonUrl}`,
+      "JSONP_CALLBACK"
+    ) as Observable<Track>;
+  }
 }
