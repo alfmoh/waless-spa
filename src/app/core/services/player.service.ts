@@ -33,8 +33,7 @@ export class PlayerService {
   }
 
   playNew(i) {
-    newSong(this.playList, i, this.index);
-    this.index = i;
+    newSong(this.playList, i, this.index = i);
   }
 
   playNext() {

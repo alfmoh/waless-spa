@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { PlayerService } from "./../../core/services/player.service";
 import { Injectable } from "@angular/core";
 import { DeezerService } from "../services/deezer.service";
@@ -8,8 +9,8 @@ import { Track } from "../models/Track";
 })
 export class PlayerHanlder {
   isPlaying: boolean = false;
-  tracks: any;
   index: number;
+  tracks$ = new BehaviorSubject<Track[]>([]);
 
   constructor(
     private playerService: PlayerService,
@@ -17,7 +18,7 @@ export class PlayerHanlder {
   ) { }
 
   initTracks(tracks): void {
-    this.tracks = tracks;
+    this.tracks$.next(tracks);
     this.playerService.init(tracks);
   }
 

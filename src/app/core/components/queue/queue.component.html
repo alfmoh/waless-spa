@@ -1,3 +1,5 @@
-<p>
-  queue works!
-</p>
+<ul class="ws-shift">
+  <li *ngFor="let track of (tracks$ | async)" >
+    {{track.title}}
+  </li>
+</ul>
