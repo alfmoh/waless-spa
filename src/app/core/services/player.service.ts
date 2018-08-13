@@ -37,7 +37,7 @@ export class PlayerService {
   }
 
   playNext() {
-    stop(this.playList[this.index]);
+    this.stop();
     let index = this.index + 1;
     if (index < this.playList.length) {
       this.playNew(index);
@@ -46,7 +46,7 @@ export class PlayerService {
   }
 
   playPrevious() {
-    stop(this.playList[this.index]);
+    this.stop();
     let index = this.index - 1;
     if (index >= 0) {
       this.playNew(index);

@@ -31,6 +31,7 @@ export class QueueComponent implements OnInit {
     this.subPlaying = event.playing$.subscribe(event$ =>
       this.playerHandler.playing(event$)
     );
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

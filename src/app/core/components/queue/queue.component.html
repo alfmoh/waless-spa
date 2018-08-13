@@ -3,6 +3,7 @@
 </ng-template>
 
 <div *ngIf="tracks; else loading" class=" ws-shift queue">
+  <h3 class="queue-header">Now Playing</h3>
   <div class="queue-content">
     <div class="queue-content-list-item-img">
       <img [src]="selectedTrack?.album.cover_medium" [alt]="selectedTrack?.title" class="queue-content-list-item-img__img">
