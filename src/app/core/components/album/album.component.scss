@@ -121,6 +121,29 @@
                         visibility: hidden;
                     }
                 }
+
+                &__title {
+                    &-extra {
+                        display: flex;
+
+                        &-exp {
+                            font-size: .8rem;
+                            color: rgba(117, 60, 29, 1);
+                            padding-left: 2px;
+                            cursor: help;
+                        }
+
+                        &-artist {
+                            font-size: .9rem;
+                            opacity: .3;
+                            margin-right: 5px;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
