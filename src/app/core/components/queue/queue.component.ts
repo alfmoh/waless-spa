@@ -20,7 +20,7 @@ export class QueueComponent implements OnInit {
     public playerHandler: PlayerHanlder
   ) {
     this.subTrack = this.playerHandler.tracks$.subscribe(tracks => {
-      this.selectedTrack = tracks[0];
+      if(!this.selectedTrack) this.selectedTrack = tracks[0];
       this.tracks = tracks;
     });
   }

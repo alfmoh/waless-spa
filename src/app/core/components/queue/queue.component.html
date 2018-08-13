@@ -17,7 +17,10 @@
         <div class="queue-content-list-item-tracks" (click)="startTrack(tracks,i)">
           <div class="queue-content-list-item-tracks-track">
             <span class="queue-content-list-item-tracks-track__title">{{track.title}}</span>
-            <span [routerLink]="['/artist', track.artist.id]" [title]="track.artist.name" class="queue-content-list-item-tracks-track__artist-name">
+            <span
+              [routerLink]="['/artist', track.artist.id]"
+              [title]="track.artist.name"
+              class="queue-content-list-item-tracks-track__artist-name ws-focus-border">
               {{(track.artist.name | customSlice: 15)}}
             </span>
             <div class="queue-content-list-item-tracks-track-dur-more">
