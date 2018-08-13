@@ -16,7 +16,31 @@
                 list-style: none;
 
                 &-img {
-                    padding-left: 60px;
+                    text-align: center;
+
+                    &-actions {
+                        font-size: 2rem;
+                        margin-top: 40px;
+
+                        &__fav {
+                            margin-right: 40px;
+                            opacity: .4;
+                            cursor: pointer;
+
+                            &:hover {
+                                opacity: .5;
+                            }
+                        }
+
+                        &__add {
+                            opacity: .4;
+                            cursor: pointer;
+
+                            &:hover {
+                                opacity: .5;
+                            }
+                        }
+                    }
                 }
 
                 &-tracks {
@@ -32,19 +56,24 @@
                         &:hover {
                             background: $transparentBlack;
 
-                            .queue-list-item-tracks-track-dur-more__more {
+                            .queue-content-list-item-tracks-track-dur-more__more {
                                 visibility: visible;
                             }
                         }
 
                         &__artist-name {
                             opacity: .8;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
                         }
 
                         &-dur-more {
                             display: flex;
                             padding: 0 30px;
                             justify-content: space-between;
+                            align-items: center;
                             opacity: .7;
 
                             &__more {

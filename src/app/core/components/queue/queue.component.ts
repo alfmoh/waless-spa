@@ -39,7 +39,9 @@ export class QueueComponent implements OnInit {
     this.subTrack.unsubscribe();
   }
 
-  play(track: Track) {
-    this.selectedTrack = track;
+  startTrack(tracks: Track[], index) {
+    this.selectedTrack = tracks[index];
+    if (this.playerHandler.isPlaying) this.playerHandler.stop();
+    this.playerHandler.startSelectedTrack(tracks, index);
   }
 }
