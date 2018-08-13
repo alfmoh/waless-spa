@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Router } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "ws-player",
@@ -6,19 +8,31 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./player.component.scss"]
 })
 export class PlayerComponent implements OnInit {
-  @Input() playing: boolean;
-  @Output() play = new EventEmitter();
-  @Output() pause = new EventEmitter();
-  @Output() stop = new EventEmitter();
-  @Output() previous = new EventEmitter();
-  @Output() next = new EventEmitter();
+  @Input()
+  playing: boolean;
+  @Output()
+  play = new EventEmitter();
+  @Output()
+  pause = new EventEmitter();
+  @Output()
+  stop = new EventEmitter();
+  @Output()
+  previous = new EventEmitter();
+  @Output()
+  next = new EventEmitter();
 
-  constructor() {}
+  constructor(private router: Router, private location: Location) {}
 
   ngOnInit() {}
 
   togglePlay(): void {
     if (this.playing) this.pause.emit(null);
     else this.play.emit(null);
+  }
+
+  toggleRoute() {
+    this.router.url == "/queue"
+      ? this.location.back()
+      : this.router.navigateByUrl("/queue");
   }
 }

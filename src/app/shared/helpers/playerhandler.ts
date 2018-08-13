@@ -42,10 +42,12 @@ export class PlayerHanlder {
   }
 
   next() {
+    this.stop();
     this.playerService.playNext();
   }
 
   previous() {
+    this.stop();
     this.playerService.playPrevious();
   }
 
@@ -54,7 +56,7 @@ export class PlayerHanlder {
   }
 
   onEnd() {
-    this.playerService.playNext();
+    this.next();
   }
 
   start(album) {

@@ -2,24 +2,30 @@
   <span class="ws-shift">Loading...</span>
 </ng-template>
 
-<div *ngIf="(tracks$ | async) as tracks; else loading" class=" ws-shift queue">
-  <ul class="queue-list">
-    <li class="queue-list-item" *ngFor="let track of tracks">
-      <div class="queue-list-item-img">
-        <!-- <img [src]="track.album.cover_medium" [alt]="track.title" class="queue-list-item-img__img"> -->
-      </div>
-      <div class="queue-list-item-tracks">
-        <div class="queue-list-item-tracks-track">
-          <span class="queue-list-item-tracks-track__title">{{track.title}}</span>
-          <span [title]="track.artist.name" class="queue-list-item-tracks-track__artist-name">{{(track.artist.name | slice: 0:15)}}</span>
-          <div class="queue-list-item-tracks-track-dur-more">
-            <span class="queue-list-item-tracks-track-dur-more__duration">{{(track.duration /60 | number: '1.2-2') | trackDuration}}</span>
-            <i class="queue-list-item-tracks-track-dur-more__more fa fa-ellipsis-h"></i>
+<div *ngIf="tracks; else loading" class=" ws-shift queue">
+  <div class="queue-content">
+    <div class="queue-content-list-item-img">
+      <img [src]="selectedTrack?.album.cover_medium" [alt]="selectedTrack?.title" class="queue-content-list-item-img__img">
+    </div>
+    <ul class="queue-content-list">
+      <li class="queue-content-list-item" *ngFor="let track of tracks">
+        <div class="queue-content-list-item-tracks" (click)="play(track)">
+          <div class="queue-content-list-item-tracks-track">
+            <span class="queue-content-list-item-tracks-track__title">{{track.title}}</span>
+            <span [title]="track.artist.name" class="queue-content-list-item-tracks-track__artist-name">
+              {{(track.artist.name | customSlice: 15)}}
+            </span>
+            <div class="queue-content-list-item-tracks-track-dur-more">
+              <span class="queue-content-list-item-tracks-track-dur-more__duration">
+                {{(track.duration /60 | number: '1.2-2') | trackDuration}}
+              </span>
+              <i class="queue-content-list-item-tracks-track-dur-more__more fa fa-ellipsis-h"></i>
+            </div>
           </div>
         </div>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </div>
 </div>
 <ws-player
   [playing]="playerHandler.isPlaying"

@@ -1,4 +1,5 @@
-import { HttpClientJsonpModule } from '@angular/common/http';
+import { CustomSlice } from "./pipes/customslice.pipe";
+import { HttpClientJsonpModule } from "@angular/common/http";
 import { TrackDurationPipe } from "./pipes/TrackDuration.pipe";
 import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
@@ -16,13 +17,19 @@ import { PlayerComponent } from "./components/player/player.component";
     HttpClientJsonpModule,
     RouterModule.forChild([])
   ],
-  declarations: [LeftSidebarComponent, PlayerComponent, TrackDurationPipe],
+  declarations: [
+    LeftSidebarComponent,
+    PlayerComponent,
+    TrackDurationPipe,
+    CustomSlice
+  ],
   exports: [
     NgbModule,
     ReactiveFormsModule,
     LeftSidebarComponent,
     PlayerComponent,
-    TrackDurationPipe
+    TrackDurationPipe,
+    CustomSlice
   ]
 })
 export class SharedModule {}

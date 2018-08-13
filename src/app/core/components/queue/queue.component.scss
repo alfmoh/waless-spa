@@ -7,41 +7,49 @@
     padding-top: 50px;
     font-family: "Roboto", sans-serif;
 
-    &-list {
-        &-item {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            list-style: none;
+    &-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
 
-            &-tracks {
-                font-size: 1.07rem;
+        &-list {
+            &-item {
+                list-style: none;
 
-                &-track {
-                    display: grid;
-                    grid-template-columns: 2fr 1fr 1fr;
-                    padding: 15px 10px;
-                    margin-right: 15px;
-                    cursor: pointer;
+                &-img {
+                    padding-left: 60px;
+                }
 
-                    &:hover {
-                        background: $transparentBlack;
+                &-tracks {
+                    font-size: 1.07rem;
 
-                        .queue-list-item-tracks-track-dur-more__more {
-                            visibility: visible;
+                    &-track {
+                        display: grid;
+                        grid-template-columns: 2fr 1fr 1fr;
+                        padding: 15px 10px;
+                        margin-right: 15px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: $transparentBlack;
+
+                            .queue-list-item-tracks-track-dur-more__more {
+                                visibility: visible;
+                            }
                         }
-                    }
 
-                    &__title {}
+                        &__artist-name {
+                            opacity: .8;
+                        }
 
-                    &__artist-name {}
+                        &-dur-more {
+                            display: flex;
+                            padding: 0 30px;
+                            justify-content: space-between;
+                            opacity: .7;
 
-                    &-dur-more {
-                        display: flex;
-                        padding: 0 30px;
-                        justify-content: space-between;
-
-                        &__more {
-                            visibility: hidden;
+                            &__more {
+                                visibility: hidden;
+                            }
                         }
                     }
                 }

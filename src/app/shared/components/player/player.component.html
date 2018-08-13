@@ -15,7 +15,7 @@
     <div class="player-icons__icon player-icons__forward" (click)="next.emit(null)">
       <i class="fa fa-forward"></i>
     </div>
-    <div [routerLink]="['/queue']" class="player-icons__icon player-icons__playlist">
+    <div (click)="toggleRoute()" class="player-icons__icon player-icons__playlist">
       <i class="fa fa-list"></i>
     </div>
   </div>
