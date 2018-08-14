@@ -37,7 +37,25 @@
 }
 
 .ws-shift {
-    margin-left: 15%;
+    @media (min-width: 0) and (max-width: 575px) {
+        margin-left: 15%;
+    }
+
+    @media (min-width: 576px) and (max-width: 900px) {
+        margin-left: 24%;
+    }
+
+    @media (min-width: 901px) and (max-width: 1224px) {
+        margin-left: 17%;
+    }
+
+    @media (min-width: 1225px) and (max-width: 1440px) {
+        margin-left: 15%;
+    }
+
+    @media (min-width: 1441px) {
+        margin-left: 11%;
+    }
 }
 
 .ws-logo {
