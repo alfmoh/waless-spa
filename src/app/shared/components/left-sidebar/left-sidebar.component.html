@@ -1,30 +1,27 @@
 <div *ngIf="auth.loggedIn()">
-    <div *ngIf="router.url != '/'" class="sidebar">
-      <a class="ws-logo" routerLink="">Waless</a>
+  <div *ngIf="router.url != '/'" class="sidebar">
+    <a class="ws-logo" routerLink="">Waless</a>
     <ul class="sidebar-content sidebar-browse">
       <h6 class="sidebar-content__header">BROWSE</h6>
       <li class="sidebar-browse__item sidebar-content__item">
-        <i class="fa fa-home"></i>
-        <span routerLink="browse" class="sidebar-content__list-text">Home</span>
-      </li>
-      <li class="sidebar-browse__item sidebar-content__item">
-        <i class="fa fa-play"></i>
-        <span class="sidebar-content__list-text">Radio</span>
+        <img class="sidebar-content__item__home-icon ws-focus-border ws-sb-cursor" routerLink="browse" src="/assets/images/svg/home.svg"
+        />
+        <span routerLink="browse" class="sidebar-content__list-text ws-focus-border">Home</span>
       </li>
     </ul>
     <ul class="sidebar-content sidebar-collection">
       <h6 class="sidebar-content__header">COLLECTION</h6>
       <li class="sidebar-collection__item sidebar-content__item">
-        <i class="fa fa-heart"></i>
+        <img class="sidebar-collection__item__fav-icon ws-focus-border ws-sb-cursor" src="/assets/images/svg/fav.svg" />
         <span class="sidebar-content__list-text">Favourites</span>
       </li>
       <li class="sidebar-collection__item sidebar-content__item">
-        <i class="fa fa-list"></i>
+        <img class="sidebar-collection__item__playlist-icon ws-focus-border ws-sb-cursor" src="/assets/images/svg/playlist.svg" />
         <span class="sidebar-content__list-text">Playlists</span>
       </li>
       <li class="sidebar-collection__item sidebar-content__item">
-          <i class="fa fa-circle-o"></i>
-          <span class="sidebar-content__list-text">Albums</span>
+        <img class="sidebar-collection__item__album-icon ws-focus-border ws-sb-cursor" src="/assets/images/svg/album.svg" />
+        <span class="sidebar-content__list-text">Albums</span>
       </li>
     </ul>
   </div>

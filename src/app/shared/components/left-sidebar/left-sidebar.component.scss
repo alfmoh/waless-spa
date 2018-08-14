@@ -1,7 +1,11 @@
 @import "~src/assets/scss/styles";
 
 .ws-logo {
-  padding-left: 35px;
+    padding-left: 35px;
+}
+
+.ws-sb-cursor {
+    cursor: pointer;
 }
 
 .sidebar {
@@ -20,16 +24,34 @@
         font-size: 1rem;
 
         &__item {
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
         &__header {
             font-size: .9rem;
             opacity: .6;
+            margin-bottom: 10px;
         }
 
         &__list-text {
             margin-left: 10px;
+            cursor: pointer;
+        }
+    }
+
+    &-browse {
+        &__item {
+            margin-bottom: 50px;
+        }
+    }
+
+    &-collection {
+        &__item {
+            &__playlist-icon {
+                margin-left: -4.2px;
+            }
         }
     }
 }
