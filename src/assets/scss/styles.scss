@@ -50,7 +50,7 @@
     }
 
     @media (min-width: 1225px) and (max-width: 1440px) {
-        margin-left: 15%;
+        margin-left: 14%;
     }
 
     @media (min-width: 1441px) {
@@ -77,6 +77,10 @@
     &:focus {
         outline: none;
     }
+}
+
+body {
+    background: $grayBlack;
 }
 
 /*Bootstrap overrides*/

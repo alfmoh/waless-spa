@@ -1,8 +1,9 @@
 @import "~src/assets/scss/styles";
 
 .browse {
-    margin-top: 10vh;
+    padding-top: 10vh;
     margin-bottom: 100px;
+    background: $smokeWhite;
 
     &-albums {
         font-family: "Open Sans", sans-serif;
