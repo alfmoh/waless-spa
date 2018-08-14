@@ -1,7 +1,23 @@
 @import "~src/assets/scss/styles";
 
 .ws-logo {
-    padding-left: 35px;
+    &-long {
+        display: none;
+
+        @include media-breakpoint-up(sm) {
+            display: block;
+            padding-left: 30px;
+        }
+    }
+
+    &-short {
+        display: block;
+        padding-left: 30px;
+
+        @include media-breakpoint-up(sm) {
+            display: none;
+        }
+    }
 }
 
 .ws-sb-cursor {
@@ -15,18 +31,26 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 15%;
+    max-width: fit-content;
+    padding-right: 20px;
+
+    @include media-breakpoint-up(sm) {
+        padding-right: 45px;
+    }
+
 
     &-content {
         list-style: none;
         margin-top: 30px;
         letter-spacing: 1.7px;
         font-size: 1rem;
+        padding-left: 30px;
 
         &__item {
             display: flex;
             align-items: center;
             margin-bottom: 30px;
+            max-width: fit-content;
         }
 
         &__header {
@@ -38,6 +62,11 @@
         &__list-text {
             margin-left: 10px;
             cursor: pointer;
+            display: none;
+
+            @include media-breakpoint-up(sm) {
+                display: block;
+            }
         }
     }
 
