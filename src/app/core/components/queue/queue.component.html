@@ -2,7 +2,7 @@
   <span class="ws-shift">Loading...</span>
 </ng-template>
 
-<div *ngIf="tracks; else loading" class=" ws-shift queue">
+<div *ngIf="tracks.length; else loading" class=" ws-shift queue">
   <h3 class="queue-header">Now Playing</h3>
   <div class="queue-content">
     <div class="queue-content-list-item-img">
