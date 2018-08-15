@@ -45,6 +45,12 @@
             padding-right: 0;
             max-height: 25px;
             max-width: 25px;
+            opacity: .8;
+
+            &:hover {
+                opacity: .9;
+                transition: opacity .4s ease;
+            }
         }
     }
 
@@ -76,6 +82,13 @@
         &__list-text {
             margin-left: 10px;
             cursor: pointer;
+            font-size: .9rem;
+            opacity: .5;
+
+            &:hover {
+                opacity: .7;
+                transition: opacity .5s;
+            }
 
             @include --phone(0, 1200px) {
                 display: none;
@@ -90,6 +103,8 @@
     }
 
     &-collection {
+        margin-top: 70px;
+
         &__item {
             &__playlist-icon {
                 margin-left: -4.2px;

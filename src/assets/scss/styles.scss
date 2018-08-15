@@ -38,27 +38,27 @@
 
 .ws-shift {
     @include --phone {
-        margin-left: 15%;
+        padding-left: 15%;
     }
 
 
     @include --tablet {
-        margin-left: 24%;
+        padding-left: 24%;
     }
 
 
     @include --desktop {
-        margin-left: 17%;
+        padding-left: 17%;
     }
 
 
     @include --large-desktop {
-        margin-left: 14%;
+        padding-left: 14%;
     }
 
 
     @include --larger-desktop {
-        margin-left: 11%;
+        padding-left: 11%;
     }
 }
 
