@@ -37,23 +37,27 @@
 }
 
 .ws-shift {
-    @media (min-width: 0) and (max-width: 575px) {
+    @include --phone {
         margin-left: 15%;
     }
 
-    @media (min-width: 576px) and (max-width: 900px) {
+
+    @include --tablet {
         margin-left: 24%;
     }
 
-    @media (min-width: 901px) and (max-width: 1224px) {
+
+    @include --desktop {
         margin-left: 17%;
     }
 
-    @media (min-width: 1225px) and (max-width: 1440px) {
+
+    @include --large-desktop {
         margin-left: 14%;
     }
 
-    @media (min-width: 1441px) {
+
+    @include --larger-desktop {
         margin-left: 11%;
     }
 }

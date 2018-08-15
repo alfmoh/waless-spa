@@ -5,3 +5,35 @@
     color: $mainWhite;
     cursor: help;
 }
+
+/*Custom media*/
+
+@mixin --phone($minsize: 0, $maxsize: 575px) {
+    @media (min-width: $minsize) and (max-width: $maxsize) {
+        @content;
+    }
+}
+
+@mixin --tablet($minsize: 576px, $maxsize: 900px) {
+    @media (min-width: $minsize) and (max-width: $maxsize) {
+        @content;
+    }
+}
+
+@mixin --desktop($minsize: 901px, $maxsize: 1224px) {
+    @media (min-width: $minsize) and (max-width: $maxsize) {
+        @content;
+    }
+}
+
+@mixin --large-desktop($minsize: 1225px, $maxsize: 1440px) {
+    @media (min-width: $minsize) and (max-width: $maxsize) {
+        @content;
+    }
+}
+
+@mixin --larger-desktop($minsize: 1440px) {
+    @media (min-width: $minsize) {
+        @content;
+    }
+}

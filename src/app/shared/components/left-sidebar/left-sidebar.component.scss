@@ -2,20 +2,26 @@
 
 .ws-logo {
     &-long {
-        display: none;
+        padding-left: 30px;
+        display: block;
 
-        @include media-breakpoint-up(sm) {
-            display: block;
-            padding-left: 30px;
+        @include --phone(0, 1200px) {
+            display: none;
         }
     }
 
     &-short {
-        display: block;
-        padding-left: 30px;
+        display: none;
 
-        @include media-breakpoint-up(sm) {
-            display: none;
+        @include --phone {
+            display: block;
+            padding-left: 12px;
+        }
+
+
+        @include --tablet(576px, 1200px) {
+            display: block;
+            padding-left: 30px;
         }
     }
 }
@@ -34,10 +40,13 @@
     max-width: fit-content;
     padding-right: 20px;
 
-    @include media-breakpoint-up(sm) {
-        padding-right: 45px;
+    &-icon {
+        @include --phone {
+            padding-right: 0;
+            max-height: 25px;
+            max-width: 25px;
+        }
     }
-
 
     &-content {
         list-style: none;
@@ -45,6 +54,11 @@
         letter-spacing: 1.7px;
         font-size: 1rem;
         padding-left: 30px;
+
+        @include --phone {
+            padding-left: 12px;
+        }
+
 
         &__item {
             display: flex;
@@ -62,10 +76,9 @@
         &__list-text {
             margin-left: 10px;
             cursor: pointer;
-            display: none;
 
-            @include media-breakpoint-up(sm) {
-                display: block;
+            @include --phone(0, 1200px) {
+                display: none;
             }
         }
     }
@@ -80,6 +93,10 @@
         &__item {
             &__playlist-icon {
                 margin-left: -4.2px;
+
+                @include --phone {
+                    margin-left: -2.2px;
+                }
             }
         }
     }
