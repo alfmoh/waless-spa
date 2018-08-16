@@ -7,6 +7,11 @@
     padding-top: 50px;
     font-family: "Roboto", sans-serif;
 
+    @include --phone(0, 900px) {
+        padding-left: 10%;
+    }
+
+
     &-header {
         text-align: center;
         font-family: "Open Sans", sans-serif;
@@ -19,12 +24,64 @@
         display: grid;
         grid-template-columns: 1fr 2fr;
 
+        @include --phone(0, 1224px) {
+            grid-template-columns: 1fr;
+        }
+
+
         &-list {
             &-item {
                 list-style: none;
 
                 &-img {
                     text-align: center;
+
+                    &__img {
+                        @include --phone {
+                            width: 100px;
+                            height: 100px;
+                        }
+                    }
+
+                    &__track-name {
+                        padding-top: 30px;
+                        opacity: .8;
+                        margin: 0 auto;
+                        margin-bottom: -10px;
+                        max-width: 50%;
+
+                        &__artist-name {
+                            padding-top: 5px;
+                            cursor: pointer;
+                            font-size: .9rem;
+
+                            &__artist {
+                                color: $mainGold;
+                            }
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+
+                            @include --larger-desktop(700px) {
+                                display: none;
+                            }
+                        }
+
+                        &__album-name {
+                            padding-top: 10px;
+                            cursor: pointer;
+                            font-size: .9rem;
+
+                            &__album {
+                                color: $mainGold;
+                            }
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
 
                     &-actions {
                         font-size: 2rem;
@@ -61,6 +118,11 @@
                         margin-right: 15px;
                         cursor: pointer;
 
+                        @include --phone(0, 700px) {
+                            grid-template-columns: 2fr 1fr;
+                        }
+
+
                         &:hover {
                             background: $transparentBlack;
 
@@ -71,6 +133,11 @@
 
                         &__artist-name {
                             opacity: .8;
+
+                            @include --phone(0, 700px) {
+                                display: none;
+                            }
+
 
                             &:hover {
                                 text-decoration: underline;
@@ -84,7 +151,17 @@
                             align-items: center;
                             opacity: .7;
 
+                            @include --phone(0, 490px) {
+                                padding: 0 0 0 10px;
+                            }
+
+
                             &__more {
+                                @include --phone {
+                                    padding-left: 10px;
+                                }
+
+
                                 visibility: hidden;
                             }
                         }

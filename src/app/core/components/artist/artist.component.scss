@@ -99,7 +99,7 @@
                     }
 
                     @include --desktop {
-                      padding-bottom: 10px;
+                        padding-bottom: 10px;
                     }
                 }
 
@@ -110,6 +110,7 @@
 
                     @include --phone(0, 1200px) {
                         grid-template-columns: 1fr;
+                        margin-left: -4.6%;
                     }
 
 
