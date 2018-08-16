@@ -31,8 +31,7 @@
         <thead>
           <tr>
             <th class="artist-collection-tb-table__header" scope="col">Name</th>
-            <th class="artist-collection-tb-table__ellipsis" scope="col"></th>
-            <th class="artist-collection-tb-table__header" scope="col">Album</th>
+            <th class="artist-collection-tb-table__header artist-collection-tb-table__header-album" scope="col">Album</th>
             <th class="artist-collection-tb-table__header" scope="col">Duration</th>
           </tr>
         </thead>
@@ -43,15 +42,15 @@
               <i class="fa fa-play-circle artist-collection-tb-table-tracks__play-icon" (click)="startTrack(topTracks,i)"></i>
               {{track.title_short | titlecase}}
             </td>
-            <td class="artist-collection-tb-table-tracks__ellipsis">
-              <i class="fa fa-ellipsis-h artist-collection-tb-table-tracks__ellipsis-icon"></i>
-            </td>
             <td class="artist-collection-tb-table-tracks__album">
               <span [routerLink]="['/album',track.album.id]" class="artist-collection-tb-table-tracks__album__text ws-focus-border">
                 {{track.album.title | titlecase}}
               </span>
             </td>
-            <td class="artist-collection-tb-table-tracks__duration">{{(track.duration /60 | number: '1.2-2') | trackDuration}}</td>
+            <td class="artist-collection-tb-table-tracks__duration">
+              {{(track.duration /60 | number: '1.2-2') | trackDuration}}
+              <i class="fa fa-ellipsis-h artist-collection-tb-table-tracks__ellipsis-icon"></i>
+            </td>
           </tr>
         </tbody>
       </table>

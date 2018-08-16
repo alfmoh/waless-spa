@@ -2,37 +2,105 @@
 
 .artist {
     min-height: 100vh;
-    color: $mainWhite;
+    color: $smokeWhite;
     background-color: $grayBlack;
     font-family: "Open Sans", sans-serif;
 
+    @include --phone {
+        padding-left: 0;
+    }
+
+
+    @include --tablet {
+        padding-left: 8%;
+    }
+
+
     &-content {
-        color: $mainWhite;
+        color: $smokeWhite;
         padding-top: 50px;
         padding-left: 50px;
 
         &-details {
             display: flex;
 
+            @include --phone(0, 900px) {
+                flex-direction: column;
+                align-items: center;
+            }
+
+
+            @include --phone {
+                margin-left: -25px;
+            }
+
+
             &__pic {
                 border-radius: 50%;
+
+                @include --phone(0, 1000px) {
+                    width: 180px;
+                    height: 180px;
+                }
+
+
+                @include --phone(1001px, 1200px) {
+                    width: 200px;
+                    height: 200px;
+                }
+
+
+                @include --larger-desktop(1225px) {
+                    padding-left: 50px;
+                }
             }
 
             &-sub-details {
                 margin-left: 40px;
 
                 &__name {
+                    display: flex;
+                    align-items: center;
                     font-size: 3rem;
                     font-weight: 600;
+
+                    @include --phone {
+                        font-size: 2rem;
+                        justify-content: center;
+                    }
+
+
+                    @include --tablet {
+                        justify-content: center;
+                        font-size: 2.5rem;
+                    }
                 }
 
                 &__play {
                     cursor: pointer;
+                    padding: 0 20px 0 10px;
                 }
 
                 &__fans {
                     font-size: .9rem;
                     padding-left: 4px;
+
+                    @include --phone {
+                        text-align: center;
+                        margin-left: -10%;
+                        padding-bottom: 10px;
+                    }
+
+
+                    @include --tablet {
+                        text-align: center;
+                        margin-left: -10%;
+                        padding-bottom: 10px;
+                    }
+
+                    @include --desktop {
+                      padding-bottom: 10px;
+                    }
                 }
 
                 &-desc-func {
@@ -40,16 +108,39 @@
                     grid-template-columns: 1fr 1fr;
                     align-items: center;
 
+                    @include --phone(0, 1200px) {
+                        grid-template-columns: 1fr;
+                    }
+
+
                     &__desc {
                         margin-top: 20px;
                         cursor: pointer;
                         font-size: .94rem;
                         border-right: solid 1px;
+
+                        @include --phone {
+                            font-size: .9rem;
+                        }
+
+
+                        @include --phone(0, 1200px) {
+                            border-right: none;
+                            max-width: 90%;
+                            padding-bottom: 18px;
+                            border-bottom: solid 1px;
+                            margin: 0 auto;
+                        }
                     }
 
                     &__func {
                         display: flex;
                         font-size: 1.5rem;
+
+                        @include --phone(0, 1200px) {
+                            padding-top: 18px;
+                        }
+
 
                         &__share {
                             cursor: pointer;
@@ -76,9 +167,23 @@
         &-tb {
             display: inline-block;
 
+            @include --phone {}
+
+
             &__header {
                 font-family: 'aristotelica';
                 letter-spacing: 3px;
+
+                @include --phone {
+                    text-align: center;
+                }
+
+
+                &-album {
+                    @include --phone {
+                        display: none;
+                    }
+                }
             }
 
             &-table {
@@ -86,9 +191,20 @@
                 margin-bottom: 0;
                 padding-bottom: 20px;
 
+                @include --phone {
+                    margin-left: 11%;
+                }
+
+
                 &__header {
                     font-family: 'aristotelica';
                     letter-spacing: 3px;
+
+                    &-album {
+                        @include --phone(0, 683px) {
+                            display: none;
+                        }
+                    }
                 }
 
                 &__ellipsis {
@@ -112,6 +228,11 @@
                     &__album {
                         color: $mainGray;
 
+                        @include --phone(0, 683px) {
+                            display: none;
+                        }
+
+
                         &__text {
                             cursor: pointer;
 
@@ -124,6 +245,7 @@
                     &__duration {
                         color: $mainGray;
                         font-size: .9rem;
+                        padding-right: 10px;
                     }
 
                     &__play-icon {
@@ -132,17 +254,24 @@
                         display: none;
                     }
 
-                    &__ellipsis {
-                        text-align: center;
-                    }
-
                     &__ellipsis-icon {
                         cursor: pointer;
                         display: none;
+                        padding-left: 20px;
                     }
 
                     &__numbers {
                         padding-right: 10px;
+
+                        @include --phone {
+                            display: none;
+                        }
+                    }
+
+                    &__title {
+                        @include --phone {
+                            font-size: .9rem;
+                        }
                     }
                 }
             }
@@ -151,10 +280,20 @@
         &-content {
             padding: 30px 0;
 
+            @include --phone {
+                margin-left: 7%;
+            }
+
+
             &__top {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                @include --phone {
+                    padding: 0 20px;
+                }
+
 
                 &__show-all {
                     padding: 10px;
