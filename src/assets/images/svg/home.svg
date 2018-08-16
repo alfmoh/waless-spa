@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px" y="0px" width="35px" height="35px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-    <polygon class="sidebar-content__item__home-icon ws-focus-border" fill="none" stroke="#FFF" stroke-width="2" stroke-miterlimit="10"
+    <polygon class="sidebar-content__item__home-icon ws-focus-border" fill="none" stroke="#b76f03" stroke-width="2" stroke-miterlimit="10"
             points="32,3 2,33 11,33 11,63 23,63 23,47 39,47
   39,63 51,63 51,33 62,33 " />
 </svg>
