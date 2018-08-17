@@ -37,6 +37,7 @@
         &-title-ex {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
 
             @include --phone(0, 1224px) {
                 flex-direction: column;
