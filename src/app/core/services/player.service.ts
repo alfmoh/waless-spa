@@ -16,6 +16,8 @@ export class PlayerService {
   private playList: PlaylistTrack[];
   index: number;
   playerEvents: PlayerEvents;
+  playing = false;
+  paused: boolean;
 
   constructor() {
     this.index = 0;
@@ -29,15 +31,18 @@ export class PlayerService {
   }
 
   init(tracks) {
+    if(this.playing) this.stop();
     this.playList = initPlaylist(tracks, this.playerEvents);
   }
 
   playNew(i) {
-    newSong(this.playList, i, this.index = i);
+    if(this.playing) this.stop();
+    newSong(this.playList,this.index = i);
+    this.playing = true;
   }
 
   playNext() {
-    this.stop();
+    if(this.playing) this.stop();
     let index = this.index + 1;
     if (index < this.playList.length) {
       this.playNew(index);
@@ -46,7 +51,7 @@ export class PlayerService {
   }
 
   playPrevious() {
-    this.stop();
+    if(this.playing) this.stop();
     let index = this.index - 1;
     if (index >= 0) {
       this.playNew(index);
@@ -56,13 +61,18 @@ export class PlayerService {
 
   stop() {
     stop(this.playList[this.index]);
+    this.playing = false;
   }
 
   play() {
+    if(this.playing && !this.paused) this.stop();
     play(this.playList[this.index]);
+    this.playing = true;
   }
 
   pause() {
     pause(this.playList[this.index]);
+    this.paused = true;
+    this.playing = false;
   }
 }

@@ -55,10 +55,8 @@ function togglePlaying() {
   return (playing = !playing);
 }
 
-export function newSong(playlist: PlaylistTrack[], i: number, index: number): PlaylistTrack[] {
-  let currentSong = playlist[index];
-  let newSong = playlist[i];
-  if (playing) stop(currentSong);
+export function newSong(playlist: PlaylistTrack[], index: number): PlaylistTrack[] {
+  let newSong = playlist[index];
   play(newSong);
   return playlist;
 }

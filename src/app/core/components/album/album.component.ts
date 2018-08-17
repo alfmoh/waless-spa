@@ -36,12 +36,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
-    this.subPlaying = event.playing$.subscribe(event$ => this.playerHandler.playing(event$));
-  }
-
-  startTrack(albumTracks,index){
-    if(this.playerHandler.isPlaying) this.playerHandler.stop();
-    this.playerHandler.startSelectedTrack(albumTracks,index)
+    this.subPlaying = event.playing$.subscribe( () => this.playerHandler.isPlaying());
   }
 
   ngOnDestroy() {

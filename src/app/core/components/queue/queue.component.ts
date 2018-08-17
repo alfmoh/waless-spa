@@ -28,8 +28,8 @@ export class QueueComponent implements OnInit {
   ngOnInit() {
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
-    this.subPlaying = event.playing$.subscribe(event$ =>
-      this.playerHandler.playing(event$)
+    this.subPlaying = event.playing$.subscribe(() =>
+      this.playerHandler.isPlaying()
     );
     window.scrollTo(0, 0);
   }
@@ -42,7 +42,6 @@ export class QueueComponent implements OnInit {
 
   startTrack(tracks: Track[], index) {
     this.selectedTrack = tracks[index];
-    if (this.playerHandler.isPlaying) this.playerHandler.stop();
     this.playerHandler.startSelectedTrack(tracks, index);
   }
 }

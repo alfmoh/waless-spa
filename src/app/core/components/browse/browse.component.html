@@ -22,7 +22,7 @@
   </ul>
 </div>
 <ws-player
-  [playing]="playerHandler.isPlaying"
+  [playing]="playerHandler.isPlaying()"
   (play)="playerHandler.play()"
   (pause)="playerHandler.pause()"
   (stop)="playerHandler.stop()"

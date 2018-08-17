@@ -27,8 +27,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
-    this.subPlaying = event.playing$.subscribe(event$ =>
-      this.playerHandler.playing(event$)
+    this.subPlaying = event.playing$.subscribe( () =>
+      this.playerHandler.isPlaying()
     );
   }
 

@@ -10,7 +10,6 @@ import { Title } from "@angular/platform-browser";
   providedIn: "root"
 })
 export class PlayerHanlder {
-  isPlaying: boolean = false;
   index: number;
   tracks$ = new BehaviorSubject<any>(sampleTracks);
   siteTitle;
@@ -51,9 +50,10 @@ export class PlayerHanlder {
     }
   }
 
-  play() {
-    this.isPlaying = true;
-    this.playerService.play();
+  play(index) {
+    isNaN(parseFloat(index))
+      ? this.playerService.play()
+      : this.playerService.playNew(index);
   }
 
   pause() {
@@ -65,7 +65,6 @@ export class PlayerHanlder {
   }
 
   next() {
-    this.stop();
     this.tracks$.subscribe(t => {
       this.siteTitle = t[this.playerService.index + 1].title_short;
       this.titleService.setTitle(this.siteTitle);
@@ -74,12 +73,11 @@ export class PlayerHanlder {
   }
 
   previous() {
-    this.stop();
     this.playerService.playPrevious();
   }
 
-  playing(playing) {
-    this.isPlaying = playing;
+  isPlaying() {
+    return this.playerService.playing;
   }
 
   onEnd() {
@@ -87,32 +85,24 @@ export class PlayerHanlder {
   }
 
   start(album) {
-    if (this.isPlaying) this.stop();
-
     this.deezer.getTrackList(album.tracklist).subscribe((tracks: Track[]) => {
-      this.initTracks(tracks);
-      this.playerService.index = 0;
-      this.play();
-      this.titleService.setTitle(tracks[0].title_short);
+      this.processTracks(tracks);
     });
   }
 
   startWithLoadedTracks(album) {
-    if (this.isPlaying) this.stop();
-
     const tracks = album.tracks.data;
+    this.processTracks(tracks);
+  }
+
+  private processTracks(tracks: any, index = null) {
     this.initTracks(tracks);
-    this.playerService.index = 0;
-    this.play();
+    if (isNaN(parseFloat(index))) this.playerService.index = 0;
+    this.play(index);
     this.titleService.setTitle(tracks[0].title_short);
   }
 
   startSelectedTrack(tracks, trackIndex) {
-    if (this.isPlaying) this.stop();
-
-    this.initTracks(tracks);
-    this.playerService.playNew(trackIndex);
-    this.titleService.setTitle(tracks[trackIndex].title_short);
-    this.isPlaying = true;
+    this.processTracks(tracks, trackIndex);
   }
 }
