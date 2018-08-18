@@ -32,7 +32,9 @@
       <li class="queue-content-list-item" *ngFor="let track of tracks; let i=index">
         <div class="queue-content-list-item-tracks" (click)="startTrack(tracks,i)">
           <div class="queue-content-list-item-tracks-track">
-            <span class="queue-content-list-item-tracks-track__title">{{track.title}}</span>
+            <span [title]="track.title | titlecase" class="queue-content-list-item-tracks-track__title">
+              {{(track.title | customSlice: 25) | titlecase}}
+            </span>
             <span
               [routerLink]="['/artist', track.artist.id]"
               [title]="track.artist.name"

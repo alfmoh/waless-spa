@@ -15,8 +15,7 @@ const coreRoutes: Routes = [
     path: "browse",
     component: BrowseComponent,
     canActivate: [AuthGuard],
-    resolve: { siteTitle: SiteTitleResolverService },
-    runGuardsAndResolvers: "always"
+    resolve: { siteTitle: SiteTitleResolverService }
   },
   {
     path: "album/:id",
