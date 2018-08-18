@@ -35,7 +35,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
     this.albumId = +this.route.snapshot.paramMap.get("id");
     if (this.albumId) {
       this.deezer.getAlbum(this.albumId).subscribe((album: any) => {
-        this.albumTracks = album.tracks.data;
+        this.albumTracks = album.tracks.data.filter(track => track.readable);
         return (this.album = album);
       });
     }

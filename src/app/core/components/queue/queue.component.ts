@@ -22,17 +22,16 @@ export class QueueComponent implements OnInit {
     public playerHandler: PlayerHanlder,
     private title: Title,
     private route: ActivatedRoute
-  ) {
-    this.subTrack = this.playerHandler.tracks$.subscribe(tracks => {
-      if (!this.selectedTrack) this.selectedTrack = tracks[0];
-      this.tracks = tracks;
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.route.data.subscribe((data: { siteTitle: string }) =>
       this.title.setTitle(data.siteTitle)
     );
+
+    this.tracks = this.playerHandler.queueArr;
+    if (!this.selectedTrack && this.tracks.length > 0)
+      this.selectedTrack = this.playerHandler.queueArr[0];
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
@@ -45,11 +44,5 @@ export class QueueComponent implements OnInit {
   ngOnDestroy() {
     this.subOnEnd.unsubscribe();
     this.subPlaying.unsubscribe();
-    this.subTrack.unsubscribe();
-  }
-
-  startTrack(tracks: Track[], index) {
-    this.selectedTrack = tracks[index];
-    this.playerHandler.startSelectedTrack(tracks, index);
   }
 }

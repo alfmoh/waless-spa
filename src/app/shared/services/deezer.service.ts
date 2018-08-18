@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { map, filter } from "rxjs/operators";
 import { Track } from "./../models/Track";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
@@ -13,32 +13,18 @@ export class DeezerService {
   baseUrl = "https://api.deezer.com/";
   jsonUrl = "output=jsonp&callback=JSONP_CALLBACK";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getTracks(): Observable<Track[]> {
-    return this.http
-      .jsonp(`${this.baseUrl}chart?${this.jsonUrl}`, "JSONP_CALLBACK")
-      .pipe(map((response: any) => response.tracks.data));
-  }
-  getTrackList(url:string): Observable<Track[]> {
+  getTrackList(url: string): Observable<Track[]> {
     return this.http
       .jsonp(`${url}?${this.jsonUrl}`, "JSONP_CALLBACK")
       .pipe(map((response: any) => response.data));
   }
 
-  getAlbumns(): Observable<Album[]> {
+  getChartAlbums(): Observable<Album[]> {
     return this.http
       .jsonp(`${this.baseUrl}chart?${this.jsonUrl}`, "JSONP_CALLBACK")
       .pipe(map((response: any) => response.albums.data));
-  }
-
-  getAlbumTracks(albumId: number): Observable<Track[]> {
-    return this.http
-      .jsonp(
-        `${this.baseUrl}album/${albumId}/tracks?${this.jsonUrl}`,
-        "JSONP_CALLBACK"
-      )
-      .pipe(map((response: any) => response.data));
   }
 
   getArtist(artistId: number): Observable<Artist> {
@@ -54,7 +40,9 @@ export class DeezerService {
         `${this.baseUrl}artist/${artistId}/top?limit=20&${this.jsonUrl}`,
         "JSON_CALLBACK"
       )
-      .pipe(map((response: any) => response.data));
+      .pipe(
+        map((response: any) => response.data.filter(track => track.readable))
+      );
   }
 
   getAlbum(albumId: number): Observable<Album> {

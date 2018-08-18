@@ -1,5 +1,5 @@
 <ng-template #loading>
-  <span class="ws-shift">Loading...</span>
+  <span class="queue queue-loading ws-shift">Loading...</span>
 </ng-template>
 
 <div *ngIf="tracks.length; else loading" class=" ws-shift queue">
@@ -30,7 +30,7 @@
     </div>
     <ul class="queue-content-list">
       <li class="queue-content-list-item" *ngFor="let track of tracks; let i=index">
-        <div class="queue-content-list-item-tracks" (click)="startTrack(tracks,i)">
+        <div class="queue-content-list-item-tracks" (click)="playerHandler.initializeQueue(tracks,i,true)">
           <div class="queue-content-list-item-tracks-track">
             <span [title]="track.title | titlecase" class="queue-content-list-item-tracks-track__title">
               {{(track.title | customSlice: 25) | titlecase}}

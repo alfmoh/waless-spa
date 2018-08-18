@@ -34,21 +34,22 @@ export class PlayerService {
   }
 
   init(tracks) {
-    if(this.playing) this.stop();
+    if (this.playing) this.stop();
     this.tracks = tracks;
     this.playList = initPlaylist(tracks, this.playerEvents);
   }
 
   playNew(i) {
-    if(this.playing) this.stop();
-    newSong(this.playList,this.index = i);
+    if (this.playing) this.stop();
+    newSong(this.playList, (this.index = i));
     this.playing = true;
-    this.siteTitle = this.tracks[this.index].title_short;
+    const track = this.tracks[this.index];
+    this.siteTitle = this.getSiteTitle(track);
     this.titleService.setTitle(this.siteTitle);
   }
 
   playNext() {
-    if(this.playing) this.stop();
+    if (this.playing) this.stop();
     let index = this.index + 1;
     if (index < this.playList.length) {
       this.playNew(index);
@@ -57,13 +58,14 @@ export class PlayerService {
   }
 
   playPrevious() {
-    if(this.playing) this.stop();
+    if (this.playing) this.stop();
     let index = this.index - 1;
     if (index >= 0) {
       this.playNew(index);
       this.index = index;
     }
-    this.siteTitle = this.tracks[this.index].title_short;
+    const track = this.tracks[this.index];
+    this.siteTitle = this.getSiteTitle(track);
     this.titleService.setTitle(this.siteTitle);
   }
 
@@ -73,10 +75,11 @@ export class PlayerService {
   }
 
   play() {
-    if(this.playing && !this.paused) this.stop();
+    if (this.playing && !this.paused) this.stop();
     play(this.playList[this.index]);
     this.playing = true;
-    this.siteTitle = this.tracks[this.index].title_short;
+    const track = this.tracks[this.index];
+    this.siteTitle = this.getSiteTitle(track);
     this.titleService.setTitle(this.siteTitle);
   }
 
@@ -84,5 +87,9 @@ export class PlayerService {
     pause(this.playList[this.index]);
     this.paused = true;
     this.playing = false;
+  }
+
+  private getSiteTitle(track: any): string {
+    return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
   }
 }

@@ -5,12 +5,18 @@
     color: $smokeWhite;
     min-height: 100vh;
     padding-top: 50px;
+    padding-bottom: 70px;
     font-family: "Roboto", sans-serif;
 
     @include --phone(0, 900px) {
         padding-left: 10%;
     }
 
+    &-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     &-header {
         text-align: center;

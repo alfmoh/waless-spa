@@ -26,7 +26,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.deezer
-      .getAlbumns()
+      .getChartAlbums()
       .subscribe((response: Album[]) => (this.albums = response));
 
     this.route.data.subscribe((data: { siteTitle: string }) => {

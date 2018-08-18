@@ -12,12 +12,13 @@ export class PlayerHanlder {
   tracks$ = new BehaviorSubject<any>(sampleTracks);
   siteTitle;
   private queueIndexer = 0;
-  private queueArr = [];
+  queueArr = [];
   private interval: any;
 
   constructor(
     private playerService: PlayerService,
-    private deezer: DeezerService  ) {}
+    private deezer: DeezerService
+  ) { }
 
   initTracks(tracks: Track[]): void {
     this.queueArr = [];
@@ -76,24 +77,30 @@ export class PlayerHanlder {
     this.next();
   }
 
-  start(album) {
-    this.deezer.getTrackList(album.tracklist).subscribe((tracks: Track[]) => {
-      this.processTracks(tracks);
-    });
-  }
-
-  startWithLoadedTracks(album) {
-    const tracks = album.tracks.data;
-    this.processTracks(tracks);
+  startAlbum(album) {
+    if (!album.tracks) {
+      this.deezer
+        .getTrackList(album.tracklist)
+        .subscribe((tracks: Track[]) => this.processTracks(tracks));
+    } else {
+      this.processTracks(album.tracks.data);
+    }
   }
 
   startSelectedTrack(tracks, trackIndex) {
     this.processTracks(tracks, trackIndex);
   }
 
-  private processTracks(tracks: any, index = null) {
-    this.initTracks(tracks);
-    if (isNaN(parseFloat(index))) this.playerService.index = 0;
+  initializeQueue(tracks, index, isQueue) {
+    this.processTracks(tracks, index, isQueue);
+  }
+
+  private processTracks(tracks: any, index = null, isQueue = false) {
+    if (isQueue) this.playerService.init(tracks);
+    else {
+      this.initTracks(tracks);
+      if (isNaN(parseFloat(index))) this.playerService.index = 0;
+    }
     this.play(index);
   }
 }
