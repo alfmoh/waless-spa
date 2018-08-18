@@ -4,13 +4,11 @@ import { Injectable } from "@angular/core";
 import { DeezerService } from "../services/deezer.service";
 import { Track } from "../models/Track";
 import { sampleTracks } from "../temp/_lorem";
-import { Title } from "@angular/platform-browser";
 
 @Injectable({
   providedIn: "root"
 })
 export class PlayerHanlder {
-  index: number;
   tracks$ = new BehaviorSubject<any>(sampleTracks);
   siteTitle;
   private queueIndexer = 0;
@@ -19,9 +17,7 @@ export class PlayerHanlder {
 
   constructor(
     private playerService: PlayerService,
-    private deezer: DeezerService,
-    private titleService: Title
-  ) {}
+    private deezer: DeezerService  ) {}
 
   initTracks(tracks: Track[]): void {
     this.queueArr = [];
@@ -65,10 +61,6 @@ export class PlayerHanlder {
   }
 
   next() {
-    this.tracks$.subscribe(t => {
-      this.siteTitle = t[this.playerService.index + 1].title_short;
-      this.titleService.setTitle(this.siteTitle);
-    });
     this.playerService.playNext();
   }
 
@@ -95,14 +87,13 @@ export class PlayerHanlder {
     this.processTracks(tracks);
   }
 
+  startSelectedTrack(tracks, trackIndex) {
+    this.processTracks(tracks, trackIndex);
+  }
+
   private processTracks(tracks: any, index = null) {
     this.initTracks(tracks);
     if (isNaN(parseFloat(index))) this.playerService.index = 0;
     this.play(index);
-    this.titleService.setTitle(tracks[0].title_short);
-  }
-
-  startSelectedTrack(tracks, trackIndex) {
-    this.processTracks(tracks, trackIndex);
   }
 }

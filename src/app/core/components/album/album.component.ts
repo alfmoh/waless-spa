@@ -5,6 +5,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Track } from "../../../shared/models/Track";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { PlayerService } from "../../services/player.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "ws-album",
@@ -22,10 +23,15 @@ export class AlbumComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private title: Title
   ) {}
 
   ngOnInit() {
+    this.route.data.subscribe((data: { siteTitle: string }) =>
+      this.title.setTitle(data.siteTitle)
+    );
+
     this.albumId = +this.route.snapshot.paramMap.get("id");
     if (this.albumId) {
       this.deezer.getAlbum(this.albumId).subscribe((album: any) => {
@@ -36,7 +42,9 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
-    this.subPlaying = event.playing$.subscribe( () => this.playerHandler.isPlaying());
+    this.subPlaying = event.playing$.subscribe(() =>
+      this.playerHandler.isPlaying()
+    );
   }
 
   ngOnDestroy() {

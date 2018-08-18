@@ -1,3 +1,5 @@
+import { Title } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
 import { PlayerService } from "./../../services/player.service";
 import { Album } from "./../../../shared/models/Album";
 import { DeezerService } from "./../../../shared/services/deezer.service";
@@ -17,7 +19,9 @@ export class BrowseComponent implements OnInit, OnDestroy {
   constructor(
     private playerService: PlayerService,
     private deezer: DeezerService,
-    public playerHandler: PlayerHanlder
+    public playerHandler: PlayerHanlder,
+    private route: ActivatedRoute,
+    private title: Title
   ) {}
 
   ngOnInit() {
@@ -25,9 +29,13 @@ export class BrowseComponent implements OnInit, OnDestroy {
       .getAlbumns()
       .subscribe((response: Album[]) => (this.albums = response));
 
+    this.route.data.subscribe((data: { siteTitle: string }) => {
+      this.title.setTitle(data.siteTitle);
+    });
+
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
-    this.subPlaying = event.playing$.subscribe( () =>
+    this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()
     );
   }

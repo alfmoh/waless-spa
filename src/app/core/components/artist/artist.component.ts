@@ -8,6 +8,7 @@ import { Album } from "../../../shared/models/Album";
 import { AlertifyService } from "../../../shared/services/Alertify.service";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { lorem } from "../../../shared/temp/_lorem";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "ws-artist",
@@ -30,10 +31,15 @@ export class ArtistComponent implements OnInit, OnDestroy {
     private deezer: DeezerService,
     private route: ActivatedRoute,
     public playerHandler: PlayerHanlder,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private title: Title
   ) {}
 
   ngOnInit() {
+    this.route.data.subscribe((data: { siteTitle: string }) =>
+      this.title.setTitle(data.siteTitle)
+    );
+
     this.artistId = this.route.snapshot.paramMap.get("id");
     if (this.artistId) {
       this.deezer

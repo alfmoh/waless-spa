@@ -8,6 +8,7 @@ import {
   pause,
   play
 } from "../../shared/helpers/playerfunctions";
+import { Title } from "@angular/platform-browser";
 
 @Injectable({
   providedIn: "root"
@@ -18,8 +19,10 @@ export class PlayerService {
   playerEvents: PlayerEvents;
   playing = false;
   paused: boolean;
+  private tracks;
+  siteTitle = "";
 
-  constructor() {
+  constructor(private titleService: Title) {
     this.index = 0;
     this.playerEvents = {
       onEnd$: new EventEmitter(),
@@ -32,6 +35,7 @@ export class PlayerService {
 
   init(tracks) {
     if(this.playing) this.stop();
+    this.tracks = tracks;
     this.playList = initPlaylist(tracks, this.playerEvents);
   }
 
@@ -39,6 +43,8 @@ export class PlayerService {
     if(this.playing) this.stop();
     newSong(this.playList,this.index = i);
     this.playing = true;
+    this.siteTitle = this.tracks[this.index].title_short;
+    this.titleService.setTitle(this.siteTitle);
   }
 
   playNext() {
@@ -57,6 +63,8 @@ export class PlayerService {
       this.playNew(index);
       this.index = index;
     }
+    this.siteTitle = this.tracks[this.index].title_short;
+    this.titleService.setTitle(this.siteTitle);
   }
 
   stop() {
@@ -68,6 +76,8 @@ export class PlayerService {
     if(this.playing && !this.paused) this.stop();
     play(this.playList[this.index]);
     this.playing = true;
+    this.siteTitle = this.tracks[this.index].title_short;
+    this.titleService.setTitle(this.siteTitle);
   }
 
   pause() {
