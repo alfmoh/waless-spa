@@ -25,7 +25,7 @@
 
     <ul class="album-content-tracks ws-ul-reset">
       <li *ngFor="let track of albumTracks; let i=index;" class="album-content-tracks__track" (click)="playerHandler.startSelectedTrack(albumTracks, i)">
-        <div class="album-content-tracks__track__title">{{track.title | titlecase}}
+        <div [title]="track.title" class="album-content-tracks__track__title">{{(track.title | customSlice: 30) | titlecase}}
           <div class="album-content-tracks__track__title-extra">
             <h6 [routerLink]="['/artist', track.artist.id]" class="album-content-tracks__track__title-extra-artist ws-focus-border">
               {{track.artist.name}}

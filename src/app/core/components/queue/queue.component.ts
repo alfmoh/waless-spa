@@ -1,21 +1,27 @@
 import { ActivatedRoute } from "@angular/router";
-import { Track } from "./../../../shared/models/Track";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-queue",
   templateUrl: "./queue.component.html",
-  styleUrls: ["./queue.component.scss"]
+  styleUrls: ["./queue.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QueueComponent implements OnInit {
   tracks;
-  selectedTrack: Track;
   subOnEnd: any;
   subPlaying: any;
-  subTrack: any;
+
+  getterTrigger = this.playerService.currentTrack$;
+
+  get currentlyPlaying() {
+    return (
+      this.playerService.currentTrack || this.tracks[this.playerService.index]
+    );
+  }
 
   constructor(
     private playerService: PlayerService,
@@ -28,10 +34,7 @@ export class QueueComponent implements OnInit {
     this.route.data.subscribe((data: { siteTitle: string }) =>
       this.title.setTitle(data.siteTitle)
     );
-
     this.tracks = this.playerHandler.queueArr;
-    if (!this.selectedTrack && this.tracks.length > 0)
-      this.selectedTrack = this.playerHandler.queueArr[0];
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

@@ -1,26 +1,26 @@
 <ng-template #loading>
   <span class="queue queue-loading ws-shift">Loading...</span>
 </ng-template>
-
+<div [hidden]="true" >{{(getterTrigger | async)}}</div>
 <div *ngIf="tracks.length; else loading" class=" ws-shift queue">
   <h3 class="queue-header">Now Playing</h3>
   <div class="queue-content">
-    <div class="queue-content-list-item-img">
+    <div class="queue-content-list-item-img" *ngIf="currentlyPlaying | json" >
 
-      <img [src]="selectedTrack?.album.cover_medium" [alt]="selectedTrack?.title" class="queue-content-list-item-img__img">
+      <img [src]="currentlyPlaying?.album?.cover_medium" [alt]="currentlyPlaying?.title" class="queue-content-list-item-img__img">
       <div class="queue-content-list-item-img__track-name">
         <div class="queue-content-list-item-img__track-name__track">
-          {{selectedTrack?.title}}
+          {{currentlyPlaying?.title}}
         </div>
         <div
-          [routerLink]="['/artist', selectedTrack.artist.id]"
+          [routerLink]="['/artist', currentlyPlaying?.artist?.id]"
           class="queue-content-list-item-img__track-name__artist-name ws-focus-border">
-          <span class="queue-content-list-item-img__track-name__artist-name__artist" >Artist</span> - {{selectedTrack?.artist.name}}
+          <span class="queue-content-list-item-img__track-name__artist-name__artist" >Artist</span> - {{currentlyPlaying?.artist?.name}}
         </div>
         <div
-          [routerLink]="['/album', selectedTrack.album.id]"
+          [routerLink]="['/album', currentlyPlaying?.album?.id]"
           class="queue-content-list-item-img__track-name__album-name ws-focus-border">
-          <span class="queue-content-list-item-img__track-name__album-name__album" >Album</span> - {{selectedTrack?.album.title}}
+          <span class="queue-content-list-item-img__track-name__album-name__album" >Album</span> - {{currentlyPlaying?.album?.title}}
         </div>
       </div>
       <div class="queue-content-list-item-img-actions">

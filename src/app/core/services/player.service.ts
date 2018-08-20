@@ -9,18 +9,22 @@ import {
   play
 } from "../../shared/helpers/playerfunctions";
 import { Title } from "@angular/platform-browser";
+import { Track } from "../../shared/models/Track";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class PlayerService {
   private playList: PlaylistTrack[];
+  private tracks: Track[];
   index: number;
   playerEvents: PlayerEvents;
   playing = false;
   paused: boolean;
-  private tracks;
   siteTitle = "";
+  currentTrack = null;
+  currentTrack$ = new BehaviorSubject<any>(this.currentTrack);
 
   constructor(private titleService: Title) {
     this.index = 0;
@@ -39,33 +43,32 @@ export class PlayerService {
     this.playList = initPlaylist(tracks, this.playerEvents);
   }
 
-  playNew(i) {
+  playNew(i, queArr) {
     if (this.playing) this.stop();
     newSong(this.playList, (this.index = i));
     this.playing = true;
-    const track = this.tracks[this.index];
-    this.siteTitle = this.getSiteTitle(track);
+    this.setQueue(queArr)
+    this.siteTitle = this.getSiteTitle(this.currentTrack);
     this.titleService.setTitle(this.siteTitle);
   }
 
-  playNext() {
+  playNext(queueArr) {
     if (this.playing) this.stop();
     let index = this.index + 1;
     if (index < this.playList.length) {
-      this.playNew(index);
+      this.playNew(index, queueArr);
       this.index = index;
     }
   }
 
-  playPrevious() {
+  playPrevious(queueArr) {
     if (this.playing) this.stop();
     let index = this.index - 1;
     if (index >= 0) {
-      this.playNew(index);
+      this.playNew(index, queueArr);
       this.index = index;
     }
-    const track = this.tracks[this.index];
-    this.siteTitle = this.getSiteTitle(track);
+    this.siteTitle = this.getSiteTitle(this.currentTrack);
     this.titleService.setTitle(this.siteTitle);
   }
 
@@ -74,12 +77,12 @@ export class PlayerService {
     this.playing = false;
   }
 
-  play() {
+  play(queArr) {
     if (this.playing && !this.paused) this.stop();
     play(this.playList[this.index]);
     this.playing = true;
-    const track = this.tracks[this.index];
-    this.siteTitle = this.getSiteTitle(track);
+    this.setQueue(queArr)
+    this.siteTitle = this.getSiteTitle(this.currentTrack);
     this.titleService.setTitle(this.siteTitle);
   }
 
@@ -91,5 +94,10 @@ export class PlayerService {
 
   private getSiteTitle(track: any): string {
     return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
+  }
+
+  setQueue(tracks) {
+    this.currentTrack = tracks[this.index]
+    this.currentTrack$.next(tracks[this.index]);
   }
 }

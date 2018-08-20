@@ -49,8 +49,8 @@ export class PlayerHanlder {
 
   play(index) {
     isNaN(parseFloat(index))
-      ? this.playerService.play()
-      : this.playerService.playNew(index);
+      ? this.playerService.play(this.queueArr)
+      : this.playerService.playNew(index, this.queueArr);
   }
 
   pause() {
@@ -62,11 +62,11 @@ export class PlayerHanlder {
   }
 
   next() {
-    this.playerService.playNext();
+    this.playerService.playNext(this.queueArr);
   }
 
   previous() {
-    this.playerService.playPrevious();
+    this.playerService.playPrevious(this.queueArr);
   }
 
   isPlaying() {
