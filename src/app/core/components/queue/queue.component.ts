@@ -15,14 +15,6 @@ export class QueueComponent implements OnInit {
   subOnEnd: any;
   subPlaying: any;
 
-  getterTrigger = this.playerService.currentTrack$;
-
-  get currentlyPlaying() {
-    return (
-      this.playerService.currentTrack || this.tracks[this.playerService.index]
-    );
-  }
-
   constructor(
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,

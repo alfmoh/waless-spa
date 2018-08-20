@@ -1,6 +1,6 @@
 @import "~src/assets/scss/styles";
 
-.queue {
+::ng-deep .queue {
     background: $grayBlack;
     color: $smokeWhite;
     min-height: 100vh;

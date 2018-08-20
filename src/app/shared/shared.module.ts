@@ -8,6 +8,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule } from "@angular/forms";
 import { LeftSidebarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { PlayerComponent } from "./components/player/player.component";
+import { CurrentlyPlayingComponent } from './components/currently-playing/currently-playing.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { PlayerComponent } from "./components/player/player.component";
     LeftSidebarComponent,
     PlayerComponent,
     TrackDurationPipe,
-    CustomSlice
+    CustomSlice,
+    CurrentlyPlayingComponent
   ],
   exports: [
     NgbModule,
@@ -29,7 +31,8 @@ import { PlayerComponent } from "./components/player/player.component";
     LeftSidebarComponent,
     PlayerComponent,
     TrackDurationPipe,
-    CustomSlice
+    CustomSlice,
+    CurrentlyPlayingComponent
   ]
 })
 export class SharedModule {}

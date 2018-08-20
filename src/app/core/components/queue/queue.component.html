@@ -1,33 +1,11 @@
 <ng-template #loading>
   <span class="queue queue-loading ws-shift">Loading...</span>
 </ng-template>
-<div [hidden]="true" >{{(getterTrigger | async)}}</div>
+
 <div *ngIf="tracks.length; else loading" class=" ws-shift queue">
   <h3 class="queue-header">Now Playing</h3>
   <div class="queue-content">
-    <div class="queue-content-list-item-img" *ngIf="currentlyPlaying | json" >
-
-      <img [src]="currentlyPlaying?.album?.cover_medium" [alt]="currentlyPlaying?.title" class="queue-content-list-item-img__img">
-      <div class="queue-content-list-item-img__track-name">
-        <div class="queue-content-list-item-img__track-name__track">
-          {{currentlyPlaying?.title}}
-        </div>
-        <div
-          [routerLink]="['/artist', currentlyPlaying?.artist?.id]"
-          class="queue-content-list-item-img__track-name__artist-name ws-focus-border">
-          <span class="queue-content-list-item-img__track-name__artist-name__artist" >Artist</span> - {{currentlyPlaying?.artist?.name}}
-        </div>
-        <div
-          [routerLink]="['/album', currentlyPlaying?.album?.id]"
-          class="queue-content-list-item-img__track-name__album-name ws-focus-border">
-          <span class="queue-content-list-item-img__track-name__album-name__album" >Album</span> - {{currentlyPlaying?.album?.title}}
-        </div>
-      </div>
-      <div class="queue-content-list-item-img-actions">
-        <i class="queue-content-list-item-img-actions__fav fa fa-heart-o"></i>
-        <i class="queue-content-list-item-img-actions__add fa fa-plus"></i>
-      </div>
-    </div>
+    <ws-currently-playing ></ws-currently-playing>
     <ul class="queue-content-list">
       <li class="queue-content-list-item" *ngFor="let track of tracks; let i=index">
         <div class="queue-content-list-item-tracks" (click)="playerHandler.initializeQueue(tracks,i,true)">
