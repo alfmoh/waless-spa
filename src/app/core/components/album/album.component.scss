@@ -153,6 +153,13 @@
                 }
 
 
+                @include --tablet(0, 900px) {
+                    .album-content-tracks__track-dur-more__more {
+                        visibility: visible;
+                    }
+                }
+
+
                 &-dur-more {
                     margin-right: 40px;
 
@@ -168,6 +175,11 @@
                             padding-right: 10px;
                             padding-right: 0;
                             padding-left: 20px;
+                        }
+
+
+                        @include --tablet(0, 900px) {
+                            font-size: .95rem;
                         }
                     }
 

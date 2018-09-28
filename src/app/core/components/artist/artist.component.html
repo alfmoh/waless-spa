@@ -37,9 +37,9 @@
         </thead>
         <tbody>
           <tr class="artist-collection-tb-table-tracks" *ngFor="let track of topTracks, let i=index">
-            <td class="artist-collection-tb-table-tracks__title">
+            <td class="artist-collection-tb-table-tracks__title" (click)="playerHandler.startSelectedTrack(topTracks,i)">
               <span class="artist-collection-tb-table-tracks__numbers">{{i+1}}</span>
-              <i class="fa fa-play-circle artist-collection-tb-table-tracks__play-icon" (click)="playerHandler.startSelectedTrack(topTracks,i)"></i>
+              <i class="fa fa-heart-o artist-collection-tb-table-tracks__play-icon"></i>
               {{track.title_short | titlecase}}
             </td>
             <td class="artist-collection-tb-table-tracks__album">

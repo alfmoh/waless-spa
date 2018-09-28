@@ -214,6 +214,7 @@
 
                 &-tracks {
                     &:hover {
+                        cursor: pointer;
                         background-color: $transparentBlack;
 
                         .artist-collection-tb-table-tracks__play-icon,
