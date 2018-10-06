@@ -5,6 +5,7 @@ import { Album } from "./../../../shared/models/Album";
 import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
+import { Store, select } from "@ngrx/store";
 
 @Component({
   selector: "ws-browse",
@@ -21,7 +22,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
     private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
     private route: ActivatedRoute,
-    private title: Title
+    private title: Title,
+    private store: Store<any>
   ) {}
 
   ngOnInit() {
@@ -29,9 +31,11 @@ export class BrowseComponent implements OnInit, OnDestroy {
       .getChartAlbums()
       .subscribe((response: Album[]) => (this.albums = response));
 
-    this.route.data.subscribe((data: { siteTitle: string }) => {
-      this.title.setTitle(data.siteTitle);
-    });
+    this.store
+      .pipe(select("currently-playing"))
+      .subscribe((currentlyPlaying: any) => {
+        if (currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
+      });
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

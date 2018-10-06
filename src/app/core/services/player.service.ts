@@ -8,9 +8,9 @@ import {
   pause,
   play
 } from "../../shared/helpers/playerfunctions";
-import { Title } from "@angular/platform-browser";
 import { Track } from "../../shared/models/Track";
 import { BehaviorSubject } from "rxjs";
+import { Store } from "@ngrx/store";
 
 @Injectable({
   providedIn: "root"
@@ -26,7 +26,7 @@ export class PlayerService {
   currentTrack = null;
   currentTrack$ = new BehaviorSubject<any>(this.currentTrack);
 
-  constructor(private titleService: Title) {
+  constructor(private store:Store<any>) {
     this.index = 0;
     this.playerEvents = {
       onEnd$: new EventEmitter(),
@@ -47,9 +47,11 @@ export class PlayerService {
     if (this.playing) this.stop();
     newSong(this.playList, (this.index = i));
     this.playing = true;
-    this.setQueue(queArr)
-    this.siteTitle = this.getSiteTitle(this.currentTrack);
-    this.titleService.setTitle(this.siteTitle);
+    this.setQueue(queArr);
+    this.store.dispatch({
+      type:"SET_SITE_TITLE",
+      payload: this.getSiteTitle(this.currentTrack)
+    })
   }
 
   playNext(queueArr) {
@@ -68,8 +70,6 @@ export class PlayerService {
       this.playNew(index, queueArr);
       this.index = index;
     }
-    this.siteTitle = this.getSiteTitle(this.currentTrack);
-    this.titleService.setTitle(this.siteTitle);
   }
 
   stop() {
@@ -78,12 +78,15 @@ export class PlayerService {
   }
 
   play(queArr) {
+    if(queArr.length == 0) queArr = this.tracks;
     if (this.playing && !this.paused) this.stop();
     play(this.playList[this.index]);
     this.playing = true;
-    this.setQueue(queArr)
-    this.siteTitle = this.getSiteTitle(this.currentTrack);
-    this.titleService.setTitle(this.siteTitle);
+    this.setQueue(queArr);
+    this.store.dispatch({
+      type:"SET_SITE_TITLE",
+      payload: this.getSiteTitle(this.currentTrack)
+    })
   }
 
   pause() {
@@ -93,7 +96,7 @@ export class PlayerService {
   }
 
   private getSiteTitle(track: any): string {
-    return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
+    if(track) return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
   }
 
   setQueue(tracks) {

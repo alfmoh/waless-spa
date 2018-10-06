@@ -9,6 +9,7 @@ import { AlertifyService } from "../../../shared/services/Alertify.service";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { lorem } from "../../../shared/temp/_lorem";
 import { Title } from "@angular/platform-browser";
+import { Store, select } from "@ngrx/store";
 
 @Component({
   selector: "ws-artist",
@@ -32,13 +33,11 @@ export class ArtistComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
-    private title: Title
+    private title: Title,
+    private store: Store<any>
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data: { siteTitle: string }) =>
-      this.title.setTitle(data.siteTitle)
-    );
 
     this.artistId = this.route.snapshot.paramMap.get("id");
     if (this.artistId) {
@@ -56,6 +55,12 @@ export class ArtistComponent implements OnInit, OnDestroy {
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()
     );
+
+    this.store
+      .pipe(select("currently-playing"))
+      .subscribe((currentlyPlaying: any) => {
+        if (currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
+      });
   }
 
   openDialog() {

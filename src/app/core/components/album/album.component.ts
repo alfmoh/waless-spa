@@ -6,6 +6,7 @@ import { Track } from "../../../shared/models/Track";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
+import { Store, select } from "@ngrx/store";
 
 @Component({
   selector: "ws-album",
@@ -24,13 +25,17 @@ export class AlbumComponent implements OnInit, OnDestroy {
     private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
-    private title: Title
+    private title: Title,
+    private store: Store<any>
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data: { siteTitle: string }) =>
-      this.title.setTitle(data.siteTitle)
-    );
+
+    this.store.pipe(select("currently-playing")).subscribe(
+      (currentlyPlaying:any) => {
+        if(currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
+      }
+    )
 
     this.albumId = +this.route.snapshot.paramMap.get("id");
     if (this.albumId) {

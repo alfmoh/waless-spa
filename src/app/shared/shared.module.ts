@@ -1,3 +1,4 @@
+import { StoreModule } from "@ngrx/store";
 import { CustomSlice } from "./pipes/customslice.pipe";
 import { HttpClientJsonpModule } from "@angular/common/http";
 import { TrackDurationPipe } from "./pipes/TrackDuration.pipe";
@@ -8,7 +9,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule } from "@angular/forms";
 import { LeftSidebarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { PlayerComponent } from "./components/player/player.component";
-import { CurrentlyPlayingComponent } from './components/currently-playing/currently-playing.component';
+import { CurrentlyPlayingComponent } from "./components/currently-playing/currently-playing.component";
+import { reducer } from "./state/currently-playing.reducer";
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { CurrentlyPlayingComponent } from './components/currently-playing/curren
     NgbModule,
     ReactiveFormsModule,
     HttpClientJsonpModule,
-    RouterModule.forChild([])
+    RouterModule.forChild([]),
+    StoreModule.forFeature("currently-playing", reducer)
   ],
   declarations: [
     LeftSidebarComponent,

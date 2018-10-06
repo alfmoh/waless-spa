@@ -3,6 +3,7 @@ import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
+import { Store, select } from "@ngrx/store";
 
 @Component({
   selector: "app-queue",
@@ -19,14 +20,18 @@ export class QueueComponent implements OnInit {
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<any>
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data: { siteTitle: string }) =>
-      this.title.setTitle(data.siteTitle)
-    );
     this.tracks = this.playerHandler.queueArr;
+
+    this.store
+      .pipe(select("currently-playing"))
+      .subscribe((currentlyPlaying: any) => {
+        if (currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
+      });
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
