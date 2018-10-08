@@ -1,11 +1,11 @@
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute } from "@angular/router";
 import { PlayerService } from "./../../services/player.service";
 import { Album } from "./../../../shared/models/Album";
 import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { Store, select } from "@ngrx/store";
+import { SharedState } from "../../../shared/state/shared.reducer";
 
 @Component({
   selector: "ws-browse",
@@ -21,9 +21,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
     private playerService: PlayerService,
     private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
-    private route: ActivatedRoute,
     private title: Title,
-    private store: Store<any>
+    private store: Store<SharedState>
   ) {}
 
   ngOnInit() {

@@ -1,3 +1,4 @@
+import { SharedState } from './../../../shared/state/shared.reducer';
 import { PlayerService } from "./../../services/player.service";
 import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
@@ -34,7 +35,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
     private title: Title,
-    private store: Store<any>
+    private store: Store<SharedState>
   ) {}
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(select("currently-playing"))
-      .subscribe((currentlyPlaying: any) => {
+      .subscribe(currentlyPlaying => {
         if (currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
       });
   }

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from "@angular/router";
+import { SharedState } from './../../../shared/state/shared.reducer';
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
@@ -20,8 +20,7 @@ export class QueueComponent implements OnInit {
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private route: ActivatedRoute,
-    private store: Store<any>
+    private store: Store<SharedState>
   ) {}
 
   ngOnInit() {
