@@ -1,5 +1,4 @@
-import { SharedState } from "./../../../shared/state/shared.reducer";
-import * as fromCurrentlyPlaying from "./../../../shared/components/state/currently-playing.reducer";
+import * as fromShared from "./../../../shared/state/shared.reducer";
 import { Album } from "./../../../shared/models/Album";
 import { DeezerService } from "./../../../shared/services/deezer.service";
 import { ActivatedRoute } from "@angular/router";
@@ -28,12 +27,12 @@ export class AlbumComponent implements OnInit, OnDestroy {
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
     private title: Title,
-    private store: Store<SharedState>
+    private store: Store<fromShared.SharedState>
   ) {}
 
   ngOnInit() {
     this.store
-      .pipe(select(fromCurrentlyPlaying.getCurrentlyPlaying))
+      .pipe(select(fromShared.getCurrentlyPlaying))
       .subscribe(siteTitle =>
         this.title.setTitle(siteTitle)
       );

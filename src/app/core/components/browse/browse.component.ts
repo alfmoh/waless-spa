@@ -5,8 +5,7 @@ import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { Store, select } from "@ngrx/store";
-import { SharedState } from "../../../shared/state/shared.reducer";
-import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing.reducer";
+import * as fromShared from "../../../shared/state/shared.reducer";
 
 @Component({
   selector: "ws-browse",
@@ -23,7 +22,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
     private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private store: Store<SharedState>
+    private store: Store<fromShared.SharedState>
   ) {}
 
   ngOnInit() {
@@ -32,7 +31,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
       .subscribe((response: Album[]) => (this.albums = response));
 
     this.store
-      .pipe(select(fromCurrentlyPlaying.getCurrentlyPlaying))
+      .pipe(select(fromShared.getCurrentlyPlaying))
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
 
     let event = this.playerService.playerEvents;

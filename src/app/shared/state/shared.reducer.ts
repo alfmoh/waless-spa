@@ -1,12 +1,14 @@
 import * as fromRoot from "./../../state/app.state";
-import { CurrentlyPlayingState, reducer } from "../components/state/currently-playing.reducer";
+import * as fromCurrentlyPlaying from "../components/state/currently-playing.reducer";
+
+export const getCurrentlyPlaying = fromCurrentlyPlaying.getCurrentlyPlaying;
 
 export interface SharedState extends fromRoot.State {
-  currentlyPlaying: CurrentlyPlayingState;
+  currentlyPlaying: fromCurrentlyPlaying.CurrentlyPlayingState;
 }
 
 // export function reducer(state, action) {}
 
 export const sharedReducer = {
-  currentlyPlaying: reducer
-}
+  currentlyPlaying: fromCurrentlyPlaying.reducer
+};
