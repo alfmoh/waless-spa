@@ -2,10 +2,11 @@ export interface CurrentlyPlayingState {
   siteTitle: string;
 }
 
-export function reducer(
-  state: CurrentlyPlayingState,
-  action
-): CurrentlyPlayingState {
+const initialState: CurrentlyPlayingState = {
+  siteTitle: "Waless"
+};
+
+export function reducer(state = initialState, action): CurrentlyPlayingState {
   switch (action.type) {
     case "SET_SITE_TITLE":
       return {

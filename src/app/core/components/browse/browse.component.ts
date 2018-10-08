@@ -32,9 +32,9 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(select("currently-playing"))
-      .subscribe((currentlyPlaying: any) => {
-        if (currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
-      });
+      .subscribe((currentlyPlaying: any) =>
+        this.title.setTitle(currentlyPlaying.siteTitle)
+      );
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

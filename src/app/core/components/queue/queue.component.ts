@@ -1,4 +1,4 @@
-import { SharedState } from './../../../shared/state/shared.reducer';
+import { SharedState } from "./../../../shared/state/shared.reducer";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
@@ -28,9 +28,9 @@ export class QueueComponent implements OnInit {
 
     this.store
       .pipe(select("currently-playing"))
-      .subscribe((currentlyPlaying: any) => {
-        if (currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
-      });
+      .subscribe((currentlyPlaying: any) =>
+        this.title.setTitle(currentlyPlaying.siteTitle)
+      );
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

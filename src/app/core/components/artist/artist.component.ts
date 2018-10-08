@@ -1,4 +1,4 @@
-import { SharedState } from './../../../shared/state/shared.reducer';
+import { SharedState } from "./../../../shared/state/shared.reducer";
 import { PlayerService } from "./../../services/player.service";
 import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
@@ -39,7 +39,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-
     this.artistId = this.route.snapshot.paramMap.get("id");
     if (this.artistId) {
       this.deezer
@@ -59,9 +58,9 @@ export class ArtistComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(select("currently-playing"))
-      .subscribe(currentlyPlaying => {
-        if (currentlyPlaying) this.title.setTitle(currentlyPlaying.siteTitle);
-      });
+      .subscribe(currentlyPlaying =>
+        this.title.setTitle(currentlyPlaying.siteTitle)
+      );
   }
 
   openDialog() {
