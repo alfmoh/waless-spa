@@ -1,4 +1,5 @@
 import { SharedState } from "./../../../shared/state/shared.reducer";
+import * as fromCurrentlyPlaying from "./../../../shared/components/state/currently-playing.reducer";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
@@ -27,10 +28,8 @@ export class QueueComponent implements OnInit {
     this.tracks = this.playerHandler.queueArr;
 
     this.store
-      .pipe(select("currently-playing"))
-      .subscribe((currentlyPlaying: any) =>
-        this.title.setTitle(currentlyPlaying.siteTitle)
-      );
+      .pipe(select(fromCurrentlyPlaying.getCurrentlyPlaying))
+      .subscribe(siteTitle => this.title.setTitle(siteTitle));
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

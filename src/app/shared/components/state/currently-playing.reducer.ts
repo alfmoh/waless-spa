@@ -1,3 +1,5 @@
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+
 export interface CurrentlyPlayingState {
   siteTitle: string;
 }
@@ -5,6 +7,15 @@ export interface CurrentlyPlayingState {
 const initialState: CurrentlyPlayingState = {
   siteTitle: "Waless"
 };
+
+const getCurrentlyPlayingFeatureState = createFeatureSelector<
+  CurrentlyPlayingState
+>("currently-playing");
+
+export const getCurrentlyPlaying = createSelector(
+  getCurrentlyPlayingFeatureState,
+  state => state.siteTitle
+);
 
 export function reducer(state = initialState, action): CurrentlyPlayingState {
   switch (action.type) {

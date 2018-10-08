@@ -6,6 +6,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { Store, select } from "@ngrx/store";
 import { SharedState } from "../../../shared/state/shared.reducer";
+import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing.reducer";
 
 @Component({
   selector: "ws-browse",
@@ -31,10 +32,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
       .subscribe((response: Album[]) => (this.albums = response));
 
     this.store
-      .pipe(select("currently-playing"))
-      .subscribe((currentlyPlaying: any) =>
-        this.title.setTitle(currentlyPlaying.siteTitle)
-      );
+      .pipe(select(fromCurrentlyPlaying.getCurrentlyPlaying))
+      .subscribe(siteTitle => this.title.setTitle(siteTitle));
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
