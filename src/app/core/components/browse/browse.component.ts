@@ -6,6 +6,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { Store, select } from "@ngrx/store";
 import * as fromShared from "../../../shared/state/shared.reducer";
+import * as fromCore from "../../state/core.reducer";
+import * as fromCoreAction from "../../state/core.actions";
 
 @Component({
   selector: "ws-browse",
@@ -22,13 +24,16 @@ export class BrowseComponent implements OnInit, OnDestroy {
     private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private store: Store<fromShared.SharedState>
+    private store: Store<fromCore.CoreState | fromShared.SharedState>
   ) {}
 
   ngOnInit() {
-    this.deezer
-      .getChartAlbums()
-      .subscribe((response: Album[]) => (this.albums = response));
+
+    this.store.dispatch(new fromCoreAction.LoadBrowse());
+
+    this.store
+      .pipe(select(fromCore.getBrowse))
+      .subscribe((albums: Album[]) => (this.albums = albums));
 
     this.store
       .pipe(select(fromShared.getCurrentlyPlaying))
