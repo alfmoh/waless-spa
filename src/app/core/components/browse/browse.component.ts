@@ -1,3 +1,4 @@
+import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import { Title } from "@angular/platform-browser";
 import { PlayerService } from "./../../services/player.service";
 import { Album } from "./../../../shared/models/Album";
@@ -25,13 +26,14 @@ export class BrowseComponent implements OnInit, OnDestroy {
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private store: Store<fromCore.CoreState | fromShared.SharedState>
+    private store: Store<fromCore.CoreState | fromShared.SharedState>,
+    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {
     this.store.dispatch(new fromCoreAction.LoadBrowse());
 
-    this.albums$ = this.store.pipe(select(fromCore.getBrowse));
+    this.albums$ = this.store.pipe(select(fromCore.getBrowseChartAlbums));
 
     this.store
       .pipe(
@@ -39,6 +41,15 @@ export class BrowseComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentActive)
       )
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
+
+    this.store
+      .pipe(
+        select(fromCore.getBrowseError),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(() =>
+        this.alertify.error("Couldn't load tracks. Please try again.")
+      );
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

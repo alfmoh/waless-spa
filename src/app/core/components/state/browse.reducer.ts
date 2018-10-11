@@ -3,19 +3,26 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { Album } from "./../../../shared/models/Album";
 export interface BrowseState {
   chartAlbums: Album[];
+  error: string;
 }
 
 const initialState: BrowseState = {
-  chartAlbums: []
+  chartAlbums: [],
+  error: ""
 };
 
 export const getBrowseFeatureState = createFeatureSelector<BrowseState>(
   "browse"
 );
 
-export const getBrowse = createSelector(
+export const getBrowseChartAlbums = createSelector(
   getBrowseFeatureState,
   state => state.chartAlbums
+);
+
+export const getBrowseError = createSelector(
+  getBrowseFeatureState,
+  state => state.error
 );
 
 export function browseReducer(
@@ -26,7 +33,15 @@ export function browseReducer(
     case BrowseActionTypes.LoadBrowseSuccess:
       return {
         ...state,
-        chartAlbums: action.payload
+        chartAlbums: action.payload,
+        error: ""
+      };
+
+    case BrowseActionTypes.LoadBrowseFail:
+      return {
+        ...state,
+        chartAlbums: [],
+        error: action.payload
       };
 
     default:
