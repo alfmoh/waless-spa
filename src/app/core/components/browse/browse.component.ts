@@ -1,13 +1,14 @@
 import { Title } from "@angular/platform-browser";
 import { PlayerService } from "./../../services/player.service";
 import { Album } from "./../../../shared/models/Album";
-import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { Store, select } from "@ngrx/store";
 import * as fromShared from "../../../shared/state/shared.reducer";
 import * as fromCore from "../../state/core.reducer";
 import * as fromCoreAction from "../../state/core.actions";
+import { takeWhile } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "ws-browse",
@@ -15,28 +16,28 @@ import * as fromCoreAction from "../../state/core.actions";
   styleUrls: ["./browse.component.scss"]
 })
 export class BrowseComponent implements OnInit, OnDestroy {
-  albums: Album[];
+  albums$: Observable<Album[]>;
   subOnEnd: any;
   subPlaying: any;
+  componentActive = true;
 
   constructor(
     private playerService: PlayerService,
-    private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
     private store: Store<fromCore.CoreState | fromShared.SharedState>
   ) {}
 
   ngOnInit() {
-
     this.store.dispatch(new fromCoreAction.LoadBrowse());
 
-    this.store
-      .pipe(select(fromCore.getBrowse))
-      .subscribe((albums: Album[]) => (this.albums = albums));
+    this.albums$ = this.store.pipe(select(fromCore.getBrowse));
 
     this.store
-      .pipe(select(fromShared.getCurrentlyPlaying))
+      .pipe(
+        select(fromShared.getCurrentlyPlaying),
+        takeWhile(() => this.componentActive)
+      )
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
 
     let event = this.playerService.playerEvents;
@@ -49,5 +50,6 @@ export class BrowseComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subOnEnd.unsubscribe();
     this.subPlaying.unsubscribe();
+    this.componentActive = false;
   }
 }

@@ -11,6 +11,7 @@ import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { lorem } from "../../../shared/temp/_lorem";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: "ws-artist",
@@ -27,6 +28,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
   artistDesc = lorem;
   subOnEnd: any;
   subPlaying: any;
+  componentActive = true;
 
   constructor(
     private alertify: AlertifyService,
@@ -57,7 +59,10 @@ export class ArtistComponent implements OnInit, OnDestroy {
     );
 
     this.store
-      .pipe(select(fromShared.getCurrentlyPlaying))
+      .pipe(
+        select(fromShared.getCurrentlyPlaying),
+        takeWhile(() => this.componentActive)
+      )
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
   }
 
@@ -68,5 +73,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subOnEnd.unsubscribe();
     this.subPlaying.unsubscribe();
+    this.componentActive = false;
   }
 }
