@@ -47,9 +47,9 @@ export class BrowseComponent implements OnInit, OnDestroy {
         select(fromCore.getBrowseError),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(() =>
-        this.alertify.error("Couldn't load tracks. Please try again.")
-      );
+      .subscribe(e => {
+        if (e) this.alertify.error("An error occured while loading tracks.");
+      });
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

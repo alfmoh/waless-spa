@@ -1,10 +1,10 @@
-import { Album } from "./../../../shared/models/Album";
-import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
-import * as browseActions from "../../state/core.actions";
+import * as browseActions from "../../../state/core.actions";
 import { mergeMap, map, catchError } from "rxjs/operators";
 import { of } from "rxjs";
+import { DeezerService } from "src/app/shared/services/deezer.service";
+import { Album } from "src/app/shared/models/Album";
 
 @Injectable()
 export class BrowseEffects {

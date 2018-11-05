@@ -1,5 +1,5 @@
-import { Album } from "./../../../shared/models/Album";
 import { Action } from "@ngrx/store";
+import { Album } from "src/app/shared/models/Album";
 
 export enum BrowseActionTypes {
   LoadBrowse = "[Browse] Load",

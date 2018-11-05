@@ -1,4 +1,4 @@
-import { BrowseEffects } from "./../components/state/browse.effects";
+import { BrowseEffects } from "./../components/state/browse/browse.effects";
 import { ArtistComponent } from "./../components/artist/artist.component";
 import { AlbumComponent } from "./../components/album/album.component";
 import { QueueComponent } from "./../components/queue/queue.component";
@@ -13,7 +13,7 @@ import { CoreRoutingModule } from "./core-routing.module";
 import { NotFoundComponent } from "../components/notfound/notfound.component";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
-import { browseReducer } from "../components/state/browse.reducer";
+import { browseReducer } from "../components/state/browse/browse.reducer";
 
 @NgModule({
   imports: [

@@ -1,6 +1,6 @@
-import { BrowseActionTypes, BrowseActions } from "./browse.actions";
+import { BrowseActions, BrowseActionTypes } from "./browse.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Album } from "./../../../shared/models/Album";
+import { Album } from "./../../../../shared/models/Album";
 export interface BrowseState {
   chartAlbums: Album[];
   error: string;
