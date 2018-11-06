@@ -1,5 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromCurrPlayingAction from "./currently-playing.actions";
+import {
+  CurrentlyPlayingActions,
+  CurrentlyPlayingActionTypes
+} from "./currently-playing.actions";
 
 const siteTitle = "Waless";
 
@@ -20,10 +23,10 @@ export const getCurrentlyPlaying = createSelector(
 
 export function reducer(
   state = initialState,
-  action: fromCurrPlayingAction.CurrentlyPlayingActions
+  action: CurrentlyPlayingActions
 ): CurrentlyPlayingState {
   switch (action.type) {
-    case fromCurrPlayingAction.CurrentlyPlayingActionTypes.SetSiteTitle:
+    case CurrentlyPlayingActionTypes.SetSiteTitle:
       return {
         ...state,
         siteTitle: action.payload || siteTitle

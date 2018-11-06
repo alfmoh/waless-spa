@@ -1,4 +1,5 @@
-import { ArtistComponent } from './../components/artist/artist.component';
+import { BrowseEffects } from "./../components/state/browse/browse.effects";
+import { ArtistComponent } from "./../components/artist/artist.component";
 import { AlbumComponent } from "./../components/album/album.component";
 import { QueueComponent } from "./../components/queue/queue.component";
 import { BrowseComponent } from "./../components/browse/browse.component";
@@ -10,9 +11,19 @@ import { NavbarComponent } from "../components/navbar/navbar.component";
 import { HomeComponent } from "../components/home/home.component";
 import { CoreRoutingModule } from "./core-routing.module";
 import { NotFoundComponent } from "../components/notfound/notfound.component";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreModule } from "@ngrx/store";
+import { browseReducer } from "../components/state/browse/browse.reducer";
 
 @NgModule({
-  imports: [CommonModule, CoreRoutingModule, AuthModule, SharedModule],
+  imports: [
+    CommonModule,
+    CoreRoutingModule,
+    AuthModule,
+    SharedModule,
+    StoreModule.forFeature("browse", browseReducer),
+    EffectsModule.forFeature([BrowseEffects])
+  ],
   declarations: [
     NavbarComponent,
     BrowseComponent,

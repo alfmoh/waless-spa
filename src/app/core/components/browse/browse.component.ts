@@ -1,11 +1,15 @@
+import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import { Title } from "@angular/platform-browser";
 import { PlayerService } from "./../../services/player.service";
 import { Album } from "./../../../shared/models/Album";
-import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { Store, select } from "@ngrx/store";
 import * as fromShared from "../../../shared/state/shared.reducer";
+import * as fromCore from "../../state/core.reducer";
+import * as fromCoreAction from "../../state/core.actions";
+import { takeWhile } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "ws-browse",
@@ -13,26 +17,39 @@ import * as fromShared from "../../../shared/state/shared.reducer";
   styleUrls: ["./browse.component.scss"]
 })
 export class BrowseComponent implements OnInit, OnDestroy {
-  albums: Album[];
+  albums$: Observable<Album[]>;
   subOnEnd: any;
   subPlaying: any;
+  componentActive = true;
 
   constructor(
     private playerService: PlayerService,
-    private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private store: Store<fromShared.SharedState>
+    private store: Store<fromCore.CoreState | fromShared.SharedState>,
+    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {
-    this.deezer
-      .getChartAlbums()
-      .subscribe((response: Album[]) => (this.albums = response));
+    this.store.dispatch(new fromCoreAction.LoadBrowse());
+
+    this.albums$ = this.store.pipe(select(fromCore.getBrowseChartAlbums));
 
     this.store
-      .pipe(select(fromShared.getCurrentlyPlaying))
+      .pipe(
+        select(fromShared.getCurrentlyPlaying),
+        takeWhile(() => this.componentActive)
+      )
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
+
+    this.store
+      .pipe(
+        select(fromCore.getBrowseError),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(e => {
+        if (e) this.alertify.error("Sorry. An error occured while loading tracks.");
+      });
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
@@ -44,5 +61,6 @@ export class BrowseComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subOnEnd.unsubscribe();
     this.subPlaying.unsubscribe();
+    this.componentActive = false;
   }
 }
