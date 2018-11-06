@@ -13,7 +13,8 @@ import { CoreRoutingModule } from "./core-routing.module";
 import { NotFoundComponent } from "../components/notfound/notfound.component";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
-import { browseReducer } from "../components/state/browse/browse.reducer";
+import { coreReducer } from "../state/core.reducer";
+import { coreModuleFeature } from "src/app/shared/helpers/constants";
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { browseReducer } from "../components/state/browse/browse.reducer";
     CoreRoutingModule,
     AuthModule,
     SharedModule,
-    StoreModule.forFeature("browse", browseReducer),
+    StoreModule.forFeature(coreModuleFeature, coreReducer),
     EffectsModule.forFeature([BrowseEffects])
   ],
   declarations: [
