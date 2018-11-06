@@ -4,6 +4,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: "app-queue",
@@ -15,6 +16,7 @@ export class QueueComponent implements OnInit {
   tracks;
   subOnEnd: any;
   subPlaying: any;
+  componentActive = true;
 
   constructor(
     private playerService: PlayerService,
@@ -27,7 +29,10 @@ export class QueueComponent implements OnInit {
     this.tracks = this.playerHandler.queueArr;
 
     this.store
-      .pipe(select(fromShared.getCurrentlyPlaying))
+      .pipe(
+        select(fromShared.getCurrentlyPlaying),
+        takeWhile(() => this.componentActive)
+      )
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
 
     let event = this.playerService.playerEvents;
@@ -41,5 +46,6 @@ export class QueueComponent implements OnInit {
   ngOnDestroy() {
     this.subOnEnd.unsubscribe();
     this.subPlaying.unsubscribe();
+    this.componentActive = false;
   }
 }

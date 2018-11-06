@@ -8,6 +8,7 @@ import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: "ws-album",
@@ -20,6 +21,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
   albumTracks: Track[];
   subOnEnd: any;
   subPlaying: any;
+  componentActive = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,10 +34,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store
-      .pipe(select(fromShared.getCurrentlyPlaying))
-      .subscribe(siteTitle =>
-        this.title.setTitle(siteTitle)
-      );
+      .pipe(
+        select(fromShared.getCurrentlyPlaying),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(siteTitle => this.title.setTitle(siteTitle));
 
     this.albumId = +this.route.snapshot.paramMap.get("id");
     if (this.albumId) {
@@ -55,5 +58,6 @@ export class AlbumComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subOnEnd.unsubscribe();
     this.subPlaying.unsubscribe();
+    this.componentActive = false;
   }
 }

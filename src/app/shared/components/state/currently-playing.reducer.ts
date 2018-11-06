@@ -1,12 +1,16 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
+import {
+  CurrentlyPlayingActions,
+  CurrentlyPlayingActionTypes
+} from "./currently-playing.actions";
+
+const siteTitle = "Waless";
 
 export interface CurrentlyPlayingState {
   siteTitle: string;
 }
 
-const initialState: CurrentlyPlayingState = {
-  siteTitle: "Waless"
-};
+const initialState: CurrentlyPlayingState = { siteTitle };
 
 const getCurrentlyPlayingFeatureState = createFeatureSelector<
   CurrentlyPlayingState
@@ -17,12 +21,15 @@ export const getCurrentlyPlaying = createSelector(
   state => state.siteTitle
 );
 
-export function reducer(state = initialState, action): CurrentlyPlayingState {
+export function reducer(
+  state = initialState,
+  action: CurrentlyPlayingActions
+): CurrentlyPlayingState {
   switch (action.type) {
-    case "SET_SITE_TITLE":
+    case CurrentlyPlayingActionTypes.SetSiteTitle:
       return {
         ...state,
-        siteTitle: action.payload || "Waless"
+        siteTitle: action.payload || siteTitle
       };
 
     default:
