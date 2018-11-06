@@ -1,6 +1,6 @@
+import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import * as fromShared from "./../../../shared/state/shared.reducer";
 import { Album } from "./../../../shared/models/Album";
-import { DeezerService } from "./../../../shared/services/deezer.service";
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Track } from "../../../shared/models/Track";
@@ -9,6 +9,8 @@ import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
+import * as fromCoreAction from "../state/album/album.actions";
+import * as fromCore from "../state/album/album.reducer";
 
 @Component({
   selector: "ws-album",
@@ -22,15 +24,16 @@ export class AlbumComponent implements OnInit, OnDestroy {
   subOnEnd: any;
   subPlaying: any;
   componentActive = true;
+  album$: any;
 
   constructor(
     private route: ActivatedRoute,
-    private deezer: DeezerService,
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
     private title: Title,
-    private store: Store<fromShared.SharedState>
-  ) {}
+    private store: Store<fromShared.SharedState>,
+    private alertify: AlertifyService
+  ) { }
 
   ngOnInit() {
     this.store
@@ -41,12 +44,30 @@ export class AlbumComponent implements OnInit, OnDestroy {
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
 
     this.albumId = +this.route.snapshot.paramMap.get("id");
-    if (this.albumId) {
-      this.deezer.getAlbum(this.albumId).subscribe((album: any) => {
-        this.albumTracks = album.tracks.data.filter(track => track.readable);
-        return (this.album = album);
+
+    this.store.dispatch(new fromCoreAction.LoadAlbum(this.albumId));
+
+    this.store
+      .pipe(
+        select(fromCore.getAlbum),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe((album: any) => {
+        if (album) {
+          this.albumTracks = album.tracks.data.filter(track => track.readable);
+          return (this.album = album);
+        }
       });
-    }
+
+    this.store
+      .pipe(
+        select(fromCore.getAlbumError),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(e => {
+        if (e)
+          this.alertify.error("Sorry. An error occured while loading tracks.");
+      });
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

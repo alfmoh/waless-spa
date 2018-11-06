@@ -1,3 +1,4 @@
+import { AlbumEffects } from "./../components/state/album/album.effects";
 import { BrowseEffects } from "./../components/state/browse/browse.effects";
 import { ArtistComponent } from "./../components/artist/artist.component";
 import { AlbumComponent } from "./../components/album/album.component";
@@ -23,7 +24,7 @@ import { coreModuleFeature } from "src/app/shared/helpers/constants";
     AuthModule,
     SharedModule,
     StoreModule.forFeature(coreModuleFeature, coreReducer),
-    EffectsModule.forFeature([BrowseEffects])
+    EffectsModule.forFeature([BrowseEffects, AlbumEffects])
   ],
   declarations: [
     NavbarComponent,

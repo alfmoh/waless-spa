@@ -13,7 +13,7 @@ const initialState: BrowseState = {
   error: ""
 };
 
-export const selectCoreModuleState = createFeatureSelector<CoreState>(
+const selectCoreModuleState = createFeatureSelector<CoreState>(
   coreModuleFeature
 );
 

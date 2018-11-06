@@ -1,4 +1,4 @@
-import { Track } from "./../../../../shared/models/Track";
+import { Album } from "src/app/shared/models/Album";
 import { Action } from "@ngrx/store";
 
 export enum AlbumActionTypes {
@@ -9,12 +9,13 @@ export enum AlbumActionTypes {
 
 export class LoadAlbum implements Action {
   readonly type = AlbumActionTypes.LoadAlbum;
+  constructor(public payload: number) {}
 }
 
 export class LoadAlbumSuccess implements Action {
   readonly type = AlbumActionTypes.LoadAlbumSuccess;
 
-  constructor(public payload: Track[]) {}
+  constructor(public payload: Album) {}
 }
 
 export class LoadAlbumFail implements Action {
