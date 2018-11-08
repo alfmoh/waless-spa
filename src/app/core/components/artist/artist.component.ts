@@ -1,6 +1,5 @@
 import * as fromShared from "./../../../shared/state/shared.reducer";
 import { PlayerService } from "./../../services/player.service";
-import { DeezerService } from "./../../../shared/services/deezer.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Artist } from "../../../shared/models/Artist";
@@ -12,6 +11,9 @@ import { lorem } from "../../../shared/temp/_lorem";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
+
+import * as fromArtistAction from "../state/artist/artist.actions";
+import * as fromArtist from "../state/artist/artist.reducer";
 
 @Component({
   selector: "ws-artist",
@@ -32,7 +34,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
 
   constructor(
     private alertify: AlertifyService,
-    private deezer: DeezerService,
     private route: ActivatedRoute,
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
@@ -42,15 +43,27 @@ export class ArtistComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.artistId = this.route.snapshot.paramMap.get("id");
-    if (this.artistId) {
-      this.deezer
-        .getArtist(this.artistId)
-        .subscribe(artist => (this.artist = artist));
-      this.deezer.getArtistTopTracks(this.artistId).subscribe(topTracks => {
+
+    this.store.dispatch(
+      new fromArtistAction.LoadArtistAndTopTracks(this.artistId)
+    );
+
+    this.store
+      .pipe(
+        select(fromArtist.getArtist),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(artist => (this.artist = artist));
+
+    this.store
+      .pipe(
+        select(fromArtist.getArtistTopTracks),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(topTracks => {
         this.artistAlbums = topTracks.map(track => track.album).slice(0, 8);
         return (this.topTracks = topTracks.slice(0, 10));
       });
-    }
 
     let event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

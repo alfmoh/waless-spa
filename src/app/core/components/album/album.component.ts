@@ -9,8 +9,8 @@ import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
-import * as fromCoreAction from "../state/album/album.actions";
-import * as fromCore from "../state/album/album.reducer";
+import * as fromAlbumAction from "../state/album/album.actions";
+import * as fromAlbum from "../state/album/album.reducer";
 
 @Component({
   selector: "ws-album",
@@ -45,11 +45,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
     this.albumId = +this.route.snapshot.paramMap.get("id");
 
-    this.store.dispatch(new fromCoreAction.LoadAlbum(this.albumId));
+    this.store.dispatch(new fromAlbumAction.LoadAlbum(this.albumId));
 
     this.store
       .pipe(
-        select(fromCore.getAlbum),
+        select(fromAlbum.getAlbum),
         takeWhile(() => this.componentActive)
       )
       .subscribe((album: any) => {
@@ -61,7 +61,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(
-        select(fromCore.getAlbumError),
+        select(fromAlbum.getAlbumError),
         takeWhile(() => this.componentActive)
       )
       .subscribe(e => {

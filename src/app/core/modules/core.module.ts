@@ -16,6 +16,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { coreReducer } from "../state/core.reducer";
 import { coreModuleFeature } from "src/app/shared/helpers/constants";
+import { ArtistEffects } from "../components/state/artist/artist.effects";
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { coreModuleFeature } from "src/app/shared/helpers/constants";
     AuthModule,
     SharedModule,
     StoreModule.forFeature(coreModuleFeature, coreReducer),
-    EffectsModule.forFeature([BrowseEffects, AlbumEffects])
+    EffectsModule.forFeature([BrowseEffects, AlbumEffects, ArtistEffects])
   ],
   declarations: [
     NavbarComponent,
