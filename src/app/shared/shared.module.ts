@@ -10,8 +10,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LeftSidebarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { PlayerComponent } from "./components/player/player.component";
 import { CurrentlyPlayingComponent } from "./components/currently-playing/currently-playing.component";
-import { reducer } from "./components/state/currently-playing.reducer";
-
+import { reducer } from "./components/state/currently-playing/currently-playing.reducer";
 
 @NgModule({
   imports: [
