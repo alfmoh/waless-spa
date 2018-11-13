@@ -10,7 +10,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LeftSidebarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { PlayerComponent } from "./components/player/player.component";
 import { CurrentlyPlayingComponent } from "./components/currently-playing/currently-playing.component";
-import { reducer } from "./components/state/currently-playing/currently-playing.reducer";
+import { sharedModuleFeature } from "./helpers/constants";
+import { sharedReducer } from "./state/shared.reducer";
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { reducer } from "./components/state/currently-playing/currently-playing.
     ReactiveFormsModule,
     HttpClientJsonpModule,
     RouterModule.forChild([]),
-    StoreModule.forFeature("currently-playing", reducer)
+    StoreModule.forFeature(sharedModuleFeature, sharedReducer)
   ],
   declarations: [
     LeftSidebarComponent,

@@ -3,6 +3,8 @@ import {
   CurrentlyPlayingActions,
   CurrentlyPlayingActionTypes
 } from "./currently-playing.actions";
+import { SharedState } from "src/app/shared/state/shared.reducer";
+import { sharedModuleFeature } from "src/app/shared/helpers/constants";
 
 const siteTitle = "Waless";
 
@@ -12,12 +14,17 @@ export interface CurrentlyPlayingState {
 
 const initialState: CurrentlyPlayingState = { siteTitle };
 
-const getCurrentlyPlayingFeatureState = createFeatureSelector<
-  CurrentlyPlayingState
->("currently-playing");
+const getCurrentlyPlayingFeatureState = createFeatureSelector<SharedState>(
+  sharedModuleFeature
+);
+
+export const selectCurrentlyPlayingFeatureState = createSelector(
+  getCurrentlyPlayingFeatureState,
+  state => state.currentlyPlaying
+);
 
 export const getCurrentlyPlaying = createSelector(
-  getCurrentlyPlayingFeatureState,
+  selectCurrentlyPlayingFeatureState,
   state => state.siteTitle
 );
 

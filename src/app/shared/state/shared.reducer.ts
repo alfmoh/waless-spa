@@ -7,8 +7,6 @@ export interface SharedState extends fromRoot.State {
   currentlyPlaying: fromCurrentlyPlaying.CurrentlyPlayingState;
 }
 
-// export function reducer(state, action) {}
-
 export const sharedReducer = {
   currentlyPlaying: fromCurrentlyPlaying.reducer
 };
