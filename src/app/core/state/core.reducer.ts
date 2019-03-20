@@ -5,11 +5,12 @@ import * as fromRoot from "./../../state/app.state";
 
 export const getBrowseChartAlbums = fromBrowse.getBrowseChartAlbums;
 export const getBrowseError = fromBrowse.getBrowseError;
+export const getBrowseIsLoaded = fromBrowse.getBrowseIsLoaded;
 
 export interface CoreState extends fromRoot.State {
   browse: fromBrowse.BrowseState;
   album: fromAction.AlbumState;
-  artist: fromArtist.ArtistState
+  artist: fromArtist.ArtistState;
 }
 
 export const coreReducer = {

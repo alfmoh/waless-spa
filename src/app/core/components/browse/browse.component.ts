@@ -21,6 +21,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   subOnEnd: any;
   subPlaying: any;
   componentActive = true;
+  isLoaded: boolean;
 
   constructor(
     private playerService: PlayerService,
@@ -41,6 +42,13 @@ export class BrowseComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentActive)
       )
       .subscribe(siteTitle => this.title.setTitle(siteTitle));
+
+      this.store
+      .pipe(
+        select(fromCore.getBrowseIsLoaded),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(isLoaded => (this.isLoaded = isLoaded));
 
     this.store
       .pipe(

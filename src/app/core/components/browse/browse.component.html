@@ -1,5 +1,9 @@
+<ng-template #loading>
+  <span class="browse-loading ws-shift">Loading...</span>
+</ng-template>
+
 <div class="browse ws-shift">
-  <ul class="browse-albums">
+  <ul *ngIf="isLoaded; else loading" class="browse-albums">
     <li *ngFor="let album of albums$ | async" class="browse-albums__album">
       <div class="browse-albums__img-play">
         <img [src]="album.cover_medium" class="browse-albums__album__pic" alt="">

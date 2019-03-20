@@ -16,6 +16,14 @@
     color: $smokeWhite;
     font-family: "Open Sans", sans-serif;
 
+    &-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: $mainWhite;
+  }
+
     @include --phone(0, 1224px) {
         grid-template-columns: 1fr;
         text-align: center;

@@ -7,11 +7,13 @@ import { AlbumActions, AlbumActionTypes } from "./album.actions";
 export interface AlbumState {
   album: Album;
   error: string;
+  isLoaded: boolean;
 }
 
 const initialState: AlbumState = {
   album: null,
-  error: ""
+  error: "",
+  isLoaded: false
 };
 
 const selectCoreModuleState = createFeatureSelector<CoreState>(
@@ -28,6 +30,11 @@ export const getAlbum = createSelector(
   state => state.album
 );
 
+export const getAlbumIsLoaded = createSelector(
+  selectAlbumFeatureState,
+  state => state.isLoaded
+);
+
 export const getAlbumError = createSelector(
   selectAlbumFeatureState,
   state => state.error
@@ -38,18 +45,26 @@ export function albumReducer(
   action: AlbumActions
 ): AlbumState {
   switch (action.type) {
-    case AlbumActionTypes.LoadAlbumSuccess:
+    case AlbumActionTypes.LoadAlbum:
+      return {
+        ...state,
+        isLoaded: false
+      };
+
+      case AlbumActionTypes.LoadAlbumSuccess:
       return {
         ...state,
         album: action.payload,
-        error: ""
+        error: "",
+        isLoaded: true
       };
 
     case AlbumActionTypes.LoadAlbumFail:
       return {
         ...state,
         album: null,
-        error: action.payload
+        error: action.payload,
+        isLoaded: true
       };
 
     default:

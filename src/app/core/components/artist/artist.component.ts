@@ -31,6 +31,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
   subOnEnd: any;
   subPlaying: any;
   componentActive = true;
+  isLoaded: boolean;
 
   constructor(
     private alertify: AlertifyService,
@@ -54,6 +55,13 @@ export class ArtistComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentActive)
       )
       .subscribe(artist => (this.artist = artist));
+
+    this.store
+      .pipe(
+        select(fromArtist.getArtistIsLoaded),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(isLoaded => (this.isLoaded = isLoaded));
 
     this.store
       .pipe(

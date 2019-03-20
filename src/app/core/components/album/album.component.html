@@ -2,7 +2,11 @@
   <span class="album-content__track-num__text">tracks</span>
 </ng-template>
 
-<div *ngIf="album" class="album ws-shift">
+<ng-template #loading>
+  <span class="album-loading ws-shift">Loading...</span>
+</ng-template>
+
+<div *ngIf="isLoaded && album; else loading" class="album ws-shift">
   <div class="album-cover">
     <img class="album-cover__pic" [src]="album.cover_medium" [alt]="album.title">
   </div>

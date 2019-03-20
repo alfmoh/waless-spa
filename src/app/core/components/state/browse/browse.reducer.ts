@@ -6,11 +6,13 @@ import { coreModuleFeature } from "src/app/shared/helpers/constants";
 export interface BrowseState {
   chartAlbums: Album[];
   error: string;
+  isLoaded : boolean;
 }
 
 const initialState: BrowseState = {
   chartAlbums: [],
-  error: ""
+  error: "",
+  isLoaded: false
 };
 
 const selectCoreModuleState = createFeatureSelector<CoreState>(
@@ -27,6 +29,11 @@ export const getBrowseChartAlbums = createSelector(
   state => state.chartAlbums
 );
 
+export const getBrowseIsLoaded = createSelector(
+  selectBrowseFeatureState,
+  state => state.isLoaded
+);
+
 export const getBrowseError = createSelector(
   selectBrowseFeatureState,
   state => state.error
@@ -37,10 +44,17 @@ export function browseReducer(
   action: BrowseActions
 ): BrowseState {
   switch (action.type) {
-    case BrowseActionTypes.LoadBrowseSuccess:
+    case BrowseActionTypes.LoadBrowse:
+      return {
+        ...state,
+        isLoaded: false
+      };
+
+      case BrowseActionTypes.LoadBrowseSuccess:
       return {
         ...state,
         chartAlbums: action.payload,
+        isLoaded: true,
         error: ""
       };
 
@@ -48,6 +62,7 @@ export function browseReducer(
       return {
         ...state,
         chartAlbums: [],
+        isLoaded: true,
         error: action.payload
       };
 

@@ -6,6 +6,14 @@
     background-color: $grayBlack;
     font-family: "Open Sans", sans-serif;
 
+    &-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: $mainWhite;
+  }
+
     @include --phone {
         padding-left: 0;
     }

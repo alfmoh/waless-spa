@@ -9,12 +9,14 @@ export interface ArtistState {
   artist: Artist;
   error: string;
   topTracks: Track[];
+  isLoaded: boolean;
 }
 
 const initialState: ArtistState = {
   artist: null,
   error: "",
-  topTracks: []
+  topTracks: [],
+  isLoaded: false
 };
 
 const selectCoreModuleState = createFeatureSelector<CoreState>(
@@ -29,6 +31,11 @@ const selectArtistFeatureState = createSelector(
 export const getArtist = createSelector(
   selectArtistFeatureState,
   state => state.artist
+);
+
+export const getArtistIsLoaded = createSelector(
+  selectArtistFeatureState,
+  state => state.isLoaded
 );
 
 export const getArtistError = createSelector(
@@ -46,12 +53,18 @@ export function artistReducer(
   action: ArtistActions
 ): ArtistState {
   switch (action.type) {
+    case ArtistActionTypes.LoadArtistAndTopTracks:
+      return {
+        ...state,
+        isLoaded: false
+      };
     case ArtistActionTypes.LoadArtistSuccess:
       return {
         ...state,
         artist: action.payload,
         topTracks: [],
-        error: ""
+        error: "",
+        isLoaded: true
       };
     case ArtistActionTypes.LoadArtistFail:
     case ArtistActionTypes.LoadArtistTopTracksFail:
@@ -60,21 +73,24 @@ export function artistReducer(
         ...state,
         artist: null,
         topTracks: [],
-        error: action.payload
+        error: action.payload,
+        isLoaded: true
       };
     case ArtistActionTypes.LoadArtistTopTracksSuccess:
       return {
         ...state,
         artist: null,
         topTracks: action.payload,
-        error: ""
+        error: "",
+        isLoaded: true
       };
     case ArtistActionTypes.LoadArtistAndTopTracksSuccess:
       return {
         ...state,
         artist: action.payload[0],
         topTracks: action.payload[1],
-        error: ""
+        error: "",
+        isLoaded: true
       };
     default:
       return state;

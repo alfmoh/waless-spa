@@ -25,6 +25,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
   subPlaying: any;
   componentActive = true;
   album$: any;
+  isLoaded: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +62,13 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(
+        select(fromAlbum.getAlbumIsLoaded),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(isLoaded => (this.isLoaded = isLoaded));
+
+    this.store
+      .pipe(
         select(fromAlbum.getAlbumError),
         takeWhile(() => this.componentActive)
       )
@@ -69,7 +77,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
           this.alertify.error("Sorry. An error occured while loading tracks.");
       });
 
-    let event = this.playerService.playerEvents;
+    const event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()
