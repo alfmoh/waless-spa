@@ -38,13 +38,13 @@ export class PlayerService {
     };
   }
 
-  init(tracks) {
+  init(tracks: Track[]) {
     if (this.playing) this.stop();
     this.tracks = tracks;
     this.playList = initPlaylist(tracks, this.playerEvents);
   }
 
-  playNew(i, queArr) {
+  playNew(i: number, queArr: any[]) {
     if (this.playing) this.stop();
     newSong(this.playList, (this.index = i));
     this.playing = true;
@@ -54,18 +54,18 @@ export class PlayerService {
     );
   }
 
-  playNext(queueArr) {
+  playNext(queueArr: any[]) {
     if (this.playing) this.stop();
-    let index = this.index + 1;
+    const index = this.index + 1;
     if (index < this.playList.length) {
       this.playNew(index, queueArr);
       this.index = index;
     }
   }
 
-  playPrevious(queueArr) {
+  playPrevious(queueArr: any[]) {
     if (this.playing) this.stop();
-    let index = this.index - 1;
+    const index = this.index - 1;
     if (index >= 0) {
       this.playNew(index, queueArr);
       this.index = index;
@@ -77,14 +77,17 @@ export class PlayerService {
     this.playing = false;
   }
 
-  play(queArr) {
-    if (queArr.length == 0) queArr = this.tracks;
+  play(queArr: any[] | Track[]) {
+    if (queArr.length === 0) queArr = this.tracks;
     if (this.playing && !this.paused) this.stop();
     play(this.playList[this.index]);
     this.playing = true;
     this.setQueue(queArr);
     this.store.dispatch(
       new fromSharedActions.SetSiteTitle(this.getSiteTitle(this.currentTrack))
+    );
+    this.store.dispatch(
+      new fromSharedActions.IsPlaying(true)
     );
   }
 
@@ -99,7 +102,7 @@ export class PlayerService {
       return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
   }
 
-  setQueue(tracks) {
+  setQueue(tracks: any[]) {
     this.currentTrack = tracks[this.index];
     this.currentTrack$.next(tracks[this.index]);
   }

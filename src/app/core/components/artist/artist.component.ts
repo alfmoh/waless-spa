@@ -65,7 +65,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
         return (this.topTracks = topTracks.slice(0, 10));
       });
 
-    let event = this.playerService.playerEvents;
+    const event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()

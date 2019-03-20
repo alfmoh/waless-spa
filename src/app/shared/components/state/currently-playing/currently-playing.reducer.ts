@@ -10,9 +10,10 @@ const siteTitle = "Waless";
 
 export interface CurrentlyPlayingState {
   siteTitle: string;
+  isPlaying: boolean;
 }
 
-const initialState: CurrentlyPlayingState = { siteTitle };
+const initialState: CurrentlyPlayingState = { siteTitle, isPlaying: false };
 
 const getCurrentlyPlayingFeatureState = createFeatureSelector<SharedState>(
   sharedModuleFeature
@@ -28,6 +29,11 @@ export const getCurrentlyPlaying = createSelector(
   state => state.siteTitle
 );
 
+export const getIsPlaying = createSelector(
+  selectCurrentlyPlayingFeatureState,
+  state => state.isPlaying
+);
+
 export function reducer(
   state = initialState,
   action: CurrentlyPlayingActions
@@ -38,6 +44,12 @@ export function reducer(
         ...state,
         siteTitle: action.payload || siteTitle
       };
+
+    case CurrentlyPlayingActionTypes.IsPlaying:
+    return {
+      ...state,
+      isPlaying: action.payload
+    };
 
     default:
       return state;
