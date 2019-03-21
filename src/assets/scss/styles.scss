@@ -36,6 +36,14 @@
     color: red;
 }
 
+.ws-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: $mainWhite;
+}
+
 .ws-shift {
     @include --phone {
         padding-left: 15%;
