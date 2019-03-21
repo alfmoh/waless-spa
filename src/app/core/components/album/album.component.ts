@@ -11,6 +11,7 @@ import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
 import * as fromAlbumAction from "../state/album/album.actions";
 import * as fromAlbum from "../state/album/album.reducer";
+import { NgbPopover } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "ws-album",
@@ -82,6 +83,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()
     );
+  }
+
+  onPopClick(event: any, element: NgbPopover) {
+    event.stopPropagation();
+    element.toggle();
   }
 
   ngOnDestroy() {

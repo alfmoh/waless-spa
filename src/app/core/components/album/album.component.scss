@@ -186,10 +186,12 @@
                     &__more {
                         @include icon-style;
 
+                        padding: 10px;
                         font-size: 1rem;
                         visibility: hidden;
 
                         @include --phone {
+                            padding: 0;
                             padding-left: 10px;
                         }
                     }

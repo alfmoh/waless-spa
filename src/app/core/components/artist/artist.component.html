@@ -1,6 +1,13 @@
 <ng-template #loading>
   <span class="ws-loading ws-shift">Loading...</span>
 </ng-template>
+<ng-template #ellipsisContent>
+  <ul class="ws-ellipsis-icon-items" >
+    <li class="ws-ellipsis-icon-items__item">Play Next</li>
+    <li class="ws-ellipsis-icon-items__item">Add to Library</li>
+    <li class="ws-ellipsis-icon-items__item">Share</li>
+  </ul>
+</ng-template>
 
 <div *ngIf="isLoaded && artist; else loading" class="artist ws-shift">
 
@@ -53,7 +60,11 @@
             </td>
             <td class="artist-collection-tb-table-tracks__duration">
               {{(track.duration /60 | number: '1.2-2') | trackDuration}}
-              <i class="fa fa-ellipsis-h artist-collection-tb-table-tracks__ellipsis-icon"></i>
+              <i
+              [ngbPopover]="ellipsisContent"
+              placement="bottom"
+              [autoClose]="true"
+              class="fa fa-ellipsis-h artist-collection-tb-table-tracks__ellipsis-icon"></i>
             </td>
           </tr>
         </tbody>

@@ -91,6 +91,32 @@
     }
 }
 
+.ws-ellipsis-icon {
+  cursor: pointer;
+  display: none;
+  padding-left: 20px;
+
+  &-items {
+      list-style: none;
+      color: $smokeWhite;
+      background-color: $grayBlack;
+      padding: 15px;
+      margin: 0;
+      box-shadow: 1px 5px 9px 2px rgba(0,0,0,0.3);
+
+      &__item {
+          padding: 8px;
+          cursor: pointer;
+
+          &:hover {
+              background-color: $transparentBlack;
+              transform: translateX(2px);
+              transition: transform .5s;
+          }
+      }
+  }
+}
+
 body {
     background: $grayBlack;
 }
@@ -143,6 +169,18 @@ div.modal-content {
 
 .alertify .ajs-dialog {
     border-radius: 0;
+}
+
+.popover {
+  background-color: transparent;
+}
+
+.popover-body {
+  padding: 0;
+}
+
+.bs-popover-bottom .arrow::after {
+  display: none;
 }
 
 /*Animations*/
