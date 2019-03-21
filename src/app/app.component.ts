@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "./core/services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { PlayerService } from "./core/services/player.service";
 
 @Component({
   selector: "app-root",
@@ -14,13 +15,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private playerService: PlayerService,
     private route: ActivatedRoute,
     private title: Title
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data: { siteTitle: string }) =>
-      this.title.setTitle(data.siteTitle)
+    this.route.data.subscribe((data) =>
+      this.title.setTitle(this.playerService.getSiteTitle(data.currentlyPlayingTrack))
     );
     const token = localStorage.getItem("token");
     if (token)

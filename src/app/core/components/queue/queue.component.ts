@@ -1,6 +1,6 @@
 import * as fromShared from "./../../../shared/state/shared.reducer";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
@@ -12,7 +12,7 @@ import { takeWhile } from "rxjs/operators";
   styleUrls: ["./queue.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QueueComponent implements OnInit {
+export class QueueComponent implements OnInit, OnDestroy {
   tracks;
   subOnEnd: any;
   subPlaying: any;
@@ -33,9 +33,9 @@ export class QueueComponent implements OnInit {
         select(fromShared.getCurrentlyPlaying),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(siteTitle => this.title.setTitle(siteTitle));
+      .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
 
-    let event = this.playerService.playerEvents;
+    const event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()

@@ -41,7 +41,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
         select(fromShared.getCurrentlyPlaying),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(siteTitle => this.title.setTitle(siteTitle));
+      .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
 
       this.store
       .pipe(
@@ -59,7 +59,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
         if (e) this.alertify.error("Sorry. An error occured while loading tracks.");
       });
 
-    let event = this.playerService.playerEvents;
+    const event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()

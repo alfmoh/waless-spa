@@ -84,7 +84,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
         select(fromShared.getCurrentlyPlaying),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(siteTitle => this.title.setTitle(siteTitle));
+      .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
   }
 
   openDialog() {

@@ -23,7 +23,7 @@ export class PlayerService {
   playerEvents: PlayerEvents;
   playing = false;
   paused: boolean;
-  siteTitle = "";
+  siteTitle = "Waless";
   currentTrack = null;
   currentTrack$ = new BehaviorSubject<any>(this.currentTrack);
 
@@ -50,7 +50,7 @@ export class PlayerService {
     this.playing = true;
     this.setQueue(queArr);
     this.store.dispatch(
-      new fromSharedActions.SetSiteTitle(this.getSiteTitle(this.currentTrack))
+      new fromSharedActions.SetCurrentlyPlayingTrack(this.currentTrack)
     );
   }
 
@@ -84,7 +84,7 @@ export class PlayerService {
     this.playing = true;
     this.setQueue(queArr);
     this.store.dispatch(
-      new fromSharedActions.SetSiteTitle(this.getSiteTitle(this.currentTrack))
+      new fromSharedActions.SetCurrentlyPlayingTrack(this.currentTrack)
     );
     this.store.dispatch(
       new fromSharedActions.IsPlaying(true)
@@ -97,9 +97,10 @@ export class PlayerService {
     this.playing = false;
   }
 
-  private getSiteTitle(track: any): string {
+  getSiteTitle(track: any): string {
     if (track)
       return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
+    return this.siteTitle;
   }
 
   setQueue(tracks: any[]) {

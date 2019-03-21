@@ -1,13 +1,14 @@
+import { Track } from "src/app/shared/models/Track";
 import { Action } from "@ngrx/store";
 
 export enum CurrentlyPlayingActionTypes {
-  SetSiteTitle = "[Currently-Playing] SET_SITE_TITLE",
+  SetCurrentlyPlayingTrack = "[Currently-Playing] SET_CURRENTLY_PLAYING_TRACK",
   IsPlaying = "[Currently-Playing] SET_IS_PLAYING"
 }
 
-export class SetSiteTitle implements Action {
-  readonly type = CurrentlyPlayingActionTypes.SetSiteTitle;
-  constructor(public payload: string) {}
+export class SetCurrentlyPlayingTrack implements Action {
+  readonly type = CurrentlyPlayingActionTypes.SetCurrentlyPlayingTrack;
+  constructor(public payload: Track) {}
 }
 
 export class IsPlaying implements Action {
@@ -15,4 +16,4 @@ export class IsPlaying implements Action {
   constructor(public payload: boolean){}
 }
 
-export type CurrentlyPlayingActions = SetSiteTitle | IsPlaying;
+export type CurrentlyPlayingActions = SetCurrentlyPlayingTrack | IsPlaying;

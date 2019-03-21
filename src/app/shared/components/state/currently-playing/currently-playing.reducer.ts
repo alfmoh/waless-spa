@@ -1,3 +1,4 @@
+import { Track } from "./../../../models/Track";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import {
   CurrentlyPlayingActions,
@@ -9,11 +10,11 @@ import { sharedModuleFeature } from "src/app/shared/helpers/constants";
 const siteTitle = "Waless";
 
 export interface CurrentlyPlayingState {
-  siteTitle: string;
+  currentlyPlayingTrack: Track;
   isPlaying: boolean;
 }
 
-const initialState: CurrentlyPlayingState = { siteTitle, isPlaying: false };
+const initialState: CurrentlyPlayingState = { currentlyPlayingTrack: null, isPlaying: false };
 
 const getCurrentlyPlayingFeatureState = createFeatureSelector<SharedState>(
   sharedModuleFeature
@@ -24,9 +25,9 @@ export const selectCurrentlyPlayingFeatureState = createSelector(
   state => state.currentlyPlaying
 );
 
-export const getCurrentlyPlaying = createSelector(
+export const getCurrentlyPlayingTrack = createSelector(
   selectCurrentlyPlayingFeatureState,
-  state => state.siteTitle
+  state => state.currentlyPlayingTrack
 );
 
 export const getIsPlaying = createSelector(
@@ -39,10 +40,10 @@ export function reducer(
   action: CurrentlyPlayingActions
 ): CurrentlyPlayingState {
   switch (action.type) {
-    case CurrentlyPlayingActionTypes.SetSiteTitle:
+    case CurrentlyPlayingActionTypes.SetCurrentlyPlayingTrack:
       return {
         ...state,
-        siteTitle: action.payload || siteTitle
+        currentlyPlayingTrack: action.payload
       };
 
     case CurrentlyPlayingActionTypes.IsPlaying:

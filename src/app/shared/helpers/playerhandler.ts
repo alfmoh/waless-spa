@@ -41,7 +41,7 @@ export class PlayerHanlder {
         }
       });
       this.queueIndexer = i;
-      if (i != 0 && i % 48 == 0) {
+      if (i !== 0 && i % 48 === 0) {
         break;
       }
     }
