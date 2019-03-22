@@ -1,8 +1,8 @@
 import { Album } from "./../../../../shared/models/Album";
 import { coreModuleFeature } from "./../../../../shared/helpers/constants";
-import { CoreState } from "src/app/core/state/core.reducer";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AlbumActions, AlbumActionTypes } from "./album.actions";
+import { State } from "src/app/state/app.state";
 
 export interface AlbumState {
   album: Album;
@@ -16,7 +16,7 @@ const initialState: AlbumState = {
   isLoaded: false
 };
 
-const selectCoreModuleState = createFeatureSelector<CoreState>(
+const selectCoreModuleState = createFeatureSelector<State>(
   coreModuleFeature
 );
 

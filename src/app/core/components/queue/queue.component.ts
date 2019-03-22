@@ -1,4 +1,5 @@
-import * as fromShared from "./../../../shared/state/shared.reducer";
+import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
+import * as fromRoot from "./../../../state/app.state";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
 import { PlayerService } from "../../services/player.service";
@@ -7,13 +8,13 @@ import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
 
 @Component({
-  selector: "app-queue",
+  selector: "ws-queue",
   templateUrl: "./queue.component.html",
   styleUrls: ["./queue.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QueueComponent implements OnInit, OnDestroy {
-  tracks;
+  tracks: any[];
   subOnEnd: any;
   subPlaying: any;
   componentActive = true;
@@ -22,7 +23,7 @@ export class QueueComponent implements OnInit, OnDestroy {
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private store: Store<fromShared.SharedState>
+    private store: Store<fromRoot.State>
   ) {}
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(
-        select(fromShared.getCurrentlyPlaying),
+        select(fromCurrentlyPlaying.getCurrentlyPlayingTrack),
         takeWhile(() => this.componentActive)
       )
       .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));

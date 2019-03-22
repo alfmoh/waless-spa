@@ -1,4 +1,5 @@
-import * as fromShared from "./../../../shared/state/shared.reducer";
+import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
+import * as fromRoot from "./../../../state/app.state";
 import { PlayerService } from "./../../services/player.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
@@ -14,6 +15,7 @@ import { takeWhile } from "rxjs/operators";
 
 import * as fromArtistAction from "../state/artist/artist.actions";
 import * as fromArtist from "../state/artist/artist.reducer";
+import { artistBioTitle } from "src/app/shared/helpers/constants";
 
 @Component({
   selector: "ws-artist",
@@ -39,7 +41,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
     private title: Title,
-    private store: Store<fromShared.SharedState>
+    private store: Store<fromRoot.State>
   ) {}
 
   ngOnInit() {
@@ -81,14 +83,16 @@ export class ArtistComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(
-        select(fromShared.getCurrentlyPlaying),
+        select(fromCurrentlyPlaying.getCurrentlyPlayingTrack),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
+      .subscribe(track =>
+        this.title.setTitle(this.playerService.getSiteTitle(track))
+      );
   }
 
   openDialog() {
-    this.alertify.alert("Biography", this.artistDesc);
+    this.alertify.alert(artistBioTitle, this.artistDesc);
   }
 
   ngOnDestroy() {

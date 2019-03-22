@@ -12,6 +12,7 @@ import { Track } from "../../shared/models/Track";
 import { BehaviorSubject } from "rxjs";
 import { Store } from "@ngrx/store";
 import * as fromSharedActions from "../../shared/state/shared.actions";
+import { siteTitle } from "src/app/shared/helpers/constants";
 
 @Injectable({
   providedIn: "root"
@@ -23,7 +24,6 @@ export class PlayerService {
   playerEvents: PlayerEvents;
   playing = false;
   paused: boolean;
-  siteTitle = "Waless";
   currentTrack = null;
   currentTrack$ = new BehaviorSubject<any>(this.currentTrack);
 
@@ -100,7 +100,7 @@ export class PlayerService {
   getSiteTitle(track: any): string {
     if (track)
       return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
-    return this.siteTitle;
+    return siteTitle;
   }
 
   setQueue(tracks: any[]) {

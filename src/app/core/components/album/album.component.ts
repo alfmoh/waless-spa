@@ -1,5 +1,6 @@
 import { AlertifyService } from "./../../../shared/services/Alertify.service";
-import * as fromShared from "./../../../shared/state/shared.reducer";
+import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
+import * as fromRoot from "./../../../state/app.state";
 import { Album } from "./../../../shared/models/Album";
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit, OnDestroy } from "@angular/core";
@@ -33,14 +34,14 @@ export class AlbumComponent implements OnInit, OnDestroy {
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
     private title: Title,
-    private store: Store<fromShared.SharedState>,
+    private store: Store<fromRoot.State>,
     private alertify: AlertifyService
   ) { }
 
   ngOnInit() {
     this.store
       .pipe(
-        select(fromShared.getCurrentlyPlaying),
+        select(fromCurrentlyPlaying.getCurrentlyPlayingTrack),
         takeWhile(() => this.componentActive)
       )
       .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));

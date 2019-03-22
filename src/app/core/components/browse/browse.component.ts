@@ -1,12 +1,13 @@
 import { AlertifyService } from "./../../../shared/services/Alertify.service";
+import * as fromRoot from "./../../../state/app.state";
+import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
+import * as fromBrowse from "../../../core/components/state/browse/browse.reducer";
 import { Title } from "@angular/platform-browser";
 import { PlayerService } from "./../../services/player.service";
 import { Album } from "./../../../shared/models/Album";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 import { Store, select } from "@ngrx/store";
-import * as fromShared from "../../../shared/state/shared.reducer";
-import * as fromCore from "../../state/core.reducer";
 import * as fromCoreAction from "../../state/core.actions";
 import { takeWhile } from "rxjs/operators";
 import { Observable } from "rxjs";
@@ -27,32 +28,32 @@ export class BrowseComponent implements OnInit, OnDestroy {
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private store: Store<fromCore.CoreState | fromShared.SharedState>,
+    private store: Store<fromRoot.State>,
     private alertify: AlertifyService
   ) {}
 
   ngOnInit() {
     this.store.dispatch(new fromCoreAction.LoadBrowse());
 
-    this.albums$ = this.store.pipe(select(fromCore.getBrowseChartAlbums));
+    this.albums$ = this.store.pipe(select(fromBrowse.getBrowseChartAlbums));
 
     this.store
       .pipe(
-        select(fromShared.getCurrentlyPlaying),
+        select(fromCurrentlyPlaying.getCurrentlyPlayingTrack),
         takeWhile(() => this.componentActive)
       )
       .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
 
       this.store
       .pipe(
-        select(fromCore.getBrowseIsLoaded),
+        select(fromBrowse.getBrowseIsLoaded),
         takeWhile(() => this.componentActive)
       )
       .subscribe(isLoaded => (this.isLoaded = isLoaded));
 
     this.store
       .pipe(
-        select(fromCore.getBrowseError),
+        select(fromBrowse.getBrowseError),
         takeWhile(() => this.componentActive)
       )
       .subscribe(e => {

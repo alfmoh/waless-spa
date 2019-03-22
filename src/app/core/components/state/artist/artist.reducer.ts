@@ -1,9 +1,9 @@
 import { ArtistActions, ArtistActionTypes } from "./artist.actions";
-import { CoreState } from "./../../../state/core.reducer";
 import { coreModuleFeature } from "src/app/shared/helpers/constants";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { Artist } from "./../../../../shared/models/Artist";
 import { Track } from "src/app/shared/models/Track";
+import { State } from "src/app/state/app.state";
 
 export interface ArtistState {
   artist: Artist;
@@ -19,7 +19,7 @@ const initialState: ArtistState = {
   isLoaded: false
 };
 
-const selectCoreModuleState = createFeatureSelector<CoreState>(
+const selectCoreModuleState = createFeatureSelector<State>(
   coreModuleFeature
 );
 

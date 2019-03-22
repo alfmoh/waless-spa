@@ -1,8 +1,8 @@
 import { BrowseActions, BrowseActionTypes } from "./browse.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { Album } from "./../../../../shared/models/Album";
-import { CoreState } from "src/app/core/state/core.reducer";
 import { coreModuleFeature } from "src/app/shared/helpers/constants";
+import { State } from "src/app/state/app.state";
 export interface BrowseState {
   chartAlbums: Album[];
   error: string;
@@ -15,7 +15,7 @@ const initialState: BrowseState = {
   isLoaded: false
 };
 
-const selectCoreModuleState = createFeatureSelector<CoreState>(
+const selectCoreModuleState = createFeatureSelector<State>(
   coreModuleFeature
 );
 

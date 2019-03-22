@@ -4,10 +4,8 @@ import {
   CurrentlyPlayingActions,
   CurrentlyPlayingActionTypes
 } from "./currently-playing.actions";
-import { SharedState } from "src/app/shared/state/shared.reducer";
 import { sharedModuleFeature } from "src/app/shared/helpers/constants";
-
-const siteTitle = "Waless";
+import { State } from "src/app/state/app.state";
 
 export interface CurrentlyPlayingState {
   currentlyPlayingTrack: Track;
@@ -16,7 +14,7 @@ export interface CurrentlyPlayingState {
 
 const initialState: CurrentlyPlayingState = { currentlyPlayingTrack: null, isPlaying: false };
 
-const getCurrentlyPlayingFeatureState = createFeatureSelector<SharedState>(
+const getCurrentlyPlayingFeatureState = createFeatureSelector<State>(
   sharedModuleFeature
 );
 
