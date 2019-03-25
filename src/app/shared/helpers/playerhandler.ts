@@ -1,9 +1,11 @@
+import { Store } from "@ngrx/store";
 import { BehaviorSubject } from "rxjs";
 import { PlayerService } from "./../../core/services/player.service";
 import { Injectable } from "@angular/core";
 import { DeezerService } from "../services/deezer.service";
 import { Track } from "../models/Track";
 import { sampleTracks } from "../temp/_lorem";
+import { LoadQueueSuccess, LoadQueue } from "src/app/core/components/state/queue/queue.actions";
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +19,8 @@ export class PlayerHanlder {
 
   constructor(
     private playerService: PlayerService,
-    private deezer: DeezerService
+    private deezer: DeezerService,
+    private store: Store<any>
   ) { }
 
   initTracks(tracks: Track[]): void {
@@ -38,6 +41,7 @@ export class PlayerHanlder {
           this.queueIndexer = 0;
           this.tracks$.next(this.queueArr);
           clearInterval(this.interval);
+          this.store.dispatch(new LoadQueueSuccess(this.queueArr));
         }
       });
       this.queueIndexer = i;
@@ -48,6 +52,7 @@ export class PlayerHanlder {
   }
 
   play(index) {
+    this.store.dispatch(new LoadQueue());
     isNaN(parseFloat(index))
       ? this.playerService.play(this.queueArr)
       : this.playerService.playNew(index, this.queueArr);

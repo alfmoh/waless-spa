@@ -1,3 +1,4 @@
+import { Store } from "@ngrx/store";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
@@ -21,7 +22,7 @@ export class PlayerComponent implements OnInit {
   @Output()
   next = new EventEmitter();
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(private router: Router, private location: Location, private store: Store<any>) {}
 
   ngOnInit() {}
 
@@ -31,7 +32,7 @@ export class PlayerComponent implements OnInit {
   }
 
   toggleRoute() {
-    this.router.url == "/queue"
+    this.router.url === "/queue"
       ? this.location.back()
       : this.router.navigateByUrl("/queue");
   }

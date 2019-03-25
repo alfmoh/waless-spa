@@ -1,11 +1,18 @@
 import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
+import * as fromQueue from "../../../core/components/state/queue/queue.reducer";
 import * as fromRoot from "./../../../state/app.state";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from "@angular/core";
 import { PlayerService } from "../../services/player.service";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "ws-queue",
@@ -14,10 +21,11 @@ import { takeWhile } from "rxjs/operators";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QueueComponent implements OnInit, OnDestroy {
-  tracks: any[];
   subOnEnd: any;
   subPlaying: any;
   componentActive = true;
+  tracks$: any;
+  isLoaded$: Observable<boolean>;
 
   constructor(
     private playerService: PlayerService,
@@ -27,14 +35,18 @@ export class QueueComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.tracks = this.playerHandler.queueArr;
+    this.tracks$ = this.store.pipe(select(fromQueue.getQueue));
 
     this.store
       .pipe(
         select(fromCurrentlyPlaying.getCurrentlyPlayingTrack),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
+      .subscribe(track =>
+        this.title.setTitle(this.playerService.getSiteTitle(track))
+      );
+
+    this.isLoaded$ = this.store.pipe(select(fromQueue.getQueueIsLoaded));
 
     const event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());
