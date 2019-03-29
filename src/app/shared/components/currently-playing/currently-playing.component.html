@@ -1,4 +1,4 @@
-<div class="queue-content-list-item-img" *ngIf="currentPlay | async as currentlyPlaying" >
+<div class="queue-content-list-item-img" *ngIf="currentlyPlayingTrack$ | async as currentlyPlaying" >
 
   <img [src]="currentlyPlaying?.album?.cover_medium" [alt]="currentlyPlaying?.title" class="queue-content-list-item-img__img">
   <div class="queue-content-list-item-img__track-name">

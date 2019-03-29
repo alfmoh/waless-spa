@@ -1,4 +1,5 @@
-import { Store } from "@ngrx/store";
+import { Router } from "@angular/router";
+import { Store, select } from "@ngrx/store";
 import { BehaviorSubject } from "rxjs";
 import { PlayerService } from "./../../core/services/player.service";
 import { Injectable } from "@angular/core";
@@ -6,6 +7,9 @@ import { DeezerService } from "../services/deezer.service";
 import { Track } from "../models/Track";
 import { sampleTracks } from "../temp/_lorem";
 import { LoadQueueSuccess, LoadQueue } from "src/app/core/components/state/queue/queue.actions";
+import * as fromQueue from "src/app/core/components/state/queue/queue.reducer";
+import * as fromArtist from "src/app/core/components/state/artist/artist.reducer";
+import { take } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -20,7 +24,8 @@ export class PlayerHanlder {
   constructor(
     private playerService: PlayerService,
     private deezer: DeezerService,
-    private store: Store<any>
+    private store: Store<any>,
+    private router: Router
   ) { }
 
   initTracks(tracks: Track[]): void {
@@ -52,10 +57,17 @@ export class PlayerHanlder {
   }
 
   play(index) {
-    this.store.dispatch(new LoadQueue());
+    if (this.router.url !== "/queue") this.store.dispatch(new LoadQueue());
     isNaN(parseFloat(index))
       ? this.playerService.play(this.queueArr)
       : this.playerService.playNew(index, this.queueArr);
+    // isNaN(parseFloat(index))
+    //   ? this.store.pipe(select(fromArtist.getArtistTopTracks),take(1)).subscribe(q => {
+    //     if (q) this.playerService.play(q);
+    //   })
+    //   : this.store.pipe(select(fromArtist.getArtistTopTracks),take(1)).subscribe(q => {
+    //     if (q) this.playerService.playNew(index, q);
+    //   });
   }
 
   pause() {
