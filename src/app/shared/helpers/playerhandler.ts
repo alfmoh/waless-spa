@@ -1,66 +1,42 @@
 import { Router } from "@angular/router";
-import { Store, select } from "@ngrx/store";
-import { BehaviorSubject } from "rxjs";
+import { Store } from "@ngrx/store";
 import { PlayerService } from "./../../core/services/player.service";
 import { Injectable } from "@angular/core";
 import { DeezerService } from "../services/deezer.service";
 import { Track } from "../models/Track";
-import { sampleTracks } from "../temp/_lorem";
-import { LoadQueueSuccess, LoadQueue } from "src/app/core/components/state/queue/queue.actions";
-import * as fromQueue from "src/app/core/components/state/queue/queue.reducer";
-import * as fromArtist from "src/app/core/components/state/artist/artist.reducer";
-import { take } from "rxjs/operators";
+import {
+  LoadQueueSuccess,
+  LoadQueue
+} from "src/app/core/components/state/queue/queue.actions";
+import * as fromSharedActions from "../../shared/state/shared.actions";
 
 @Injectable({
   providedIn: "root"
 })
 export class PlayerHanlder {
-  tracks$ = new BehaviorSubject<any>(sampleTracks);
-  siteTitle;
-  private queueIndexer = 0;
-  queueArr = [];
-  private interval: any;
+  trackList = [];
 
   constructor(
     private playerService: PlayerService,
     private deezer: DeezerService,
     private store: Store<any>,
     private router: Router
-  ) { }
+  ) {}
 
-  initTracks(tracks: Track[]): void {
-    this.queueArr = [];
-
-    this.looper(this.queueIndexer, tracks);
-    this.interval = setInterval(() => {
-      this.looper(this.queueIndexer + 1, tracks);
-    }, 7000);
+  initTracks(tracks: Track[], trackIndex: number): void {
+    this.trackList = tracks;
+    this.store.dispatch(new LoadQueueSuccess(tracks));
+    this.store.dispatch(
+      new fromSharedActions.SetCurrentlyPlayingTrack(tracks[trackIndex])
+    );
     this.playerService.init(tracks);
-  }
-
-  private looper(index, tracks) {
-    for (let i = index; i < tracks.length; i++) {
-      this.deezer.getTrack(tracks[i].id).subscribe(t => {
-        this.queueArr.push(t);
-        if (this.queueArr.length >= tracks.length) {
-          this.queueIndexer = 0;
-          this.tracks$.next(this.queueArr);
-          clearInterval(this.interval);
-          this.store.dispatch(new LoadQueueSuccess(this.queueArr));
-        }
-      });
-      this.queueIndexer = i;
-      if (i !== 0 && i % 48 === 0) {
-        break;
-      }
-    }
   }
 
   play(index) {
     if (this.router.url !== "/queue") this.store.dispatch(new LoadQueue());
     isNaN(parseFloat(index))
-      ? this.playerService.play(this.queueArr)
-      : this.playerService.playNew(index, this.queueArr);
+      ? this.playerService.play(this.trackList)
+      : this.playerService.playNew(index, this.trackList);
     // isNaN(parseFloat(index))
     //   ? this.store.pipe(select(fromArtist.getArtistTopTracks),take(1)).subscribe(q => {
     //     if (q) this.playerService.play(q);
@@ -79,11 +55,11 @@ export class PlayerHanlder {
   }
 
   next() {
-    this.playerService.playNext(this.queueArr);
+    this.playerService.playNext(this.trackList);
   }
 
   previous() {
-    this.playerService.playPrevious(this.queueArr);
+    this.playerService.playPrevious(this.trackList);
   }
 
   isPlaying() {
@@ -102,6 +78,7 @@ export class PlayerHanlder {
     } else {
       this.processTracks(album.tracks.data);
     }
+    this.store.dispatch(new fromSharedActions.CurrentlyPlayingAlbum(album));
   }
 
   startSelectedTrack(tracks, trackIndex) {
@@ -115,8 +92,8 @@ export class PlayerHanlder {
   private processTracks(tracks: any, index = null, isQueue = false) {
     if (isQueue) this.playerService.init(tracks);
     else {
-      this.initTracks(tracks);
-      if (isNaN(parseFloat(index))) this.playerService.index = 0;
+      if (isNaN(parseFloat(index))) index = 0;
+      this.initTracks(tracks, index);
     }
     this.play(index);
   }

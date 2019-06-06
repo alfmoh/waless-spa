@@ -1,6 +1,6 @@
 <div class="queue-content-list-item-img" *ngIf="currentlyPlayingTrack$ | async as currentlyPlaying" >
 
-  <img [src]="currentlyPlaying?.album?.cover_medium" [alt]="currentlyPlaying?.title" class="queue-content-list-item-img__img">
+  <img [src]="currentlyPlaying?.album?.cover_medium || (album$ | async).cover_medium" [alt]="currentlyPlaying?.title" class="queue-content-list-item-img__img">
   <div class="queue-content-list-item-img__track-name">
     <div class="queue-content-list-item-img__track-name__track">
       {{currentlyPlaying?.title}}
@@ -13,7 +13,7 @@
     <div
       [routerLink]="['/album', currentlyPlaying?.album?.id]"
       class="queue-content-list-item-img__track-name__album-name ws-focus-border">
-      <span class="queue-content-list-item-img__track-name__album-name__album" >Album</span> - {{currentlyPlaying?.album?.title}}
+      <span class="queue-content-list-item-img__track-name__album-name__album" >Album</span> - {{currentlyPlaying?.album?.title || (album$ | async).title}}
     </div>
   </div>
   <div class="queue-content-list-item-img-actions">

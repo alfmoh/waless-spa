@@ -9,7 +9,6 @@ import {
   play
 } from "../../shared/helpers/playerfunctions";
 import { Track } from "../../shared/models/Track";
-import { BehaviorSubject } from "rxjs";
 import { Store } from "@ngrx/store";
 import * as fromSharedActions from "../../shared/state/shared.actions";
 import { siteTitle } from "src/app/shared/helpers/constants";
@@ -25,7 +24,6 @@ export class PlayerService {
   playing = false;
   paused: boolean;
   currentTrack = null;
-  currentTrack$ = new BehaviorSubject<any>(this.currentTrack);
 
   constructor(private store: Store<any>) {
     this.index = 0;
@@ -48,7 +46,7 @@ export class PlayerService {
     if (this.playing) this.stop();
     newSong(this.playList, (this.index = i));
     this.playing = true;
-    this.setQueue(queArr);
+    this.setCurrentTrack(queArr);
     this.store.dispatch(
       new fromSharedActions.SetCurrentlyPlayingTrack(this.currentTrack)
     );
@@ -82,13 +80,11 @@ export class PlayerService {
     if (this.playing && !this.paused) this.stop();
     play(this.playList[this.index]);
     this.playing = true;
-    this.setQueue(queArr);
+    this.setCurrentTrack(queArr);
     this.store.dispatch(
       new fromSharedActions.SetCurrentlyPlayingTrack(this.currentTrack)
     );
-    this.store.dispatch(
-      new fromSharedActions.IsPlaying(true)
-    );
+    this.store.dispatch(new fromSharedActions.IsPlaying(true));
   }
 
   pause() {
@@ -98,13 +94,11 @@ export class PlayerService {
   }
 
   getSiteTitle(track: any): string {
-    if (track)
-      return `${track.title_short} - ${this.tracks[this.index].artist.name}`;
+    if (track) return `${track.title_short} - ${track.artist.name}`;
     return siteTitle;
   }
 
-  setQueue(tracks: any[]) {
+  setCurrentTrack(tracks: any[]) {
     this.currentTrack = tracks[this.index];
-    this.currentTrack$.next(tracks[this.index]);
   }
 }

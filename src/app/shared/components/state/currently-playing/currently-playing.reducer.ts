@@ -1,3 +1,4 @@
+import { Album } from "src/app/shared/models/Album";
 import { Track } from "./../../../models/Track";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import {
@@ -9,10 +10,15 @@ import { State } from "src/app/state/app.state";
 
 export interface CurrentlyPlayingState {
   currentlyPlayingTrack: Track;
+  album: Album;
   isPlaying: boolean;
 }
 
-const initialState: CurrentlyPlayingState = { currentlyPlayingTrack: null, isPlaying: false };
+const initialState: CurrentlyPlayingState = {
+  currentlyPlayingTrack: null,
+  album: null,
+  isPlaying: false
+};
 
 const getCurrentlyPlayingFeatureState = createFeatureSelector<State>(
   sharedModuleFeature
@@ -33,6 +39,11 @@ export const getIsPlaying = createSelector(
   state => state.isPlaying
 );
 
+export const getPlayingAlbum = createSelector(
+  selectCurrentlyPlayingFeatureState,
+  state => state.album
+);
+
 export function reducer(
   state = initialState,
   action: CurrentlyPlayingActions
@@ -45,10 +56,16 @@ export function reducer(
       };
 
     case CurrentlyPlayingActionTypes.IsPlaying:
-    return {
-      ...state,
-      isPlaying: action.payload
-    };
+      return {
+        ...state,
+        isPlaying: action.payload
+      };
+
+    case CurrentlyPlayingActionTypes.CurrentlyPlayingAlbum:
+      return {
+        ...state,
+        album: action.payload
+      };
 
     default:
       return state;
