@@ -6,14 +6,14 @@
       {{currentlyPlaying?.title}}
     </div>
     <div
-      [routerLink]="['/artist', currentlyPlaying?.artist?.id]"
+      [routerLink]="['/artist', currentlyPlaying?.artist?.id || (album$ | async).artist.id]"
       class="queue-content-list-item-img__track-name__artist-name ws-focus-border">
       <span class="queue-content-list-item-img__track-name__artist-name__artist" >Artist</span> - {{currentlyPlaying?.artist?.name}}
     </div>
     <div
-      [routerLink]="['/album', currentlyPlaying?.album?.id]"
-      class="queue-content-list-item-img__track-name__album-name ws-focus-border">
-      <span class="queue-content-list-item-img__track-name__album-name__album" >Album</span> - {{currentlyPlaying?.album?.title || (album$ | async).title}}
+      [routerLink]="['/album', currentlyPlaying?.album?.id || (album$ | async).id]"
+      class="queue-content-list-item-img__track-name__album-name ws-focus-border">Album -
+      <span class="queue-content-list-item-img__track-name__album-name__album" >{{currentlyPlaying?.album?.title || (album$ | async).title}}</span>
     </div>
   </div>
   <div class="queue-content-list-item-img-actions">

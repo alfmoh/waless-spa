@@ -4,16 +4,61 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    color: $mainWhite;
 
-    &-icons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    &-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
         background: $lightBlack;
-        color: $mainWhite;
+        align-items: center;
 
-        &__icon {
-            margin: 20px;
+        &-album {
+            display: flex;
+            align-items: center;
+
+            &__image {
+                width: 70px;
+                height: 70px;
+            }
+
+            &-details {
+                display: flex;
+                flex-direction: column;
+                width: fit-content;
+
+                &__title {
+                    padding: .5rem 1rem;
+                }
+
+                &-album-artist {
+                    &__album {
+                        padding-left: 1rem;
+                        cursor: pointer;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    &__artist {
+                        cursor: pointer;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+
+        &-icons {
+            display: flex;
+            padding-left: 8%;
+            align-items: center;
+
+            &__icon {
+                margin: 20px;
+            }
         }
     }
 }

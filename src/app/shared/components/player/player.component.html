@@ -1,22 +1,42 @@
-<div class="player">
-  <div class="player-icons">
-    <div (click)="previous.emit(null)" class="player-icons__icon player-icons__backward">
-      <i class="fa fa-backward"></i>
+<div class="player" *ngIf="currentlyPlayingTrack$ | async as currentlyPlaying">
+  <div class="player-content">
+    <div class="player-content-album">
+      <img [src]="currentlyPlaying?.album?.cover_small || (album$ | async).cover_small"
+        [alt]="currentlyPlaying?.album?.title || (album$ | async).title" class="player-content-album__image">
+      <div class="player-content-album-details">
+        <span
+          [title]="currentlyPlaying?.title"
+          class="player-content-album-details__title">{{currentlyPlaying?.title | customSlice: 15}}</span>
+        <div class="player-content-album-details-album-artist-album-artist">
+          <span
+            [title]="currentlyPlaying?.album?.title || (album$ | async).title"
+            [routerLink]="['/album',currentlyPlaying?.album?.id || (album$ | async).id]"
+            class="player-content-album-details-album-artist__album ws-focus-border">
+            {{((currentlyPlaying?.album?.title || (album$ | async).title) | slice: 0:15) + "."}}</span> -
+          <span
+            [title]="currentlyPlaying?.artist?.name || (album$ | async).artist.name"
+            [routerLink]="['/artist',currentlyPlaying?.artist?.id || (album$ | async).artist.id]"
+            class="player-content-album-details-album-artist__artist ws-focus-border">
+            {{" "+(currentlyPlaying?.artist?.name || (album$ | async).artist.name | customSlice: 15)}}</span>
+        </div>
+      </div>
     </div>
-    <div class="player-icons__icon player-icons__play" (click)="togglePlay()">
-      <i class="fa fa-play"></i>
-    </div>
-    <div class="player-icons__icon player-icons__pause" (click)="pause.emit(null)">
-      <i class="fa fa-pause"></i>
-    </div>
-    <div class="player-icons__icon player-icons__pause" (click)="stop.emit(null)">
-      <i class="fa fa-stop"></i>
-    </div>
-    <div class="player-icons__icon player-icons__forward" (click)="next.emit(null)">
-      <i class="fa fa-forward"></i>
-    </div>
-    <div (click)="toggleRoute()" class="player-icons__icon player-icons__playlist">
-      <i class="fa fa-list"></i>
+    <div class="player-content-icons">
+      <div (click)="previous.emit(null)" class="player-content-icons__icon player-content-icons__backward">
+        <i class="fa fa-backward"></i>
+      </div>
+      <div class="player-content-icons__icon player-content-icons__play" (click)="togglePlay()">
+        <i [ngClass]="playing ? 'fa fa-pause':'fa fa-play'" class="fa fa-play"></i>
+      </div>
+      <div class="player-content-icons__icon player-content-icons__pause" (click)="stop.emit(null)">
+        <i class="fa fa-stop"></i>
+      </div>
+      <div class="player-content-icons__icon player-content-icons__forward" (click)="next.emit(null)">
+        <i class="fa fa-forward"></i>
+      </div>
+      <div (click)="toggleRoute()" class="player-content-icons__icon player-content-icons__playlist">
+        <i class="fa fa-list"></i>
+      </div>
     </div>
   </div>
 </div>

@@ -1,7 +1,8 @@
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
+import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
 
 @Component({
   selector: "ws-player",
@@ -21,10 +22,22 @@ export class PlayerComponent implements OnInit {
   previous = new EventEmitter();
   @Output()
   next = new EventEmitter();
+  album$: any;
+  currentlyPlayingTrack$: any;
 
-  constructor(private router: Router, private location: Location, private store: Store<any>) {}
+  constructor(
+    private router: Router,
+    private location: Location,
+    private store: Store<any>
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentlyPlayingTrack$ = this.store.pipe(
+      select(fromCurrentlyPlaying.getCurrentlyPlayingTrack)
+    );
+
+    this.album$ = this.store.pipe(select(fromCurrentlyPlaying.getPlayingAlbum));
+  }
 
   togglePlay(): void {
     if (this.playing) this.pause.emit(null);

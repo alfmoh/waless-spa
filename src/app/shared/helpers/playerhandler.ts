@@ -81,7 +81,17 @@ export class PlayerHanlder {
     this.store.dispatch(new fromSharedActions.CurrentlyPlayingAlbum(album));
   }
 
-  startSelectedTrack(tracks, trackIndex) {
+  startSelectedTrack(tracks, trackIndex, album = null) {
+    if (!album)
+      this.store.dispatch(
+        new fromSharedActions.SetCurrentlyPlayingTrack(tracks[trackIndex])
+      );
+    else {
+      tracks.map(playlistTrack => (playlistTrack.album = album));
+      this.store.dispatch(
+        new fromSharedActions.SetCurrentlyPlayingTrack(tracks[trackIndex])
+      );
+    }
     this.processTracks(tracks, trackIndex);
   }
 

@@ -12,10 +12,11 @@
         padding-left: 10%;
     }
 
+
     &-loading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &-header {
@@ -76,15 +77,16 @@
 
                         &__album-name {
                             padding-top: 10px;
-                            cursor: pointer;
                             font-size: .9rem;
+                            color: $mainGold;
 
                             &__album {
-                                color: $mainGold;
-                            }
+                                cursor: pointer;
+                                color: $mainWhite;
 
-                            &:hover {
-                                text-decoration: underline;
+                                &:hover {
+                                    text-decoration: underline;
+                                }
                             }
                         }
                     }
