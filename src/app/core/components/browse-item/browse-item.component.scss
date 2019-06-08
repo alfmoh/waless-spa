@@ -1,0 +1,105 @@
+@import "~src/assets/scss/styles";
+
+.ws-loading {
+    height: 80vh;
+    padding-left: 0;
+    color: $mainWhite;
+}
+
+.browse {
+    &-albums {
+        font-family: "Open Sans", sans-serif;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+        grid-auto-rows: 1fr;
+        grid-gap: 20px;
+        justify-content: center;
+
+        &__img-play {
+            position: relative;
+
+            &:hover {
+                background: $mainBlack;
+                border-radius: 15px;
+
+                .browse-albums__album__pic {
+                    opacity: .3;
+                }
+
+                .browse-albums__album__btn {
+                    visibility: visible;
+                }
+            }
+        }
+
+        &__album {
+            list-style: none;
+            max-width: 250px;
+
+            &__name {
+                margin-top: 10px;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: .97rem;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            &__btn {
+                position: absolute;
+                top: calc(50% - 30px);
+                left: calc(50% - 30px);
+                width: 60px;
+                height: 60px;
+                background-color: transparent;
+                border-radius: 30px;
+                border-color: $mainWhite;
+                color: $mainWhite;
+                border-width: 3px;
+                font-size: 20px;
+                padding-left: 12px;
+                visibility: hidden;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.1);
+                    transition: transform .2s ease;
+                }
+            }
+
+            &__details {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                &__exp {
+                    @include explicit;
+                }
+
+                &__names {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            &__artist-name {
+                cursor: pointer;
+                opacity: .7;
+                font-size: .8rem;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            &__pic {
+                object-fit: contain;
+                cursor: pointer;
+                border-radius: 15px;
+                box-shadow: 0 10px 6px -6px #100d0da3;
+            }
+        }
+    }
+}

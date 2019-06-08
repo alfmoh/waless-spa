@@ -1,3 +1,4 @@
+import { BrowseItemComponent } from "./../components/browse-item/browse-item.component";
 import { AlbumEffects } from "./../components/state/album/album.effects";
 import { BrowseEffects } from "./../components/state/browse/browse.effects";
 import { ArtistComponent } from "./../components/artist/artist.component";
@@ -30,6 +31,7 @@ import { ArtistEffects } from "../components/state/artist/artist.effects";
   declarations: [
     NavbarComponent,
     BrowseComponent,
+    BrowseItemComponent,
     QueueComponent,
     AlbumComponent,
     ArtistComponent,

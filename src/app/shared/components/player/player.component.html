@@ -6,7 +6,7 @@
       <div class="player-content-album-details">
         <span
           [title]="currentlyPlaying?.title"
-          class="player-content-album-details__title">{{currentlyPlaying?.title | customSlice: 15}}</span>
+          class="player-content-album-details__title">{{currentlyPlaying?.title | customSlice: 25}}</span>
         <div class="player-content-album-details-album-artist-album-artist">
           <span
             [title]="currentlyPlaying?.album?.title || (album$ | async).title"
