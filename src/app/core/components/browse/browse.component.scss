@@ -9,7 +9,8 @@
 .browse {
     padding-top: 10vh;
     padding-bottom: 100px;
-    background: $smokeWhite;
+    background: $darkGray;
+    color: $mainWhite;
 
     @include --phone {
         padding-left: 5%;
@@ -35,6 +36,11 @@
         padding-left: 9%;
     }
 
+    &__top-heading {
+      text-align: center;
+      margin-bottom: 3%;
+    }
+
 
     &-albums {
         font-family: "Open Sans", sans-serif;
@@ -49,6 +55,7 @@
 
             &:hover {
                 background: $mainBlack;
+                border-radius: 15px;
 
                 .browse-albums__album__pic {
                     opacity: .3;
@@ -125,7 +132,8 @@
             &__pic {
                 object-fit: contain;
                 cursor: pointer;
-                box-shadow: 0 10px 6px -6px #777;
+                border-radius: 15px;
+                box-shadow: 0 10px 6px -6px #100d0da3;
             }
         }
     }

@@ -3,6 +3,7 @@
 </ng-template>
 
 <div class="browse ws-shift">
+  <h3 class="browse__top-heading">Top Albums</h3>
   <ul *ngIf="isLoaded; else loading" class="browse-albums">
     <li *ngFor="let album of albums$ | async" class="browse-albums__album">
       <div class="browse-albums__img-play">
