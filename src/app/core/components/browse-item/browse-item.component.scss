@@ -7,7 +7,14 @@
 }
 
 .browse {
+    &-item-btns {
+        float: right;
+        margin-bottom: 30px;
+        margin-right: 30px;
+    }
+
     &-albums {
+        clear: both;
         font-family: "Open Sans", sans-serif;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 250px));

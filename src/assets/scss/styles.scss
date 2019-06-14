@@ -37,11 +37,11 @@
 }
 
 .ws-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  color: $mainWhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: $mainWhite;
 }
 
 .ws-shift {
@@ -91,30 +91,36 @@
     }
 }
 
+.ws-carousel {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    transition-duration: 1s;
+}
+
 .ws-ellipsis-icon {
-  cursor: pointer;
-  display: none;
-  padding-left: 20px;
+    cursor: pointer;
+    display: none;
+    padding-left: 20px;
 
-  &-items {
-      list-style: none;
-      color: $smokeWhite;
-      background-color: $grayBlack;
-      padding: 15px;
-      margin: 0;
-      box-shadow: 1px 5px 9px 2px rgba(0,0,0,0.3);
+    &-items {
+        list-style: none;
+        color: $smokeWhite;
+        background-color: $grayBlack;
+        padding: 15px;
+        margin: 0;
+        box-shadow: 1px 5px 9px 2px rgba(0, 0, 0, 0.3);
 
-      &__item {
-          padding: 8px;
-          cursor: pointer;
+        &__item {
+            padding: 8px;
+            cursor: pointer;
 
-          &:hover {
-              background-color: $transparentBlack;
-              transform: translateX(2px);
-              transition: transform .5s;
-          }
-      }
-  }
+            &:hover {
+                background-color: $transparentBlack;
+                transform: translateX(2px);
+                transition: transform .5s;
+            }
+        }
+    }
 }
 
 body {
@@ -172,15 +178,15 @@ div.modal-content {
 }
 
 .popover {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 .popover-body {
-  padding: 0;
+    padding: 0;
 }
 
 .bs-popover-bottom .arrow::after {
-  display: none;
+    display: none;
 }
 
 /*Animations*/

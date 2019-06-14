@@ -1,3 +1,4 @@
+import { CarouselDirective } from "./directives/carousel.directive";
 import { StoreModule } from "@ngrx/store";
 import { CustomSlice } from "./pipes/customslice.pipe";
 import { HttpClientJsonpModule } from "@angular/common/http";
@@ -28,7 +29,8 @@ import { sharedReducer } from "./state/shared.reducer";
     PlayerComponent,
     TrackDurationPipe,
     CustomSlice,
-    CurrentlyPlayingComponent
+    CurrentlyPlayingComponent,
+    CarouselDirective
   ],
   exports: [
     NgbModule,
@@ -37,7 +39,8 @@ import { sharedReducer } from "./state/shared.reducer";
     PlayerComponent,
     TrackDurationPipe,
     CustomSlice,
-    CurrentlyPlayingComponent
+    CurrentlyPlayingComponent,
+    CarouselDirective
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
