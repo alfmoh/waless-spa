@@ -16,7 +16,10 @@ export class DeezerService {
 
   getTrackList(url: string): Observable<Track[]> {
     return this.http
-      .jsonp(`${url}?${jsonUrl}`, JSONP)
+      .jsonp(
+        url.includes("?") ? `${url}&${jsonUrl}` : `${url}?${jsonUrl}`,
+        JSONP
+      )
       .pipe(map((response: any) => response.data));
   }
 
@@ -29,6 +32,12 @@ export class DeezerService {
   getChartPlaylists(): Observable<Playlist[]> {
     return this.http
       .jsonp(`${baseUrl}chart/0/playlists?${jsonUrl}`, JSONP)
+      .pipe(map((response: any) => response.data));
+  }
+
+  getChartArtists(): Observable<Artist[]> {
+    return this.http
+      .jsonp(`${baseUrl}chart/0/artists?${jsonUrl}`, JSONP)
       .pipe(map((response: any) => response.data));
   }
 

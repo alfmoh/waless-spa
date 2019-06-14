@@ -12,6 +12,7 @@ import * as fromCoreAction from "../../state/core.actions";
 import { takeWhile } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Playlist } from "src/app/shared/models/Playlist";
+import { Artist } from "src/app/shared/models/Artist";
 
 @Component({
   selector: "ws-browse",
@@ -21,6 +22,7 @@ import { Playlist } from "src/app/shared/models/Playlist";
 export class BrowseComponent implements OnInit, OnDestroy {
   albums$: Observable<Album[]>;
   playlists$: Observable<Playlist[]>;
+  artists$: Observable<Artist[]>;
   subOnEnd: any;
   subPlaying: any;
   componentActive = true;
@@ -39,6 +41,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
     this.albums$ = this.store.pipe(select(fromBrowse.getBrowseChartAlbums));
     this.playlists$ = this.store.pipe(select(fromBrowse.getBrowseChartPlaylists));
+    this.artists$ = this.store.pipe(select(fromBrowse.getBrowseChartArtists));
 
     this.store
       .pipe(

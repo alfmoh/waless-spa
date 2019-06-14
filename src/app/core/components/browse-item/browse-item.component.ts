@@ -9,7 +9,7 @@ import { PlayerHanlder } from "../../../shared/helpers/playerhandler";
 })
 export class BrowseItemComponent implements OnInit {
   @Input("isLoaded") isLoaded: boolean;
-  @Input("albums") albums: any;
+  @Input("items") items: any;
 
   constructor(public playerHandler: PlayerHanlder) {}
 

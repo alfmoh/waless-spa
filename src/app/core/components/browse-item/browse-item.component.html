@@ -3,35 +3,42 @@
 </ng-template>
 
 <ul *ngIf="isLoaded; else loading" class="browse-albums">
-  <li *ngFor="let album of albums" class="browse-albums__album">
-    <ng-template #playlistTitle>
-      <span class="browse-albums__album__name ws-focus-border" [ngStyle]="{'text-decoration':'none'}">
-        {{album.title | titlecase}}
-      </span>
-    </ng-template>
+  <li *ngFor="let item of items" class="browse-albums__album">
     <ng-template #playlistNum>
       <span class="browse-albums__album__artist-name ws-focus-border" [ngStyle]="{'text-decoration':'none'}">
-        {{album.nb_tracks + " tracks"}}
+        {{item.nb_tracks + " tracks"}}
       </span>
     </ng-template>
-    <div class="browse-albums__img-play">
-      <img [src]="album.cover_medium || album.picture_medium " class="browse-albums__album__pic" alt="">
-      <button class="browse-albums__album__btn ws-focus-border" (click)="playerHandler.startAlbum(album)">
+    <div class="browse-albums__img-play" [ngStyle]="{'border-radius':item.type == 'artist' ? '50%' : '15px'}" >
+      <img [src]="item.cover_medium || item.picture_medium "
+      class="browse-albums__album__pic" alt=""
+      [ngStyle]="{'border-radius':item.type == 'artist' ? '50%' : '15px'}">
+      <button class="browse-albums__album__btn ws-focus-border" (click)="playerHandler.startAlbum(item)">
         <i class="fa fa-play"></i>
       </button>
     </div>
-    <div class="browse-albums__album__details">
+    <div class="browse-albums__album__details" [ngStyle]="{'justify-content':item.type == 'artist' ? 'center' : 'space-between'}" >
       <div class="browse-albums__album__details__names">
-        <span *ngIf="album.type != 'playlist'; else playlistTitle" class="browse-albums__album__name ws-focus-border"
-          [routerLink]="['/album', album?.id]">
-          {{album.title | titlecase}}
-        </span>
-        <span *ngIf="album.type != 'playlist'; else playlistNum"
-          class="browse-albums__album__artist-name ws-focus-border" [routerLink]="['/artist', album?.artist?.id]">
-          {{album?.artist?.name | titlecase}}
+        <ng-container [ngSwitch]="item.type" >
+            <span *ngSwitchCase="'album'" class="browse-albums__album__name ws-focus-border"
+            [routerLink]="['/album', item.id]">
+            {{item.title | titlecase}}
+          </span>
+            <span *ngSwitchCase="'artist'" class="browse-albums__album__name ws-focus-border"
+            [routerLink]="['/artist', item.id]">
+            {{item.name | titlecase}}
+          </span>
+            <span *ngSwitchCase="'playlist'" class="browse-albums__album__name ws-focus-border"
+            [ngStyle]="{'text-decoration':'none'}" >
+            {{item.title | titlecase}}
+          </span>
+        </ng-container>
+        <span *ngIf="item.type != 'playlist'; else playlistNum"
+          class="browse-albums__album__artist-name ws-focus-border" [routerLink]="['/artist', item?.artist?.id]">
+          {{item?.artist?.name | titlecase}}
         </span>
       </div>
-      <span title="songs may contain explicit words" *ngIf="album.explicit_lyrics"
+      <span title="songs may contain explicit words" *ngIf="item.explicit_lyrics"
         class="browse-albums__album__details__exp">Explicit</span>
     </div>
   </li>

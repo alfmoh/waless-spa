@@ -4,9 +4,11 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { Album } from "src/app/shared/models/Album";
 import { coreModuleFeature } from "src/app/shared/helpers/constants";
 import { State } from "src/app/state/app.state";
+import { Artist } from "src/app/shared/models/Artist";
 export interface BrowseState {
   chartAlbums: Album[];
   chartPlaylists: Playlist[];
+  chartArtists: Artist[];
   error: string;
   isLoaded: boolean;
 }
@@ -14,6 +16,7 @@ export interface BrowseState {
 const initialState: BrowseState = {
   chartAlbums: [],
   chartPlaylists: [],
+  chartArtists: [],
   error: "",
   isLoaded: false
 };
@@ -33,6 +36,11 @@ export const getBrowseChartAlbums = createSelector(
 export const getBrowseChartPlaylists = createSelector(
   selectBrowseFeatureState,
   state => state.chartPlaylists
+);
+
+export const getBrowseChartArtists = createSelector(
+  selectBrowseFeatureState,
+  state => state.chartArtists
 );
 
 export const getBrowseIsLoaded = createSelector(
@@ -61,6 +69,7 @@ export function browseReducer(
         ...state,
         chartAlbums: action.payload[0],
         chartPlaylists: action.payload[1],
+        chartArtists: action.payload[2],
         isLoaded: true,
         error: ""
       };

@@ -13,7 +13,7 @@ export class BrowseEffects {
   loadBrowseCharts = this.actions$.pipe(
     ofType(browseActions.BrowseActionTypes.LoadBrowse),
     switchMap(() =>
-      forkJoin([this.deezer.getChartAlbums(), this.deezer.getChartPlaylists()])
+      forkJoin([this.deezer.getChartAlbums(), this.deezer.getChartPlaylists(), this.deezer.getChartArtists()])
     ),
     map(data => new browseActions.LoadBrowseSuccess(data)),
     catchError(error => of(new browseActions.LoadBrowseFail(error)))
