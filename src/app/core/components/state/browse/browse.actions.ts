@@ -14,7 +14,7 @@ export class LoadBrowse implements Action {
 export class LoadBrowseSuccess implements Action {
   readonly type = BrowseActionTypes.LoadBrowseSuccess;
 
-  constructor(public payload: Album[]) {}
+  constructor(public payload: any[]) {}
 }
 
 export class LoadBrowseFail implements Action {

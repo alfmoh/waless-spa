@@ -6,12 +6,13 @@ import { Injectable } from "@angular/core";
 import { Album } from "../models/Album";
 import { Artist } from "../models/Artist";
 import { JSONP, baseUrl, jsonUrl } from "../helpers/constants";
+import { Playlist } from "../models/Playlist";
 
 @Injectable({
   providedIn: "root"
 })
 export class DeezerService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTrackList(url: string): Observable<Track[]> {
     return this.http
@@ -25,6 +26,12 @@ export class DeezerService {
       .pipe(map((response: any) => response.albums.data));
   }
 
+  getChartPlaylists(): Observable<Playlist[]> {
+    return this.http
+      .jsonp(`${baseUrl}chart/0/playlists?${jsonUrl}`, JSONP)
+      .pipe(map((response: any) => response.data));
+  }
+
   getArtist(artistId: number): Observable<Artist> {
     return this.http.jsonp(
       `${baseUrl}artist/${artistId}?${jsonUrl}`,
@@ -34,10 +41,7 @@ export class DeezerService {
 
   getArtistTopTracks(artistId: number): Observable<Track[]> {
     return this.http
-      .jsonp(
-        `${baseUrl}artist/${artistId}/top?limit=20&${jsonUrl}`,
-        JSONP
-      )
+      .jsonp(`${baseUrl}artist/${artistId}/top?limit=20&${jsonUrl}`, JSONP)
       .pipe(
         map((response: any) => response.data.filter(track => track.readable))
       );

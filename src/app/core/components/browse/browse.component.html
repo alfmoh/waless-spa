@@ -1,6 +1,8 @@
 <div class="browse ws-shift">
   <h3 class="browse__top-heading">Top Albums</h3>
   <ws-browse-item [isLoaded]="isLoaded" [albums]="albums$ | async"></ws-browse-item>
+  <h3 class="browse__top-heading browse__top-heading-playlist">Treading Playlists</h3>
+  <ws-browse-item [isLoaded]="isLoaded" [albums]="playlists$ | async"></ws-browse-item>
 </div>
 
 <ws-player

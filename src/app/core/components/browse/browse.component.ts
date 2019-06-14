@@ -11,6 +11,7 @@ import { Store, select } from "@ngrx/store";
 import * as fromCoreAction from "../../state/core.actions";
 import { takeWhile } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { Playlist } from "src/app/shared/models/Playlist";
 
 @Component({
   selector: "ws-browse",
@@ -19,6 +20,7 @@ import { Observable } from "rxjs";
 })
 export class BrowseComponent implements OnInit, OnDestroy {
   albums$: Observable<Album[]>;
+  playlists$: Observable<Playlist[]>;
   subOnEnd: any;
   subPlaying: any;
   componentActive = true;
@@ -36,6 +38,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromCoreAction.LoadBrowse());
 
     this.albums$ = this.store.pipe(select(fromBrowse.getBrowseChartAlbums));
+    this.playlists$ = this.store.pipe(select(fromBrowse.getBrowseChartPlaylists));
 
     this.store
       .pipe(
