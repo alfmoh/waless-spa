@@ -1,3 +1,6 @@
+<ngb-alert [ngStyle]="{'text-align':'center'}"
+*ngIf="isError" [type]="'danger'"
+[dismissible]="true">Sorry. An error occured while loading tracks. Please reload.</ngb-alert>
 <div class="browse ws-shift">
   <h3 class="browse__top-heading">Top Albums</h3>
   <ws-browse-item [isLoaded]="isLoaded" [items]="albums$ | async"></ws-browse-item>

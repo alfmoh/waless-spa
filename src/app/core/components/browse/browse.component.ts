@@ -1,4 +1,3 @@
-import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import * as fromRoot from "./../../../state/app.state";
 import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
 import * as fromBrowse from "../../../core/components/state/browse/browse.reducer";
@@ -27,20 +26,21 @@ export class BrowseComponent implements OnInit, OnDestroy {
   subPlaying: any;
   componentActive = true;
   isLoaded: boolean;
+  isError: boolean;
 
   constructor(
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
     private title: Title,
-    private store: Store<fromRoot.State>,
-    private alertify: AlertifyService
-  ) {}
+    private store: Store<fromRoot.State>  ) {}
 
   ngOnInit() {
     this.store.dispatch(new fromCoreAction.LoadBrowse());
 
     this.albums$ = this.store.pipe(select(fromBrowse.getBrowseChartAlbums));
-    this.playlists$ = this.store.pipe(select(fromBrowse.getBrowseChartPlaylists));
+    this.playlists$ = this.store.pipe(
+      select(fromBrowse.getBrowseChartPlaylists)
+    );
     this.artists$ = this.store.pipe(select(fromBrowse.getBrowseChartArtists));
 
     this.store
@@ -48,9 +48,11 @@ export class BrowseComponent implements OnInit, OnDestroy {
         select(fromCurrentlyPlaying.getCurrentlyPlayingTrack),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
+      .subscribe(track =>
+        this.title.setTitle(this.playerService.getSiteTitle(track))
+      );
 
-      this.store
+    this.store
       .pipe(
         select(fromBrowse.getBrowseIsLoaded),
         takeWhile(() => this.componentActive)
@@ -63,7 +65,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentActive)
       )
       .subscribe(e => {
-        if (e) this.alertify.error("Sorry. An error occured while loading tracks. Please refresh.");
+        if (e) this.isError = true;
       });
 
     const event = this.playerService.playerEvents;

@@ -34,6 +34,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
   subPlaying: any;
   componentActive = true;
   isLoaded: boolean;
+  isError: boolean;
 
   constructor(
     private alertify: AlertifyService,
@@ -73,6 +74,15 @@ export class ArtistComponent implements OnInit, OnDestroy {
       .subscribe(topTracks => {
         this.artistAlbums = topTracks.map(track => track.album).slice(0, 8);
         return (this.topTracks = topTracks.slice(0, 10));
+      });
+
+    this.store
+      .pipe(
+        select(fromArtist.getArtistError),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(e => {
+        if (e) this.isError = true;
       });
 
     const event = this.playerService.playerEvents;

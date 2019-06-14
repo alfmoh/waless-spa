@@ -1,3 +1,6 @@
+<ngb-alert [ngStyle]="{'text-align':'center'}"
+*ngIf="isError" [type]="'danger'"
+[dismissible]="true">Sorry. An error occured while loading tracks. Please reload.</ngb-alert>
 <ng-template #loading>
   <span class="ws-loading ws-shift">Loading...</span>
 </ng-template>

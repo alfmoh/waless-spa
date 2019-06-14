@@ -5,7 +5,9 @@
 <ng-template #loading>
   <span class="ws-loading ws-shift">Loading...</span>
 </ng-template>
-
+<ngb-alert [ngStyle]="{'text-align':'center'}"
+*ngIf="isError" [type]="'danger'"
+[dismissible]="true">Sorry. An error occured while loading tracks. Please reload.</ngb-alert>
 <div *ngIf="isLoaded && album; else loading" class="album ws-shift">
   <div class="album-cover">
     <img class="album-cover__pic" [src]="album.cover_medium" [alt]="album.title">

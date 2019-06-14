@@ -1,4 +1,3 @@
-import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
 import * as fromRoot from "./../../../state/app.state";
 import { Album } from "./../../../shared/models/Album";
@@ -28,15 +27,15 @@ export class AlbumComponent implements OnInit, OnDestroy {
   componentActive = true;
   album$: any;
   isLoaded: boolean;
+  isError: boolean;
 
   constructor(
     private route: ActivatedRoute,
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
     private title: Title,
-    private store: Store<fromRoot.State>,
-    private alertify: AlertifyService
-  ) { }
+    private store: Store<fromRoot.State>
+  ) {}
 
   ngOnInit() {
     this.store
@@ -44,7 +43,9 @@ export class AlbumComponent implements OnInit, OnDestroy {
         select(fromCurrentlyPlaying.getCurrentlyPlayingTrack),
         takeWhile(() => this.componentActive)
       )
-      .subscribe(track => this.title.setTitle(this.playerService.getSiteTitle(track)));
+      .subscribe(track =>
+        this.title.setTitle(this.playerService.getSiteTitle(track))
+      );
 
     this.albumId = +this.route.snapshot.paramMap.get("id");
 
@@ -75,8 +76,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentActive)
       )
       .subscribe(e => {
-        if (e)
-          this.alertify.error("Sorry. An error occured while loading tracks.");
+        if (e) this.isError = true;
       });
 
     const event = this.playerService.playerEvents;
