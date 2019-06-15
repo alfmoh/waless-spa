@@ -22,27 +22,41 @@ export class CarouselDirective implements OnInit {
   }
   activateButtons() {
     this.leftButton.addEventListener("click", () => {
-      if (!this.switcher) this.val -= 30;
-      this.el.nativeElement.style.transform = `translateX(${this.val}%)`;
-      this.val -= 30;
-      this.switcher = true;
+      if (this.val !== 800) {
+        this.val += 400;
+        if (this.switcher) this.val += 400;
+        this.el.nativeElement.style.transform = `translateX(${this.val}px)`;
+        this.switcher = false;
+      }
     });
     this.rightButton.addEventListener("click", () => {
-      this.val += 30;
-      if (this.switcher) this.val += 30;
-      this.el.nativeElement.style.transform = `translateX(${this.val}%)`;
-      this.switcher = false;
+      if (!(this.val < -800)) {
+        if (!this.switcher) this.val -= 400;
+        this.el.nativeElement.style.transform = `translateX(${this.val}px)`;
+        this.val -= 400;
+        this.switcher = true;
+      }
     });
   }
   private createButtons() {
     this.leftButton = this.renderer.createElement("i");
-    this.leftButton.style.fontSize = "30px";
     this.leftButton.style.marginRight = "10px";
-    this.leftButton.classList.add("browse-item-btns__btn-left", "fa", "fa-arrow-left", "ws-btn");
+    this.leftButton.classList.add(
+      "browse-item-btns__btn-left",
+      "fa",
+      "fa-angle-left",
+      "ws-btn",
+      "browse-item-btns__btn"
+    );
 
     this.rightButton = this.renderer.createElement("i");
-    this.rightButton.style.fontSize = "30px";
-    this.rightButton.classList.add("browse-item-btns__btn-right", "fa", "fa-arrow-right", "ws-btn");
+    this.rightButton.classList.add(
+      "browse-item-btns__btn-right",
+      "fa",
+      "fa-angle-right",
+      "ws-btn",
+      "browse-item-btns__btn"
+    );
 
     this.buttonContainer = this.renderer.createElement("div");
     this.buttonContainer.classList.add("browse-item-btns");

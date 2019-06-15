@@ -11,6 +11,16 @@
         float: right;
         margin-bottom: 30px;
         margin-right: 30px;
+
+        &__btn {
+            background-color: transparent;
+            font-size: 40px;
+            opacity: .7;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
     }
 
     &-albums {
