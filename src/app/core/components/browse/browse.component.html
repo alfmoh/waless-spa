@@ -6,7 +6,7 @@
   <ws-browse-item [isLoaded]="isLoaded" [items]="albums$ | async"></ws-browse-item>
   <h3 class="browse__top-heading browse__top-heading-playlist">Treading Playlists</h3>
   <ws-browse-item [isLoaded]="isLoaded" [items]="playlists$ | async"></ws-browse-item>
-  <h3 class="browse__top-heading browse__top-heading-playlist">Treading Artists</h3>
+  <h3 [ngStyle]="{'margin-bottom':'0'}" class="browse__top-heading browse__top-heading-playlist">Treading Artists</h3>
   <ws-browse-item [caroActive]="true" [isLoaded]="isLoaded" [items]="artists$ | async"></ws-browse-item>
 </div>
 

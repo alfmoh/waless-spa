@@ -10,10 +10,14 @@
               {{item.nb_tracks + " tracks"}}
             </span>
           </ng-template>
-          <div class="browse-albums__img-play" [ngStyle]="{'border-radius':item.type == 'artist' ? '50%' : '15px'}" >
+          <div class="browse-albums__img-play" [ngStyle]="{
+            'border-radius':item.type == 'artist' ? '50%' : '15px'}" >
             <img [src]="item.cover_medium || item.picture_medium "
             class="browse-albums__album__pic" alt=""
-            [ngStyle]="{'border-radius':item.type == 'artist' ? '50%' : '15px'}">
+            [ngStyle]="{
+              'border-radius':item.type == 'artist' ? '50%' : '15px',
+              'box-shadow':item.type == 'artist' ? '0 10px 13px 0px #100d0da3;' : '',
+              'border':item.type == 'artist' ? 'solid 3px #754c11' : ''}">
             <button class="browse-albums__album__btn ws-focus-border" (click)="playerHandler.startAlbum(item)">
               <i class="fa fa-play"></i>
             </button>

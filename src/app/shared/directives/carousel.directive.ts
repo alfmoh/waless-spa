@@ -22,26 +22,27 @@ export class CarouselDirective implements OnInit {
   }
   activateButtons() {
     this.leftButton.addEventListener("click", () => {
-      if (!this.switcher) this.val -= 200;
-      this.el.nativeElement.style.transform = `translateX(${this.val}px)`;
-      this.val -= 200;
+      if (!this.switcher) this.val -= 30;
+      this.el.nativeElement.style.transform = `translateX(${this.val}%)`;
+      this.val -= 30;
       this.switcher = true;
     });
     this.rightButton.addEventListener("click", () => {
-      this.val += 200;
-      if (this.switcher) this.val += 200;
-      this.el.nativeElement.style.transform = `translateX(${this.val}px)`;
+      this.val += 30;
+      if (this.switcher) this.val += 30;
+      this.el.nativeElement.style.transform = `translateX(${this.val}%)`;
       this.switcher = false;
     });
   }
   private createButtons() {
-    this.leftButton = this.renderer.createElement("button");
-    this.leftButton.innerText = "Left";
-    this.leftButton.classList.add("browse-item-btns__btn-left");
+    this.leftButton = this.renderer.createElement("i");
+    this.leftButton.style.fontSize = "30px";
+    this.leftButton.style.marginRight = "10px";
+    this.leftButton.classList.add("browse-item-btns__btn-left", "fa", "fa-arrow-left", "ws-btn");
 
-    this.rightButton = this.renderer.createElement("button");
-    this.rightButton.innerText = "Right";
-    this.rightButton.classList.add("browse-item-btns__btn-right");
+    this.rightButton = this.renderer.createElement("i");
+    this.rightButton.style.fontSize = "30px";
+    this.rightButton.classList.add("browse-item-btns__btn-right", "fa", "fa-arrow-right", "ws-btn");
 
     this.buttonContainer = this.renderer.createElement("div");
     this.buttonContainer.classList.add("browse-item-btns");
@@ -50,7 +51,7 @@ export class CarouselDirective implements OnInit {
 
     this.parent = this.el.nativeElement.parentElement;
     this.parent.style.overflowX = "hidden";
-    this.el.nativeElement.style.transform = `translateX(200px)`;
+    // this.el.nativeElement.style.transform = `translateX(200px)`;
     this.parent.insertBefore(this.buttonContainer, this.el.nativeElement);
   }
 }

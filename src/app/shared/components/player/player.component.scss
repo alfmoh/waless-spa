@@ -5,6 +5,7 @@
     bottom: 0;
     width: 100%;
     color: $mainWhite;
+    z-index: 3;
 
     &-content {
         display: grid;
