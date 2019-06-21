@@ -45,7 +45,7 @@
     </div>
 
     <ul class="album-content-tracks ws-ul-reset">
-      <li *ngFor="let track of trackList; let i=index;" class="album-content-tracks__track" (click)="playerHandler.startSelectedTrack(trackList, i, src)">
+      <li *ngFor="let track of trackList; let i=index;" class="album-content-tracks__track" (click)="playerHandler.startSelectedTrack(trackList, i, src, src?.type)">
         <div [title]="track.title" class="album-content-tracks__track__title">{{(track.title | customSlice: 30) | titlecase}}
           <div class="album-content-tracks__track__title-extra">
             <h6 [routerLink]="['/artist', track.artist.id]" class="album-content-tracks__track__title-extra-artist ws-focus-border">
