@@ -11,6 +11,8 @@ import { SharedModule } from "./shared/shared.module";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { EffectsModule } from "@ngrx/effects";
+import { JwtModule } from "@auth0/angular-jwt";
+import { siteHost } from "./shared/helpers/constants";
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +29,13 @@ import { EffectsModule } from "@ngrx/effects";
     }),
     NgbModule.forRoot(),
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem("token"),
+        whitelistedDomains: [siteHost]
+      }
+    })
   ],
   providers: [Title],
   bootstrap: [AppComponent]

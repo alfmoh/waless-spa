@@ -5,3 +5,5 @@ export const artistBioTitle = "Biography";
 export const JSONP = "JSONP_CALLBACK";
 export const baseUrl = "https://api.deezer.com/";
 export const jsonUrl = "output=jsonp&callback=JSONP_CALLBACK";
+export const siteUrl = "http://localhost:5000/api";
+export const siteHost = "localhost:5000";
