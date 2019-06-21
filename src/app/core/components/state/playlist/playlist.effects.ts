@@ -21,4 +21,21 @@ export class PlaylistEffect {
     map(playlist => new playlistActions.LoadPlaylistsSuccess(playlist)),
     catchError(error => of(new playlistActions.LoadPlaylistFail(error)))
   );
+
+  @Effect()
+  loadPlaylist = this.action$.pipe(
+    ofType(playlistActions.PlaylistActionTypes.LoadPlaylist),
+    map((action: playlistActions.LoadPlaylist) => action.payload),
+    mergeMap((playlistId: number) =>
+      this.playlistSource(playlistId).pipe(
+        map(playlist => new playlistActions.LoadPlaylistSuccess(playlist)),
+        catchError(err => of(new playlistActions.LoadPlaylistFail(err)))
+      )
+    )
+  );
+
+  private playlistSource(playlistId: number) {
+    const playlist = this.deezer.getPlaylist(playlistId);
+    return playlist;
+  }
 }

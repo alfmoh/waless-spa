@@ -9,6 +9,7 @@ import { CommonModule } from "@angular/common";
 import { ArtistComponent } from "../components/artist/artist.component";
 import { AuthGuard } from "../../shared/helpers/AuthGuard";
 import { NotFoundComponent } from "../components/notfound/notfound.component";
+import { PlaylistDetailComponent } from "../components/playlist-detail/playlist-detail.component";
 
 const coreRoutes: Routes = [
   {
@@ -38,7 +39,7 @@ const coreRoutes: Routes = [
   },
   {
     path: "playlist/:id",
-    component: PlaylistComponent,
+    component: PlaylistDetailComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -1,0 +1,15 @@
+<ws-tracks-display
+[isLoaded]="isLoaded$ | async"
+[isError]="isError$ | async"
+[src]="playlist$ | async"
+[trackList]="(playlist$ | async)?.tracks?.data">
+</ws-tracks-display>
+
+<ws-player
+  [playing]="playerHandler.isPlaying()"
+  (play)="playerHandler.play()"
+  (pause)="playerHandler.pause()"
+  (stop)="playerHandler.stop()"
+  (next)="playerHandler.next()"
+  (previous)="playerHandler.previous()">
+</ws-player>

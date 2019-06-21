@@ -34,7 +34,7 @@
                   {{item.name | titlecase}}
                 </span>
                   <span *ngSwitchCase="'playlist'" class="browse-albums__album__name ws-focus-border"
-                  [ngStyle]="{'text-decoration':'none'}" >
+                  [routerLink]="['/playlist',item.id]" >
                   {{item.title | titlecase}}
                 </span>
               </ng-container>

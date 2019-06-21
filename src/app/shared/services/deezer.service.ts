@@ -69,4 +69,11 @@ export class DeezerService {
       JSONP
     ) as Observable<Track>;
   }
+
+  getPlaylist(playlistId: number): Observable<Playlist> {
+    return this.http.jsonp(
+      `${baseUrl}playlist/${playlistId}?${jsonUrl}`,
+      JSONP
+    ) as Observable<Playlist>;
+  }
 }

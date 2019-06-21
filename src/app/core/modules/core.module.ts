@@ -1,3 +1,4 @@
+import { PlaylistDetailComponent } from "./../components/playlist-detail/playlist-detail.component";
 import { BrowseItemComponent } from "./../components/browse-item/browse-item.component";
 import { AlbumEffects } from "./../components/state/album/album.effects";
 import { BrowseEffects } from "./../components/state/browse/browse.effects";
@@ -39,6 +40,7 @@ import { PlaylistEffect } from "../components/state/playlist/playlist.effects";
     ArtistComponent,
     HomeComponent,
     PlaylistComponent,
+    PlaylistDetailComponent,
     NotFoundComponent
   ],
   exports: [NavbarComponent, AuthModule, NotFoundComponent]
