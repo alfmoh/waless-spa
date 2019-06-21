@@ -1,0 +1,41 @@
+@import "~src/assets/scss/styles";
+
+.playlist {
+    padding-top: 4%;
+    padding-bottom: 100px;
+    background: $darkGray;
+    color: $mainWhite;
+
+    @include --phone {
+        padding-left: 5%;
+    }
+
+
+    @include --tablet {
+        padding-left: 10%;
+    }
+
+
+    @include --desktop {
+        padding-left: 9%;
+    }
+
+
+    @include --large-desktop {
+        padding-left: 12%;
+    }
+
+
+    @include --larger-desktop {
+        padding-left: 9%;
+    }
+
+
+    &__top-heading {
+        text-align: center;
+        letter-spacing: 4px;
+        margin-bottom: 4%;
+        text-transform: lowercase;
+        opacity: .4;
+    }
+}

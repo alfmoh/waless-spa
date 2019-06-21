@@ -1,0 +1,13 @@
+<div class="playlist ws-shift">
+  <h3 class="playlist__top-heading">Playlists</h3>
+  <ws-browse-item [isLoaded]="isLoaded$ | async" [items]="playlists$ | async"></ws-browse-item>
+</div>
+
+<ws-player
+  [playing]="playerHandler.isPlaying()"
+  (play)="playerHandler.play()"
+  (pause)="playerHandler.pause()"
+  (stop)="playerHandler.stop()"
+  (next)="playerHandler.next()"
+  (previous)="playerHandler.previous()">
+</ws-player>

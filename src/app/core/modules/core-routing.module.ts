@@ -1,3 +1,4 @@
+import { PlaylistComponent } from "./../components/playlist/playlist.component";
 import { AlbumComponent } from "./../components/album/album.component";
 import { QueueComponent } from "./../components/queue/queue.component";
 import { BrowseComponent } from "./../components/browse/browse.component";
@@ -28,6 +29,16 @@ const coreRoutes: Routes = [
   {
     path: "queue",
     component: QueueComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "playlist",
+    component: PlaylistComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "playlist/:id",
+    component: PlaylistComponent,
     canActivate: [AuthGuard]
   },
   {

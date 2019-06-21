@@ -11,9 +11,7 @@ import { siteUrl } from "../helpers/constants";
 export class WalessService {
   userId: string;
   constructor(private http: HttpClient, private authService: AuthService) {
-    if (authService.decodedToken)
-    this.userId = authService.decodedToken.nameid;
-    console.log(authService.decodedToken);
+    this.userId = authService.getTokenUser().nameid;
   }
 
   getPlaylists(): Observable<Playlist[]> {

@@ -76,7 +76,7 @@ export class PlayerHanlder {
         .getTrackList(album.tracklist)
         .subscribe((tracks: Track[]) => this.processTracks(tracks));
     } else {
-      this.processTracks(album.tracks.data);
+      this.processTracks(album.tracks.data || album.tracks);
     }
     this.store.dispatch(new fromSharedActions.CurrentlyPlayingAlbum(album));
   }

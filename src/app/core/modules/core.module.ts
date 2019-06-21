@@ -18,6 +18,8 @@ import { StoreModule } from "@ngrx/store";
 import { coreReducer } from "../state/core.reducer";
 import { coreModuleFeature } from "src/app/shared/helpers/constants";
 import { ArtistEffects } from "../components/state/artist/artist.effects";
+import { PlaylistComponent } from "../components/playlist/playlist.component";
+import { PlaylistEffect } from "../components/state/playlist/playlist.effects";
 
 @NgModule({
   imports: [
@@ -26,7 +28,7 @@ import { ArtistEffects } from "../components/state/artist/artist.effects";
     AuthModule,
     SharedModule,
     StoreModule.forFeature(coreModuleFeature, coreReducer),
-    EffectsModule.forFeature([BrowseEffects, AlbumEffects, ArtistEffects])
+    EffectsModule.forFeature([BrowseEffects, AlbumEffects, ArtistEffects, PlaylistEffect])
   ],
   declarations: [
     NavbarComponent,
@@ -36,6 +38,7 @@ import { ArtistEffects } from "../components/state/artist/artist.effects";
     AlbumComponent,
     ArtistComponent,
     HomeComponent,
+    PlaylistComponent,
     NotFoundComponent
   ],
   exports: [NavbarComponent, AuthModule, NotFoundComponent]
