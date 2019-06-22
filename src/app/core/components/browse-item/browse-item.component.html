@@ -34,7 +34,8 @@
                   {{item.name | titlecase}}
                 </span>
                   <span *ngSwitchCase="'playlist'" class="browse-albums__album__name ws-focus-border"
-                  [routerLink]="['/playlist',item.id]" >
+                  [routerLink]="['/playlist',item.id || item.playlistId]"
+                  [queryParams]="{source: item.checksum ? 1 : 2}" >
                   {{item.title | titlecase}}
                 </span>
               </ng-container>

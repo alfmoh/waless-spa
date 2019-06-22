@@ -26,16 +26,19 @@ export class PlaylistEffect {
   loadPlaylist = this.action$.pipe(
     ofType(playlistActions.PlaylistActionTypes.LoadPlaylist),
     map((action: playlistActions.LoadPlaylist) => action.payload),
-    mergeMap((playlistId: number) =>
-      this.playlistSource(playlistId).pipe(
+    mergeMap((playlistIdAndSource: string[]) =>
+      this.playlistSource(playlistIdAndSource).pipe(
         map(playlist => new playlistActions.LoadPlaylistSuccess(playlist)),
         catchError(err => of(new playlistActions.LoadPlaylistFail(err)))
       )
     )
   );
 
-  private playlistSource(playlistId: number) {
-    const playlist = this.deezer.getPlaylist(playlistId);
+  private playlistSource(playlistIdAndSource: any) {
+    const playlist =
+      +playlistIdAndSource[1] === 1
+        ? this.deezer.getPlaylist(playlistIdAndSource[0])
+        : this.walessService.getPlaylist(playlistIdAndSource[0]);
     return playlist;
   }
 }

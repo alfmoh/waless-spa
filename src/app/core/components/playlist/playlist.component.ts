@@ -30,7 +30,6 @@ export class PlaylistComponent implements OnInit, OnDestroy {
 
     this.playlists$ = this.store.pipe(select(fromPlaylist.getPlaylists));
     this.isLoaded$ = this.store.pipe(select(fromPlaylist.getPlaylistIsLoaded));
-    this.playlists$.subscribe(console.log);
 
     const event = this.playerService.playerEvents;
     this.subOnEnd = event.onEnd$.subscribe(() => this.playerHandler.onEnd());

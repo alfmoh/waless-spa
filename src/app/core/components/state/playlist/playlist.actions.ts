@@ -26,7 +26,7 @@ export class LoadPlaylistsFail implements Action {
 
 export class LoadPlaylist implements Action {
   readonly type = PlaylistActionTypes.LoadPlaylist;
-  constructor(public payload: number) {}
+  constructor(public payload: string[]) {}
 }
 
 export class LoadPlaylistSuccess implements Action {

@@ -2,7 +2,7 @@
 [isLoaded]="isLoaded$ | async"
 [isError]="isError$ | async"
 [src]="playlist$ | async"
-[trackList]="(playlist$ | async)?.tracks?.data">
+[trackList]="(playlist$ | async)?.tracks?.data || (playlist$ | async)?.tracks">
 </ws-tracks-display>
 
 <ws-player

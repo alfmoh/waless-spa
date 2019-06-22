@@ -5,17 +5,36 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class TrackDurationPipe implements PipeTransform {
   transform(value: number): any {
+    if (value <= 60) return this.dotToColon(value);
+    else if (value <= 3600) return this.toMinutes(value);
+    else if (value > 3600) return this.toHours(value);
+  }
+
+  private toMinutes(seconds) {
+    const value = seconds / 60;
     const valStr = value.toString();
-    let secs = +valStr.slice(valStr.indexOf(".") + 1, valStr.length);
-    let min = +valStr.slice(0, valStr.indexOf("."));
+    if (valStr.length < 2) return `${valStr}:00`;
+    return this.dotToColon(Math.round((value + 0.00001) * 100) / 100);
+  }
 
-    if (secs <= 59) {
-      if (secs.toString().length < 2) return min + ":" + "0" + secs;
-      return min + ":" + secs;
-    }
+  private toHours(seconds) {
+    const value = seconds / 3600;
+    const valStr = value.toString();
+    if (valStr.length < 2) return valStr + " hours";
+    const numColon = this.dotToColon(Math.round((value + 0.00001) * 100) / 100);
+    const strArr = numColon.split("");
+    const colonIndex = strArr.indexOf(":");
+    +strArr[colonIndex - 1] > 1
+      ? strArr.splice(colonIndex, 0, " hours ")
+      : strArr.splice(colonIndex, 0, " hour ");
+    strArr.splice(colonIndex + 2, 0, " ");
+    strArr.push("mins");
+    return strArr.join("");
+  }
 
-    min = min + 1;
-    secs = secs % 60;
-    return this.transform(+(min + "." + secs));
+  private dotToColon(value): string {
+    const valueToString = value.toString();
+    if (valueToString.includes(".")) return valueToString.replace(".", ":");
+    return valueToString;
   }
 }

@@ -30,8 +30,10 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.playlistId = +this.route.snapshot.paramMap.get("id");
-
-    this.store.dispatch(new fromPlaylistAction.LoadPlaylist(this.playlistId));
+)
+    this.route.queryParams
+      .subscribe(x => this.store
+        .dispatch(new fromPlaylistAction.LoadPlaylist([this.playlistId, x.source])));
 
     this.playlist$ = this.store.pipe(select(fromPlaylist.getPlaylist));
     this.isError$ = this.store.pipe(select(fromPlaylist.getPlaylistError));
