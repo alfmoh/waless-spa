@@ -1,6 +1,7 @@
 import { Track } from "./Track";
 
 export interface Playlist {
+  playlistId: number;
   id: number;
   title: string;
   description: string;

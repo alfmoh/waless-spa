@@ -36,7 +36,7 @@
       class="album-content-actions__more fa fa-ellipsis-h"></i>
 
       <ng-template #topEllipsisContent>
-        <ul class="ws-ellipsis-icon-items" (click)="onPopClick($event,p)" >
+        <ul class="ws-ellipsis-icon-items" (click)="onEllipsisClick($event,p)" >
           <li class="ws-ellipsis-icon-items__item">Play Album next</li>
           <li class="ws-ellipsis-icon-items__item">Add Album to Library</li>
           <li class="ws-ellipsis-icon-items__item">Share Album</li>
@@ -66,13 +66,36 @@
           (click)="$event.stopPropagation()"
           [autoClose]="true"
           placement="bottom"
+          popoverClass="ws-ellipsis-more-container"
           class="album-content-tracks__track-dur-more__more fa fa-ellipsis-h"></i>
 
           <ng-template #ellipsisContent>
-            <ul class="ws-ellipsis-icon-items" (click)="onPopClick($event,p)" >
+            <ul class="ws-ellipsis-icon-items"
+             (click)="onEllipsisClick($event,p)" >
               <li class="ws-ellipsis-icon-items__item">Play Next</li>
-              <li class="ws-ellipsis-icon-items__item">Add to Library</li>
+              <li class="ws-ellipsis-icon-items__item"
+                #x="ngbPopover"
+                [ngbPopover]="addToPlaylist"
+                triggers="mouseenter"
+                [autoClose]="true"
+                popoverClass="ws-add-playlist-container"
+                placement="left">
+                <i class="fa fa-angle-left ws-btn"></i>
+                Add to Playlist
+              </li>
               <li class="ws-ellipsis-icon-items__item">Share</li>
+            </ul>
+          </ng-template>
+
+          <ng-template #addToPlaylist >
+            <ul
+            class="ws-ellipsis-icon-items ws-add-playlist-items" >
+                <h6 class="ws-add-playlist-heading">My Playlists</h6>
+              <li
+              (click)="onAddToPlaylistClick($event,p,track,playlist)"
+              *ngFor="let playlist of playlists$ | async" class="ws-ellipsis-icon-items__item ws-add-playlist-items__item">
+                {{playlist.title}}
+              </li>
             </ul>
           </ng-template>
 

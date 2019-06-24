@@ -29,5 +29,5 @@ export interface Album {
   position: number;
   artist: Artist;
   type: string;
-  tracks: Track;
+  tracks: Track[];
 }

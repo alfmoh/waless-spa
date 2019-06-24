@@ -4,6 +4,7 @@ import { AuthService } from "src/app/core/services/auth.service";
 import { Observable } from "rxjs";
 import { Playlist } from "../models/Playlist";
 import { siteUrl } from "../helpers/constants";
+import { CastTrack } from "../models/Track";
 
 @Injectable({
   providedIn: "root"
@@ -15,11 +16,21 @@ export class WalessService {
   }
 
   getPlaylists(): Observable<Playlist[]> {
-    return this.http
-      .get<Playlist[]>(`${siteUrl}/users/${this.userId}/playlist`);
+    return this.http.get<Playlist[]>(
+      `${siteUrl}/users/${this.userId}/playlist`
+    );
   }
 
   getPlaylist(id: number): Observable<Playlist> {
-    return this.http.get<Playlist>(`${siteUrl}/users/${this.userId}/playlist/${id}`);
+    return this.http.get<Playlist>(
+      `${siteUrl}/users/${this.userId}/playlist/${id}`
+    );
+  }
+
+  addToPlaylist(playlistId: number, track: any) {
+    return this.http.post(
+      `${siteUrl}/users/${this.userId}/playlist/${playlistId}`,
+      track as CastTrack
+    );
   }
 }
