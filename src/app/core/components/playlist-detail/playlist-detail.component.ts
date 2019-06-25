@@ -7,6 +7,8 @@ import * as fromRoot from "./../../../state/app.state";
 import * as fromPlaylistAction from "./../state/playlist/playlist.actions";
 import * as fromPlaylist from "./../state/playlist/playlist.reducer";
 import { Observable } from "rxjs";
+import { Playlist } from "src/app/shared/models/Playlist";
+import { WalessService } from "src/app/shared/services/waless.service";
 
 @Component({
   selector: "ws-playlist-detail",
@@ -20,12 +22,14 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   isLoaded$: Observable<boolean>;
   isError$: Observable<string>;
   playlistId: number;
+  playlists$: Observable<Playlist[]>;
 
   constructor(
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
     private route: ActivatedRoute,
-    private store: Store<fromRoot.State>
+    private store: Store<fromRoot.State>,
+    private walessService: WalessService
   ) {}
 
   ngOnInit() {
@@ -35,9 +39,12 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
       .subscribe(x => this.store
         .dispatch(new fromPlaylistAction.LoadPlaylist([this.playlistId, x.source])));
 
+    this.store.dispatch(new fromPlaylistAction.LoadPlaylists());
+
     this.playlist$ = this.store.pipe(select(fromPlaylist.getPlaylist));
     this.isError$ = this.store.pipe(select(fromPlaylist.getPlaylistError));
     this.isLoaded$ = this.store.pipe(select(fromPlaylist.getPlaylistIsLoaded));
+    this.playlists$ = this.store.pipe(select(fromPlaylist.getPlaylists));
 
     // TODO: Filter readable tracks
 
@@ -46,6 +53,12 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()
     );
+  }
+
+  onAddToPlaylist(values: any) {
+    this.walessService
+      .addToPlaylist(values.playlist.playlistId, values.track)
+      .subscribe();
   }
 
   ngOnDestroy() {

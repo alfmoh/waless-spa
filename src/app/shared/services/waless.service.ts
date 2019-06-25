@@ -4,7 +4,6 @@ import { AuthService } from "src/app/core/services/auth.service";
 import { Observable } from "rxjs";
 import { Playlist } from "../models/Playlist";
 import { siteUrl } from "../helpers/constants";
-import { CastTrack } from "../models/Track";
 
 @Injectable({
   providedIn: "root"
@@ -30,7 +29,7 @@ export class WalessService {
   addToPlaylist(playlistId: number, track: any) {
     return this.http.post(
       `${siteUrl}/users/${this.userId}/playlist/${playlistId}`,
-      track as CastTrack
+      track
     );
   }
 }

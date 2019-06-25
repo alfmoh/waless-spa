@@ -2,6 +2,8 @@
 [isLoaded]="isLoaded$ | async"
 [isError]="isError$ | async"
 [src]="playlist$ | async"
+[playlists]="playlists$ | async"
+(addToPlaylist)="onAddToPlaylist($event)"
 [trackList]="(playlist$ | async)?.tracks?.data || (playlist$ | async)?.tracks">
 </ws-tracks-display>
 

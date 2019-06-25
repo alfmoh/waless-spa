@@ -1,38 +1,35 @@
-import * as fromPlaylist from "./../../../core/components/state/playlist/playlist.reducer";
-import * as fromPlaylistAction from "./../../../core/components/state/playlist/playlist.actions";
-import * as fromRoot from "./../../../state/app.state";
 import { PlayerHanlder } from "./../../helpers/playerhandler";
-import { Component, OnInit, Input, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
+} from "@angular/core";
 import { Track } from "../../models/Track";
 import { NgbPopover } from "@ng-bootstrap/ng-bootstrap";
-import { Store, select } from "@ngrx/store";
-import { Observable } from "rxjs";
 import { Playlist } from "../../models/Playlist";
-import { WalessService } from "../../services/waless.service";
+import { albumCaster } from "../../helpers/caster";
 
 @Component({
   selector: "ws-tracks-display",
   templateUrl: "./tracks-display.component.html",
-  styleUrls: ["./tracks-display.component.scss"]
+  styleUrls: ["./tracks-display.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TracksDisplayComponent implements OnInit {
   @Input("isLoaded") isLoaded: boolean;
   @Input("isError") isError: boolean;
   @Input("src") src: any;
   @Input("trackList") trackList: Track[];
+  @Input("playlists") playlists: Playlist[];
 
-  playlists$: Observable<Playlist[]>;
+  @Output("addToPlaylist") addToPlaylist = new EventEmitter<any>();
 
-  constructor(
-    public playerHandler: PlayerHanlder,
-    private walessService: WalessService,
-    private store: Store<fromRoot.State>
-  ) {}
+  constructor(public playerHandler: PlayerHanlder) {}
 
-  ngOnInit() {
-    this.store.dispatch(new fromPlaylistAction.LoadPlaylists());
-    this.playlists$ = this.store.pipe(select(fromPlaylist.getPlaylists));
-  }
+  ngOnInit() {}
 
   onEllipsisClick(event: any, element: NgbPopover) {
     event.stopPropagation();
@@ -48,9 +45,9 @@ export class TracksDisplayComponent implements OnInit {
     event.stopPropagation();
     element.toggle();
     if (!track.album) {
-      const srcCopy = { ...this.src };
-      track.album = srcCopy;
+      const albumCast = albumCaster(this.src);
+      track.album = albumCast;
     }
-    this.walessService.addToPlaylist(playlist.playlistId, track).subscribe();
+    this.addToPlaylist.emit({ track, playlist });
   }
 }
