@@ -8,9 +8,10 @@ import {
   EventEmitter
 } from "@angular/core";
 import { Track } from "../../models/Track";
-import { NgbPopover } from "@ng-bootstrap/ng-bootstrap";
+import { NgbPopover, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Playlist } from "../../models/Playlist";
 import { albumCaster } from "../../helpers/caster";
+import { AddPlaylistComponent } from "../addPlaylist/addPlaylist.component";
 
 @Component({
   selector: "ws-tracks-display",
@@ -27,7 +28,7 @@ export class TracksDisplayComponent implements OnInit {
 
   @Output("addToPlaylist") addToPlaylist = new EventEmitter<any>();
 
-  constructor(public playerHandler: PlayerHanlder) {}
+  constructor(public playerHandler: PlayerHanlder, private modalService: NgbModal) {}
 
   ngOnInit() {}
 
@@ -49,5 +50,9 @@ export class TracksDisplayComponent implements OnInit {
       track.album = albumCast;
     }
     this.addToPlaylist.emit({ track, playlist });
+  }
+
+  open() {
+    this.modalService.open(AddPlaylistComponent);
   }
 }

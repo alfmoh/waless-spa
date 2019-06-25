@@ -6,6 +6,13 @@
     background: $darkGray;
     color: $mainWhite;
 
+    &-btn {
+        padding: 10px;
+        margin-right: 30px;
+        margin-bottom: 15px;
+        float: right;
+    }
+
     @include --phone {
         padding-left: 5%;
     }

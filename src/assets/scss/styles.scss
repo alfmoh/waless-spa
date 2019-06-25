@@ -172,15 +172,27 @@ div.modal-content {
 }
 
 .ws-add-playlist {
+    color: $smokeWhite;
+
     &-container {
         left: -230px !important;
     }
 
-    &-heading {
-        color: $smokeWhite;
+    &-new {
         text-align: center;
         background-color: $lightGold;
         padding: 10px;
+        opacity: .95;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &-heading {
+        text-align: center;
+        opacity: .5;
+        cursor: default;
     }
 
     &-items {

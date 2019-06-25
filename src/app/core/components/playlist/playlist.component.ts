@@ -7,6 +7,8 @@ import { Store, select } from "@ngrx/store";
 import * as fromRoot from "./../../../state/app.state";
 import { Observable } from "rxjs";
 import { Playlist } from "src/app/shared/models/Playlist";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AddPlaylistComponent } from "src/app/shared/components/addPlaylist/addPlaylist.component";
 
 @Component({
   selector: "ws-playlist",
@@ -22,7 +24,8 @@ export class PlaylistComponent implements OnInit, OnDestroy {
   constructor(
     private playerService: PlayerService,
     public playerHandler: PlayerHanlder,
-    private store: Store<fromRoot.State>
+    private store: Store<fromRoot.State>,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -36,6 +39,10 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     this.subPlaying = event.playing$.subscribe(() =>
       this.playerHandler.isPlaying()
     );
+  }
+
+  open() {
+    this.modalService.open(AddPlaylistComponent);
   }
 
   ngOnDestroy() {

@@ -1,0 +1,21 @@
+.add-playlist {
+  &-hc {
+    display: flex;
+    padding: 10px 10px 0 10px;
+    justify-content: space-between;
+
+    &__close {
+      font-size: 25px;
+      cursor: pointer;
+    }
+  }
+  &-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    &__input {
+      margin-bottom: 15px;
+    }
+  }
+}

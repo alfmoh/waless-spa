@@ -8,18 +8,20 @@ import { RouterModule, RouteReuseStrategy } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { LeftSidebarComponent } from "./components/left-sidebar/left-sidebar.component";
 import { PlayerComponent } from "./components/player/player.component";
 import { CurrentlyPlayingComponent } from "./components/currently-playing/currently-playing.component";
 import { sharedModuleFeature } from "./helpers/constants";
 import { CustomRouteReuseStrategy } from "./helpers/customRouteReuseStrategy";
 import { sharedReducer } from "./state/shared.reducer";
+import { AddPlaylistComponent } from "./components/addPlaylist/addPlaylist.component";
 
 @NgModule({
   imports: [
     CommonModule,
     NgbModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientJsonpModule,
     RouterModule.forChild([]),
@@ -32,7 +34,8 @@ import { sharedReducer } from "./state/shared.reducer";
     CustomSlice,
     CurrentlyPlayingComponent,
     CarouselDirective,
-    TracksDisplayComponent
+    TracksDisplayComponent,
+    AddPlaylistComponent
   ],
   exports: [
     NgbModule,
@@ -43,10 +46,12 @@ import { sharedReducer } from "./state/shared.reducer";
     CustomSlice,
     CurrentlyPlayingComponent,
     CarouselDirective,
-    TracksDisplayComponent
+    TracksDisplayComponent,
+    AddPlaylistComponent
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
-  ]
+  ],
+  entryComponents: [AddPlaylistComponent]
 })
 export class SharedModule {}

@@ -1,0 +1,13 @@
+<div class="add-playlist">
+  <div class="add-playlist-hc">
+    <h5 class="add-playlist-hc__heading">Add Playlist</h5>
+    <i (click)="activeModal.close()" class="add-playlist-hc__close fa fa-window-close" aria-hidden="true"></i>
+  </div>
+  <form (ngSubmit)="onSubmit()" #playform="ngForm" class="add-playlist-form">
+    <label class="add-playlist-form__label">Playlist Title:</label>
+    <input [(ngModel)]="playlistTitle" name="title" #title="ngModel" required type="text"
+      class="add-playlist-form__input">
+    <div [hidden]="title.valid || title.pristine" class="alert alert-danger">Title is required</div>
+    <button [disabled]="!playform.form.valid" class="btn ws-btn" type="submit">Add</button>
+  </form>
+</div>
