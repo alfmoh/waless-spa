@@ -71,11 +71,20 @@ export function playlistReducer(
       };
     case PlaylistActionTypes.LoadPlaylistsFail:
     case PlaylistActionTypes.LoadPlaylistFail:
+    case PlaylistActionTypes.CreatePlaylistFail:
       return {
         ...state,
         playlist: null,
         playlists: null,
         error: action.payload,
+        isLoaded: true
+      };
+
+    case PlaylistActionTypes.CreatePlaylistSuccess:
+      return {
+        ...state,
+        playlists: [...state.playlists, action.payload],
+        error: "",
         isLoaded: true
       };
 

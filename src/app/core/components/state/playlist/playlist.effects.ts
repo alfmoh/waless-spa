@@ -34,6 +34,20 @@ export class PlaylistEffect {
     )
   );
 
+  @Effect()
+  addPlaylist = this.action$.pipe(
+    ofType(playlistActions.PlaylistActionTypes.CreatePlaylist),
+    map((action: playlistActions.CreatePlaylist) => action.payload),
+    mergeMap((playlistContent: any) =>
+      this.walessService.createPlaylist(playlistContent).pipe(
+        map(
+          playlist => new playlistActions.CreatePlaylistSuccess(<any>playlist)
+        ),
+        catchError(err => of(new playlistActions.CreatePlaylistFail(err)))
+      )
+    )
+  );
+
   private playlistSource(playlistIdAndSource: any) {
     const playlist =
       +playlistIdAndSource[1] === 1

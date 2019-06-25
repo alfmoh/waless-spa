@@ -32,4 +32,11 @@ export class WalessService {
       track
     );
   }
+
+  createPlaylist(playlistContent: any) {
+    return this.http.post(
+      `${siteUrl}/users/${this.userId}/playlist/`,
+      playlistContent
+    );
+  }
 }

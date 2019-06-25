@@ -12,7 +12,7 @@
           </ng-template>
           <div class="browse-albums__img-play" [ngStyle]="{
             'border-radius':item.type == 'artist' ? '50%' : '15px'}" >
-            <img [src]="item.cover_medium || item.picture_medium "
+            <img [src]="item.cover_medium || item.picture_medium || '/assets/images/playlist/playlist.jpg'"
             class="browse-albums__album__pic" alt=""
             [ngStyle]="{
               'border-radius':item.type == 'artist' ? '50%' : '15px',

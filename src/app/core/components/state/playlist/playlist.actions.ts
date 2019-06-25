@@ -7,7 +7,10 @@ export enum PlaylistActionTypes {
   LoadPlaylistsFail = "[Playlists] Load Fail",
   LoadPlaylist = "[Playlist] Load Playlist",
   LoadPlaylistSuccess = "[Playlist] Load Success",
-  LoadPlaylistFail = "[Playlist] Load Fail"
+  LoadPlaylistFail = "[Playlist] Load Fail",
+  CreatePlaylist = "[Playlist] Create Playlist",
+  CreatePlaylistSuccess = "[Playlist] Create Success",
+  CreatePlaylistFail = "[Playlist] Create Fail"
 }
 
 export class LoadPlaylists implements Action {
@@ -39,10 +42,27 @@ export class LoadPlaylistFail implements Action {
   constructor(public payload: string) {}
 }
 
+export class CreatePlaylist implements Action {
+  readonly type = PlaylistActionTypes.CreatePlaylist;
+  constructor(public payload: Playlist) {}
+}
+
+export class CreatePlaylistSuccess implements Action {
+  readonly type = PlaylistActionTypes.CreatePlaylistSuccess;
+  constructor(public payload: Playlist) {}
+}
+export class CreatePlaylistFail implements Action {
+  readonly type = PlaylistActionTypes.CreatePlaylistFail;
+  constructor(public payload: string) {}
+}
+
 export type PlaylistActions =
   | LoadPlaylists
   | LoadPlaylist
   | LoadPlaylistsSuccess
   | LoadPlaylistSuccess
   | LoadPlaylistsFail
-  | LoadPlaylistFail;
+  | LoadPlaylistFail
+  | CreatePlaylist
+  | CreatePlaylistSuccess
+  | CreatePlaylistFail;

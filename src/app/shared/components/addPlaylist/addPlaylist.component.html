@@ -3,11 +3,13 @@
     <h5 class="add-playlist-hc__heading">Add Playlist</h5>
     <i (click)="activeModal.close()" class="add-playlist-hc__close fa fa-window-close" aria-hidden="true"></i>
   </div>
-  <form (ngSubmit)="onSubmit()" #playform="ngForm" class="add-playlist-form">
+  <form (ngSubmit)="playform.valid && onSubmit(playform)" #playform="ngForm" class="add-playlist-form" novalidate>
     <label class="add-playlist-form__label">Playlist Title:</label>
-    <input [(ngModel)]="playlistTitle" name="title" #title="ngModel" required type="text"
-      class="add-playlist-form__input">
-    <div [hidden]="title.valid || title.pristine" class="alert alert-danger">Title is required</div>
-    <button [disabled]="!playform.form.valid" class="btn ws-btn" type="submit">Add</button>
+    <input ngModel name="title" #title="ngModel" required type="text" maxlength="25" class="add-playlist-form__input">
+    <div *ngIf="playform.submitted && !title.valid" class="add-playlist-errors">
+      <div *ngIf="title.errors.required" class="alert alert-danger">Title is required</div>
+      <div *ngIf="title.errors.maxlength" class="alert alert-danger">Max of 25 characters allowed.</div>
+    </div>
+    <button class="btn ws-btn" type="submit">Add</button>
   </form>
 </div>

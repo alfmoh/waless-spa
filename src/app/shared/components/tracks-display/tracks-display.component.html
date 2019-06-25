@@ -10,7 +10,7 @@
 [dismissible]="true">Sorry. An error occured while loading tracks. Please reload.</ngb-alert>
 <div *ngIf="isLoaded && src; else loading" class="album ws-shift">
   <div class="album-cover">
-    <img class="album-cover__pic" [src]="src.cover_medium || src.picture_medium" [alt]="src.title">
+    <img class="album-cover__pic" [src]="src.cover_medium || src.picture_medium || '/assets/images/playlist/playlist.jpg'" [alt]="src.title">
   </div>
   <div class="album-content">
     <div class="album-content-title-ex">
