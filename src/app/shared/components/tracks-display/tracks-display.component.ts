@@ -28,7 +28,10 @@ export class TracksDisplayComponent implements OnInit {
 
   @Output("addToPlaylist") addToPlaylist = new EventEmitter<any>();
 
-  constructor(public playerHandler: PlayerHanlder, private modalService: NgbModal) {}
+  constructor(
+    public playerHandler: PlayerHanlder,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {}
 
@@ -45,14 +48,18 @@ export class TracksDisplayComponent implements OnInit {
   ) {
     event.stopPropagation();
     element.toggle();
-    if (!track.album) {
-      const albumCast = albumCaster(this.src);
-      track.album = albumCast;
-    }
+    this.addTrackAlbum(track);
     this.addToPlaylist.emit({ track, playlist });
   }
 
-  open() {
-    this.modalService.open(AddPlaylistComponent);
+  open(track: Track) {
+    const modalRef = this.modalService.open(AddPlaylistComponent);
+    this.addTrackAlbum(track);
+    modalRef.componentInstance.track = track;
+  }
+
+  private addTrackAlbum(track: any) {
+    const albumCast = albumCaster(this.src);
+    if (!track.album) track.album = albumCast;
   }
 }

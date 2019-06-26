@@ -92,7 +92,7 @@
             class="ws-ellipsis-icon-items ws-add-playlist-items" >
                 <h6 class="ws-add-playlist-heading">My Playlists</h6>
                 <hr>
-                <h6 (click)="open()" class="ws-add-playlist-new">New Playlist</h6>
+                <h6 (click)="open(track)" class="ws-add-playlist-new">New Playlist</h6>
               <li
               (click)="onAddToPlaylistClick($event,p,track,playlist)"
               *ngFor="let playlist of playlists" class="ws-ellipsis-icon-items__item ws-add-playlist-items__item">

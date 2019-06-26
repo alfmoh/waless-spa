@@ -3,6 +3,7 @@ import * as fromRoot from "./../../../state/app.state";
 import { Component, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { Store } from "@ngrx/store";
+import { Track } from "../../models/Track";
 
 @Component({
   selector: "ws-add-playlist",
@@ -11,6 +12,7 @@ import { Store } from "@ngrx/store";
 })
 export class AddPlaylistComponent implements OnInit {
   playlistTitle: string;
+  track: Track;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -21,6 +23,7 @@ export class AddPlaylistComponent implements OnInit {
 
   onSubmit(formValue) {
     const value = formValue.value;
+    if (this.track) value.tracks = [this.track];
     this.store.dispatch(new fromPlaylistAction.CreatePlaylist(value));
     this.activeModal.close();
   }
