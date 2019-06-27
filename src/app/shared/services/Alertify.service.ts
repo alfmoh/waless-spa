@@ -5,10 +5,23 @@ declare let alertify: any;
   providedIn: "root"
 })
 export class AlertifyService {
-  constructor() { }
+  constructor() {}
 
-  confirm(message: string, okCallback: () => any) {
-    alertify.confirm(message, e => { if (e) okCallback(); });
+  confirm(title: string, message: string, okCallback: () => any) {
+    alertify.defaults.theme.ok = "ws-btn ws-focus-border";
+    alertify.defaults.theme.cancel = "ws-btn ws-focus-border";
+    // TODO: Promisify
+    alertify
+      .confirm(message, (e: any) => {
+        if (e) okCallback();
+      })
+      .setting({
+        title,
+        message,
+        modal: true,
+        closable: true
+      })
+      .set("labels", { ok: "Yes", cancel: "No" });
   }
 
   success(message: string) {
@@ -27,13 +40,17 @@ export class AlertifyService {
     alertify.message(message);
   }
 
-  alert(title, message: string) {
+  alert(title: string, message: string) {
     alertify.defaults.theme.ok = "ws-btn ws-focus-border";
-    alertify.dialog("alert").set({
-      title,
-      message,
-      transition:'zoom',
-      movable: false
-    }).set('label', 'OK').show();
+    alertify
+      .dialog("alert")
+      .set({
+        title,
+        message,
+        transition: "zoom",
+        movable: false
+      })
+      .set("label", "OK")
+      .show();
   }
 }

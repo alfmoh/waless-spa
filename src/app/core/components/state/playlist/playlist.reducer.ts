@@ -74,6 +74,7 @@ export function playlistReducer(
     case PlaylistActionTypes.LoadPlaylistsFail:
     case PlaylistActionTypes.LoadPlaylistFail:
     case PlaylistActionTypes.CreatePlaylistFail:
+    case PlaylistActionTypes.DeletePlaylistFail:
       return {
         ...state,
         playlist: null,
@@ -88,6 +89,17 @@ export function playlistReducer(
         playlists: [...state.playlists, action.payload],
         error: "",
         isLoaded: true
+      };
+
+    case PlaylistActionTypes.DeletePlaylistSuccess:
+      return {
+        ...state,
+        playlists: (() => {
+          if (state.playlists)
+            return state.playlists.filter(x => x.playlistId !== action.payload);
+        })(),
+        isLoaded: true,
+        error: ""
       };
 
     default:

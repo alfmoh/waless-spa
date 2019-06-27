@@ -1,3 +1,4 @@
+import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import { ActivatedRoute } from "@angular/router";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit, OnDestroy } from "@angular/core";
@@ -9,6 +10,7 @@ import * as fromPlaylist from "./../state/playlist/playlist.reducer";
 import { Observable } from "rxjs";
 import { Playlist } from "src/app/shared/models/Playlist";
 import { WalessService } from "src/app/shared/services/waless.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "ws-playlist-detail",
@@ -29,15 +31,19 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     public playerHandler: PlayerHanlder,
     private route: ActivatedRoute,
     private store: Store<fromRoot.State>,
-    private walessService: WalessService
+    private walessService: WalessService,
+    private location: Location,
+    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {
     this.playlistId = +this.route.snapshot.paramMap.get("id");
 
-    this.route.queryParams
-      .subscribe(x => this.store
-        .dispatch(new fromPlaylistAction.LoadPlaylist([this.playlistId, x.source])));
+    this.route.queryParams.subscribe(x =>
+      this.store.dispatch(
+        new fromPlaylistAction.LoadPlaylist([this.playlistId, x.source])
+      )
+    );
 
     this.store.dispatch(new fromPlaylistAction.LoadPlaylists());
 
@@ -59,6 +65,12 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     this.walessService
       .addToPlaylist(values.playlist.playlistId, values.track)
       .subscribe();
+  }
+
+  onPlaylistDelete(playlistId: number) {
+    this.store.dispatch(new fromPlaylistAction.DeletePlaylist(playlistId));
+    this.location.back();
+    this.alertify.success("Playlist deleted successfully");
   }
 
   ngOnDestroy() {

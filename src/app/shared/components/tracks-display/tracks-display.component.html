@@ -21,7 +21,6 @@
     <h5 *ngIf="src?.last_updated"
     class="album-content__artist album-content__artist-playlist ws-focus-border">{{'Last updated '+ (src?.last_updated | date)}}</h5>
     <span *ngIf="src.release_date" class="album-content__date">{{src?.release_date | date:"y"}}</span>
-    <!-- TODO: Add TrackDuration Pipe -->
     <span *ngIf="!src.release_date" class="album-content__date">Duration: {{src?.duration | trackDuration : 'true'}}</span>
     <span class="album-content__track-num">{{trackList.length}}
       <span *ngIf="trackList.length == 1;else pluralTracks" class="album-content__track-num__text">track</span>
@@ -38,10 +37,14 @@
       class="album-content-actions__more fa fa-ellipsis-h"></i>
 
       <ng-template #topEllipsisContent>
-        <ul class="ws-ellipsis-icon-items" (click)="onEllipsisClick($event,p)" >
+        <ul *ngIf="src?.type =='album'" class="ws-ellipsis-icon-items" (click)="onEllipsisClick($event,p)" >
           <li class="ws-ellipsis-icon-items__item">Play Album next</li>
           <li class="ws-ellipsis-icon-items__item">Add Album to Library</li>
           <li class="ws-ellipsis-icon-items__item">Share Album</li>
+        </ul>
+        <ul *ngIf="src?.type =='playlist'" class="ws-ellipsis-icon-items" (click)="onEllipsisClick($event,p)" >
+          <li class="ws-ellipsis-icon-items__item">Play next</li>
+          <li (click)="onDeletePlaylist(src?.playlistId)" class="ws-ellipsis-icon-items__item">Delete Playlist</li>
         </ul>
       </ng-template>
     </div>

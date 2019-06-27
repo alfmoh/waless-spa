@@ -4,6 +4,7 @@
 [src]="playlist$ | async"
 [playlists]="playlists$ | async"
 (addToPlaylist)="onAddToPlaylist($event)"
+(deletePlaylist)="onPlaylistDelete($event)"
 [trackList]="(playlist$ | async)?.tracks?.data || (playlist$ | async)?.tracks">
 </ws-tracks-display>
 

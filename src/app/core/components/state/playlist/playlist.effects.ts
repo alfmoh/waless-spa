@@ -48,6 +48,18 @@ export class PlaylistEffect {
     )
   );
 
+  @Effect()
+  deletePlaylist = this.action$.pipe(
+    ofType(playlistActions.PlaylistActionTypes.DeletePlaylist),
+    map((action: playlistActions.DeletePlaylist) => action.payload),
+    mergeMap((playlistId: number) =>
+      this.walessService.deletePlaylist(playlistId).pipe(
+        map(() => new playlistActions.DeletePlaylistSuccess(playlistId)),
+        catchError(err => of(new playlistActions.DeletePlaylistFail(err)))
+      )
+    )
+  );
+
   private playlistSource(playlistIdAndSource: any) {
     const playlist =
       +playlistIdAndSource[1] === 1

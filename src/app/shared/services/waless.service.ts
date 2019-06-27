@@ -39,4 +39,10 @@ export class WalessService {
       playlistContent
     );
   }
+
+  deletePlaylist(playlistId: number) {
+    return this.http.delete(
+      `${siteUrl}/users/${this.userId}/playlist/${playlistId}`
+    );
+  }
 }

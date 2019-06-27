@@ -12,6 +12,7 @@ import { NgbPopover, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Playlist } from "../../models/Playlist";
 import { albumCaster } from "../../helpers/caster";
 import { AddPlaylistComponent } from "../addPlaylist/addPlaylist.component";
+import { AlertifyService } from "../../services/Alertify.service";
 
 @Component({
   selector: "ws-tracks-display",
@@ -27,10 +28,12 @@ export class TracksDisplayComponent implements OnInit {
   @Input("playlists") playlists: Playlist[];
 
   @Output("addToPlaylist") addToPlaylist = new EventEmitter<any>();
+  @Output("deletePlaylist") deletePlaylist = new EventEmitter<any>();
 
   constructor(
     public playerHandler: PlayerHanlder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {}
@@ -56,6 +59,14 @@ export class TracksDisplayComponent implements OnInit {
     const modalRef = this.modalService.open(AddPlaylistComponent);
     this.addTrackAlbum(track);
     modalRef.componentInstance.track = track;
+  }
+
+  onDeletePlaylist(playlistId: number) {
+    this.alertify.confirm(
+      "Confirm",
+      "Are you sure you want to delete this playlist?",
+      () => this.deletePlaylist.emit(playlistId)
+    );
   }
 
   private addTrackAlbum(track: any) {
