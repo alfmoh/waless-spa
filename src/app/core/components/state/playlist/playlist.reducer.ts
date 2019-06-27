@@ -53,6 +53,8 @@ export function playlistReducer(
     case PlaylistActionTypes.LoadPlaylists:
       return {
         ...state,
+        playlist: null,
+        playlists: null,
         isLoaded: false
       };
     case PlaylistActionTypes.LoadPlaylistSuccess:

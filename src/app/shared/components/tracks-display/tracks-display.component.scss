@@ -93,9 +93,12 @@
             &-playlist {
               font-size: .85rem;
               font-style: italic;
-              text-decoration: none;
               opacity: .5;
               cursor: auto;
+
+              &:hover {
+                text-decoration: none;
+              }
             }
 
             @include --phone(0, 1224px) {
