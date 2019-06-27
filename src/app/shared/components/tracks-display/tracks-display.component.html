@@ -17,10 +17,12 @@
       <h3 class="album-content-title-ex__title">{{src.title}}</h3>
       <span title="songs may contain explicit words" class="album-content-title-ex__explicit" *ngIf="src.explicit_lyrics">Explicit</span>
     </div>
-    <h5 [routerLink]="['/artist', src?.artist?.id]" class="album-content__artist ws-focus-border">{{src?.artist?.name | titlecase}}</h5>
+    <h5 *ngIf="src?.artist?.name" [routerLink]="['/artist', src?.artist?.id]" class="album-content__artist ws-focus-border">{{src?.artist?.name | titlecase}}</h5>
+    <h5 *ngIf="src?.last_updated"
+    class="album-content__artist album-content__artist-playlist ws-focus-border">{{'Last updated '+ (src?.last_updated | date)}}</h5>
     <span *ngIf="src.release_date" class="album-content__date">{{src?.release_date | date:"y"}}</span>
     <!-- TODO: Add TrackDuration Pipe -->
-    <span *ngIf="!src.release_date" class="album-content__date">Duration: {{src?.duration | trackDuration}}</span>
+    <span *ngIf="!src.release_date" class="album-content__date">Duration: {{src?.duration | trackDuration : 'true'}}</span>
     <span class="album-content__track-num">{{trackList.length}}
       <span *ngIf="trackList.length == 1;else pluralTracks" class="album-content__track-num__text">track</span>
     </span>

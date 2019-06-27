@@ -90,6 +90,14 @@
                 text-decoration: underline;
             }
 
+            &-playlist {
+              font-size: .85rem;
+              font-style: italic;
+              text-decoration: none;
+              opacity: .5;
+              cursor: auto;
+            }
+
             @include --phone(0, 1224px) {
                 text-align: center;
                 max-width: 100%;

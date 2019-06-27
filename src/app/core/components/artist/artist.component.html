@@ -62,7 +62,7 @@
               </span>
             </td>
             <td class="artist-collection-tb-table-tracks__duration">
-              {{(track.duration /60 | number: '1.2-2') | trackDuration}}
+              {{track.duration | trackDuration}}
               <i
               [ngbPopover]="ellipsisContent"
               placement="bottom"
