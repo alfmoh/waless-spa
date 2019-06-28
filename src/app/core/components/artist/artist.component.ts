@@ -1,3 +1,4 @@
+import { WalessService } from "src/app/shared/services/waless.service";
 import * as fromCurrentlyPlaying from "../../../shared/components/state/currently-playing/currently-playing.reducer";
 import * as fromRoot from "./../../../state/app.state";
 import { PlayerService } from "./../../services/player.service";
@@ -15,7 +16,13 @@ import { takeWhile } from "rxjs/operators";
 
 import * as fromArtistAction from "../state/artist/artist.actions";
 import * as fromArtist from "../state/artist/artist.reducer";
+import * as fromPlaylistAction from "./../state/playlist/playlist.actions";
+import * as fromPlaylist from "./../state/playlist/playlist.reducer";
 import { artistBioTitle } from "src/app/shared/helpers/constants";
+import { NgbPopover, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AddPlaylistComponent } from "src/app/shared/components/addPlaylist/addPlaylist.component";
+import { Playlist } from "src/app/shared/models/Playlist";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "ws-artist",
@@ -28,6 +35,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
   artistpic: string;
   topTracks: Track[];
   artistAlbums: Album[];
+  playlists$: Observable<Playlist[]>;
 
   artistDesc = lorem;
   subOnEnd: any;
@@ -42,6 +50,8 @@ export class ArtistComponent implements OnInit, OnDestroy {
     public playerHandler: PlayerHanlder,
     private playerService: PlayerService,
     private title: Title,
+    private modalService: NgbModal,
+    private walessService: WalessService,
     private store: Store<fromRoot.State>
   ) {}
 
@@ -51,6 +61,9 @@ export class ArtistComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       new fromArtistAction.LoadArtistAndTopTracks(this.artistId)
     );
+
+    this.store.dispatch(new fromPlaylistAction.LoadPlaylists());
+    this.playlists$ = this.store.pipe(select(fromPlaylist.getPlaylists));
 
     this.store
       .pipe(
@@ -103,6 +116,31 @@ export class ArtistComponent implements OnInit, OnDestroy {
 
   openDialog() {
     this.alertify.alert(artistBioTitle, this.artistDesc);
+  }
+
+  onEllipsisClick(event: any, element: NgbPopover) {
+    event.stopPropagation();
+    element.toggle();
+  }
+
+  open(track: Track) {
+    const modalRef = this.modalService.open(AddPlaylistComponent);
+    modalRef.componentInstance.track = track;
+  }
+
+  onAddToPlaylistClick(
+    event: any,
+    element: NgbPopover,
+    track: any,
+    playlist: Playlist
+  ) {
+    event.stopPropagation();
+    element.toggle();
+    this.onAddToPlaylist(playlist.playlistId, track);
+  }
+
+  onAddToPlaylist(playlistId: number, track: any) {
+    this.walessService.addToPlaylist(playlistId, track).subscribe();
   }
 
   ngOnDestroy() {

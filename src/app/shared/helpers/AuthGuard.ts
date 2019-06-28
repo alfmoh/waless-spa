@@ -12,13 +12,17 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private alertify: AlertifyService,
     private authService: AuthService
-  ) { }
+  ) {}
 
-  canActivate(route, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(
+    route,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.loggedIn()) return true;
 
     this.alertify.error("You need to be logged in to access this area");
-    if(state.url && !this.authService.loggedIn()) localStorage.setItem("returnUrl",state.url);
+    if (state.url && !this.authService.loggedIn())
+      localStorage.setItem("returnUrl", state.url);
 
     this.router.navigate([""], {
       queryParams: { returnUrl: state.url }
