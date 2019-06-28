@@ -118,12 +118,13 @@ export class ArtistComponent implements OnInit, OnDestroy {
     this.alertify.alert(artistBioTitle, this.artistDesc);
   }
 
-  onEllipsisClick(event: any, element: NgbPopover) {
+  onListItemClick(event: any, element: NgbPopover) {
     event.stopPropagation();
     element.toggle();
   }
 
-  open(track: Track) {
+  open(track: Track, event: any, element: NgbPopover) {
+    this.onListItemClick(event, element);
     const modalRef = this.modalService.open(AddPlaylistComponent);
     modalRef.componentInstance.track = track;
   }

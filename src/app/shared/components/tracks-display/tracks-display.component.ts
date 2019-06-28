@@ -38,7 +38,7 @@ export class TracksDisplayComponent implements OnInit {
 
   ngOnInit() {}
 
-  onEllipsisClick(event: any, element: NgbPopover) {
+  onListItemClick(event: any, element: NgbPopover) {
     event.stopPropagation();
     element.toggle();
   }
@@ -55,7 +55,8 @@ export class TracksDisplayComponent implements OnInit {
     this.addToPlaylist.emit({ track, playlist });
   }
 
-  open(track: Track) {
+  open(track: Track, event: any, element: NgbPopover) {
+    this.onListItemClick(event, element);
     const modalRef = this.modalService.open(AddPlaylistComponent);
     this.addTrackAlbum(track);
     modalRef.componentInstance.track = track;

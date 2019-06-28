@@ -37,12 +37,12 @@
       class="album-content-actions__more fa fa-ellipsis-h"></i>
 
       <ng-template #topEllipsisContent>
-        <ul *ngIf="src?.type =='album'" class="ws-ellipsis-icon-items" (click)="onEllipsisClick($event,p)" >
+        <ul *ngIf="src?.type =='album'" class="ws-ellipsis-icon-items" (click)="onListItemClick($event,p)" >
           <li class="ws-ellipsis-icon-items__item">Play Album next</li>
           <li class="ws-ellipsis-icon-items__item">Add Album to Library</li>
           <li class="ws-ellipsis-icon-items__item">Share Album</li>
         </ul>
-        <ul *ngIf="src?.type =='playlist'" class="ws-ellipsis-icon-items" (click)="onEllipsisClick($event,p)" >
+        <ul *ngIf="src?.type =='playlist'" class="ws-ellipsis-icon-items" (click)="onListItemClick($event,p)" >
           <li class="ws-ellipsis-icon-items__item">Play next</li>
           <li (click)="onDeletePlaylist(src?.playlistId)" class="ws-ellipsis-icon-items__item">Delete Playlist</li>
         </ul>
@@ -69,35 +69,33 @@
           #p="ngbPopover"
           [ngbPopover]="ellipsisContent"
           (click)="$event.stopPropagation()"
-          [autoClose]="true"
           placement="bottom"
           popoverClass="ws-ellipsis-more-container"
           class="album-content-tracks__track-dur-more__more fa fa-ellipsis-h"></i>
 
           <ng-template #ellipsisContent>
-            <ul class="ws-ellipsis-icon-items"
-             (click)="onEllipsisClick($event,p)" >
-              <li class="ws-ellipsis-icon-items__item">Play Next</li>
+            <ul class="ws-ellipsis-icon-items">
+              <li (click)="onListItemClick($event,p)" class="ws-ellipsis-icon-items__item">Play Next</li>
               <li class="ws-ellipsis-icon-items__item"
                 #x="ngbPopover"
                 [ngbPopover]="addToPlaylist"
-                triggers="mouseenter"
-                [autoClose]="true"
+                (click)="$event.stopPropagation()"
+                triggers="click"
                 popoverClass="ws-add-playlist-container"
                 placement="left">
                 <i class="fa fa-angle-left ws-btn"></i>
                 Add to Playlist
               </li>
-              <li class="ws-ellipsis-icon-items__item">Share</li>
+              <li (click)="onListItemClick($event,p)" class="ws-ellipsis-icon-items__item">Share</li>
             </ul>
           </ng-template>
 
           <ng-template #addToPlaylist >
-            <ul
+            <ul (click)="onListItemClick($event,p)"
             class="ws-ellipsis-icon-items ws-add-playlist-items" >
                 <h6 class="ws-add-playlist-heading">My Playlists</h6>
                 <hr>
-                <h6 (click)="open(track)" class="ws-add-playlist-new">New Playlist</h6>
+                <h6 (click)="open(track,$event,p)" class="ws-add-playlist-new">New Playlist</h6>
               <li
               (click)="onAddToPlaylistClick($event,p,track,playlist)"
               *ngFor="let playlist of playlists" class="ws-ellipsis-icon-items__item ws-add-playlist-items__item">
