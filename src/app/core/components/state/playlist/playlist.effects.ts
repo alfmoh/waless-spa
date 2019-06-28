@@ -1,8 +1,9 @@
+import { AlertifyService } from "./../../../../shared/services/Alertify.service";
 import { WalessService } from "src/app/shared/services/waless.service";
 import { DeezerService } from "src/app/shared/services/deezer.service";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import * as playlistActions from "./playlist.actions";
-import { map, mergeMap, catchError } from "rxjs/operators";
+import { map, mergeMap, catchError, tap } from "rxjs/operators";
 import { of } from "rxjs";
 import { Injectable } from "@angular/core";
 
@@ -11,7 +12,8 @@ export class PlaylistEffect {
   constructor(
     private action$: Actions,
     private deezer: DeezerService,
-    private walessService: WalessService
+    private walessService: WalessService,
+    private alertify: AlertifyService
   ) {}
 
   @Effect()
@@ -43,7 +45,11 @@ export class PlaylistEffect {
         map(
           playlist => new playlistActions.CreatePlaylistSuccess(<any>playlist)
         ),
-        catchError(err => of(new playlistActions.CreatePlaylistFail(err)))
+        tap(() => this.alertify.success("Playlist created successfully.")),
+        catchError(err => {
+          this.alertify.error("Playlist creation failed. Please try again.");
+          return of(new playlistActions.CreatePlaylistFail(err));
+        })
       )
     )
   );
@@ -55,7 +61,11 @@ export class PlaylistEffect {
     mergeMap((playlistId: number) =>
       this.walessService.deletePlaylist(playlistId).pipe(
         map(() => new playlistActions.DeletePlaylistSuccess(playlistId)),
-        catchError(err => of(new playlistActions.DeletePlaylistFail(err)))
+        tap(() => this.alertify.success("Playlist deleted successfully")),
+        catchError(err => {
+          this.alertify.error("Playlist deletion failed. Please try again.");
+          return of(new playlistActions.DeletePlaylistFail(err));
+        })
       )
     )
   );

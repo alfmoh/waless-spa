@@ -1,4 +1,3 @@
-import { AlertifyService } from "./../../../shared/services/Alertify.service";
 import { ActivatedRoute } from "@angular/router";
 import { PlayerHanlder } from "./../../../shared/helpers/playerhandler";
 import { Component, OnInit, OnDestroy } from "@angular/core";
@@ -32,9 +31,7 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<fromRoot.State>,
     private walessService: WalessService,
-    private location: Location,
-    private alertify: AlertifyService
-  ) {}
+    private location: Location  ) {}
 
   ngOnInit() {
     this.playlistId = +this.route.snapshot.paramMap.get("id");
@@ -70,7 +67,6 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   onPlaylistDelete(playlistId: number) {
     this.store.dispatch(new fromPlaylistAction.DeletePlaylist(playlistId));
     this.location.back();
-    this.alertify.success("Playlist deleted successfully");
   }
 
   ngOnDestroy() {
