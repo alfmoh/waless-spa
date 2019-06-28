@@ -9,40 +9,43 @@ import { siteUrl } from "../helpers/constants";
   providedIn: "root"
 })
 export class WalessService {
-  userId: string;
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.userId = authService.getTokenUser().nameid;
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getPlaylists(): Observable<Playlist[]> {
     return this.http.get<Playlist[]>(
-      `${siteUrl}/users/${this.userId}/playlist`
+      `${siteUrl}/users/${this.authService.getTokenUser().nameid}/playlist`
     );
   }
 
   getPlaylist(id: number): Observable<Playlist> {
     return this.http.get<Playlist>(
-      `${siteUrl}/users/${this.userId}/playlist/${id}`
+      `${siteUrl}/users/${
+        this.authService.getTokenUser().nameid
+      }/playlist/${id}`
     );
   }
 
   addToPlaylist(playlistId: number, track: any) {
     return this.http.post(
-      `${siteUrl}/users/${this.userId}/playlist/${playlistId}`,
+      `${siteUrl}/users/${
+        this.authService.getTokenUser().nameid
+      }/playlist/${playlistId}`,
       track
     );
   }
 
   createPlaylist(playlistContent: any) {
     return this.http.post(
-      `${siteUrl}/users/${this.userId}/playlist/`,
+      `${siteUrl}/users/${this.authService.getTokenUser().nameid}/playlist/`,
       playlistContent
     );
   }
 
   deletePlaylist(playlistId: number) {
     return this.http.delete(
-      `${siteUrl}/users/${this.userId}/playlist/${playlistId}`
+      `${siteUrl}/users/${
+        this.authService.getTokenUser().nameid
+      }/playlist/${playlistId}`
     );
   }
 }

@@ -33,7 +33,7 @@ const coreRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "playlist",
+    path: "playlists",
     component: PlaylistComponent,
     canActivate: [AuthGuard]
   },
