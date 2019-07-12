@@ -7,7 +7,6 @@ import * as fromRoot from "./../../../state/app.state";
 import * as fromPlaylistAction from "./../state/playlist/playlist.actions";
 import * as fromPlaylist from "./../state/playlist/playlist.reducer";
 import { Observable } from "rxjs";
-import { Playlist } from "src/app/shared/models/Playlist";
 import { WalessService } from "src/app/shared/services/waless.service";
 import { Location } from "@angular/common";
 
@@ -23,7 +22,6 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
   isLoaded$: Observable<boolean>;
   isError$: Observable<string>;
   playlistId: number;
-  playlists$: Observable<Playlist[]>;
 
   constructor(
     private playerService: PlayerService,
@@ -47,7 +45,6 @@ export class PlaylistDetailComponent implements OnInit, OnDestroy {
     this.playlist$ = this.store.pipe(select(fromPlaylist.getPlaylist));
     this.isError$ = this.store.pipe(select(fromPlaylist.getPlaylistError));
     this.isLoaded$ = this.store.pipe(select(fromPlaylist.getPlaylistIsLoaded));
-    this.playlists$ = this.store.pipe(select(fromPlaylist.getPlaylists));
 
     // TODO: Filter readable tracks
 

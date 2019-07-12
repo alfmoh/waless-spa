@@ -56,43 +56,9 @@
             </td>
             <td class="artist-collection-tb-table-tracks__duration">
               {{track.duration | trackDuration}}
-              <i
-              #p="ngbPopover"
-              [ngbPopover]="ellipsisContent"
-              placement="bottom"
-              [autoClose]="true"
-              popoverClass="ws-ellipsis-more-container"
-              class="fa fa-ellipsis-h artist-collection-tb-table-tracks__ellipsis-icon"></i>
-            </td>
-            <ng-template #ellipsisContent>
-              <ul class="ws-ellipsis-icon-items">
-                <li (click)="onListItemClick($event,p)" class="ws-ellipsis-icon-items__item">Play Next</li>
-                <li class="ws-ellipsis-icon-items__item"
-                    #x="ngbPopover"
-                    [ngbPopover]="addToPlaylist"
-                    (click)="$event.stopPropagation()"
-                    triggers="click"
-                    popoverClass="ws-add-playlist-container"
-                    placement="left">
-                    <i class="fa fa-angle-left ws-btn"></i>
-                    Add to Playlist
-                  </li>
-                  <li (click)="onListItemClick($event,p)" class="ws-ellipsis-icon-items__item">Share</li>
-                </ul>
-              </ng-template>
-            <ng-template #addToPlaylist >
-                <ul (click)="onListItemClick($event,p)"
-                class="ws-ellipsis-icon-items ws-add-playlist-items" >
-                    <h6 class="ws-add-playlist-heading">My Playlists</h6>
-                    <hr>
-                    <h6 (click)="open(track,$event,p)"  class="ws-add-playlist-new">New Playlist</h6>
-                  <li
-                  (click)="onAddToPlaylistClick($event,p,track,playlist)"
-                  *ngFor="let playlist of playlists$ | async" class="ws-ellipsis-icon-items__item ws-add-playlist-items__item">
-                    {{playlist.title}}
-                  </li>
-                </ul>
-              </ng-template>
+              <span class="artist-collection-tb-table-tracks__ellipsis-icon">
+                <ws-track-ellipsis [isArtist]="true" [track]="track" [src]="topTracks"></ws-track-ellipsis>
+              </span>
           </tr>
         </tbody>
       </table>

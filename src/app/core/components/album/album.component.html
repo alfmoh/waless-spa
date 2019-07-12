@@ -1,6 +1,5 @@
 <ws-tracks-display
 (addToPlaylist)="onAddToPlaylist($event)"
-[playlists]="playlists$ | async"
 [isLoaded]="isLoaded" [isError]="isError" [src]="album" [trackList]="albumTracks"></ws-tracks-display>
 <ws-player
   [playing]="playerHandler.isPlaying()"

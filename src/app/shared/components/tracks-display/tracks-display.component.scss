@@ -3,7 +3,6 @@
 @mixin icon-style {
     font-size: 1.5rem;
     cursor: pointer;
-    opacity: .8;
     max-width: 85%;
 }
 
@@ -204,6 +203,7 @@
                         @include --phone {
                             padding: 0;
                             padding-left: 10px;
+                            color: $smokeWhite;
                         }
                     }
                 }

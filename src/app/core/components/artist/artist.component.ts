@@ -13,16 +13,13 @@ import { lorem } from "../../../shared/temp/_lorem";
 import { Title } from "@angular/platform-browser";
 import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
-
 import * as fromArtistAction from "../state/artist/artist.actions";
 import * as fromArtist from "../state/artist/artist.reducer";
 import * as fromPlaylistAction from "./../state/playlist/playlist.actions";
-import * as fromPlaylist from "./../state/playlist/playlist.reducer";
 import { artistBioTitle } from "src/app/shared/helpers/constants";
 import { NgbPopover, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AddPlaylistComponent } from "src/app/shared/components/addPlaylist/addPlaylist.component";
 import { Playlist } from "src/app/shared/models/Playlist";
-import { Observable } from "rxjs";
 
 @Component({
   selector: "ws-artist",
@@ -35,7 +32,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
   artistpic: string;
   topTracks: Track[];
   artistAlbums: Album[];
-  playlists$: Observable<Playlist[]>;
 
   artistDesc = lorem;
   subOnEnd: any;
@@ -63,7 +59,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
     );
 
     this.store.dispatch(new fromPlaylistAction.LoadPlaylists());
-    this.playlists$ = this.store.pipe(select(fromPlaylist.getPlaylists));
 
     this.store
       .pipe(

@@ -8,10 +8,7 @@ import {
   EventEmitter
 } from "@angular/core";
 import { Track } from "../../models/Track";
-import { NgbPopover, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Playlist } from "../../models/Playlist";
-import { albumCaster } from "../../helpers/caster";
-import { AddPlaylistComponent } from "../addPlaylist/addPlaylist.component";
+import { NgbPopover } from "@ng-bootstrap/ng-bootstrap";
 import { AlertifyService } from "../../services/Alertify.service";
 
 @Component({
@@ -25,14 +22,12 @@ export class TracksDisplayComponent implements OnInit {
   @Input("isError") isError: boolean;
   @Input("src") src: any;
   @Input("trackList") trackList: Track[];
-  @Input("playlists") playlists: Playlist[];
 
   @Output("addToPlaylist") addToPlaylist = new EventEmitter<any>();
   @Output("deletePlaylist") deletePlaylist = new EventEmitter<any>();
 
   constructor(
     public playerHandler: PlayerHanlder,
-    private modalService: NgbModal,
     private alertify: AlertifyService
   ) {}
 
@@ -43,35 +38,11 @@ export class TracksDisplayComponent implements OnInit {
     element.toggle();
   }
 
-  onAddToPlaylistClick(
-    event: any,
-    element: NgbPopover,
-    track: any,
-    playlist: Playlist
-  ) {
-    event.stopPropagation();
-    element.toggle();
-    this.addTrackAlbum(track);
-    this.addToPlaylist.emit({ track, playlist });
-  }
-
-  open(track: Track, event: any, element: NgbPopover) {
-    this.onListItemClick(event, element);
-    const modalRef = this.modalService.open(AddPlaylistComponent);
-    this.addTrackAlbum(track);
-    modalRef.componentInstance.track = track;
-  }
-
   onDeletePlaylist(playlistId: number) {
     this.alertify.confirm(
       "Confirm",
       "Are you sure you want to delete this playlist?",
       () => this.deletePlaylist.emit(playlistId)
     );
-  }
-
-  private addTrackAlbum(track: any) {
-    const albumCast = albumCaster(this.src);
-    if (!track.album) track.album = albumCast;
   }
 }

@@ -13,10 +13,7 @@ import * as fromAlbumAction from "../state/album/album.actions";
 import * as fromAlbum from "../state/album/album.reducer";
 import { NgbPopover } from "@ng-bootstrap/ng-bootstrap";
 import { WalessService } from "src/app/shared/services/waless.service";
-import { Observable } from "rxjs";
-import { Playlist } from "src/app/shared/models/Playlist";
 import * as fromPlaylistAction from "./../state/playlist/playlist.actions";
-import * as fromPlaylist from "./../state/playlist/playlist.reducer";
 
 @Component({
   selector: "ws-album",
@@ -33,7 +30,6 @@ export class AlbumComponent implements OnInit, OnDestroy {
   album$: any;
   isLoaded: boolean;
   isError: boolean;
-  playlists$: Observable<Playlist[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,7 +54,6 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(new fromAlbumAction.LoadAlbum(this.albumId));
     this.store.dispatch(new fromPlaylistAction.LoadPlaylists());
-    this.playlists$ = this.store.pipe(select(fromPlaylist.getPlaylists));
 
     this.store
       .pipe(

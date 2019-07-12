@@ -65,7 +65,7 @@ export class TrackDurationPipe implements PipeTransform {
   private dotToColon(value: string | number): string {
     const valueToString = value.toString();
     if (valueToString.includes(".")) return valueToString.replace(".", ":");
-    return valueToString;
+    return "0:" + valueToString;
   }
 
   private modulus60(value: number) {

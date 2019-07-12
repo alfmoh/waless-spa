@@ -16,6 +16,7 @@ import { sharedModuleFeature } from "./helpers/constants";
 import { CustomRouteReuseStrategy } from "./helpers/customRouteReuseStrategy";
 import { sharedReducer } from "./state/shared.reducer";
 import { AddPlaylistComponent } from "./components/addPlaylist/addPlaylist.component";
+import { TrackEllipsisComponent } from "./components/track-ellipsis/track-ellipsis.component";
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { AddPlaylistComponent } from "./components/addPlaylist/addPlaylist.compo
     CurrentlyPlayingComponent,
     CarouselDirective,
     TracksDisplayComponent,
-    AddPlaylistComponent
+    AddPlaylistComponent,
+    TrackEllipsisComponent
   ],
   exports: [
     NgbModule,
@@ -47,7 +49,8 @@ import { AddPlaylistComponent } from "./components/addPlaylist/addPlaylist.compo
     CurrentlyPlayingComponent,
     CarouselDirective,
     TracksDisplayComponent,
-    AddPlaylistComponent
+    AddPlaylistComponent,
+    TrackEllipsisComponent
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
