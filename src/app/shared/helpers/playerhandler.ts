@@ -32,11 +32,11 @@ export class PlayerHanlder {
     this.playerService.init(tracks);
   }
 
-  play(index) {
+  play(index = "0") {
     if (this.router.url !== "/queue") this.store.dispatch(new LoadQueue());
     isNaN(parseFloat(index))
       ? this.playerService.play(this.trackList)
-      : this.playerService.playNew(index, this.trackList);
+      : this.playerService.playNew(+index, this.trackList);
     // isNaN(parseFloat(index))
     //   ? this.store.pipe(select(fromArtist.getArtistTopTracks),take(1)).subscribe(q => {
     //     if (q) this.playerService.play(q);

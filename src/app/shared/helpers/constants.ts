@@ -7,4 +7,6 @@ export const baseUrl = "https://api.deezer.com/";
 export const jsonUrl = "output=jsonp&callback=JSONP_CALLBACK";
 export const siteUrl = "http://localhost:5000/api";
 export const siteHost = "localhost:5000";
+// export const siteUrl = "https://privo.serveo.net/api";
+// export const siteHost = "privo.serveo.net";
 export const frontSite = "http://localhost:4200";

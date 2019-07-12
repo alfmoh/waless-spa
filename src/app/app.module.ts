@@ -32,7 +32,7 @@ import { siteHost } from "./shared/helpers/constants";
     AppRoutingModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem("token"),
+        tokenGetter: getItem,
         whitelistedDomains: [siteHost]
       }
     })
@@ -41,3 +41,6 @@ import { siteHost } from "./shared/helpers/constants";
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+export function getItem() {
+  return localStorage.getItem("token");
+}
