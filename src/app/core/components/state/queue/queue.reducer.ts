@@ -48,7 +48,13 @@ export function queueReducer(
         ...state,
         isLoaded: false
       };
+    case QueueActionTypes.PlayNext:
+      return {
+        ...state,
+        isLoaded: state.tracks && state.tracks.length ? true : false
+      };
 
+    case QueueActionTypes.PlayNextSuccess:
     case QueueActionTypes.LoadQueueSuccess:
       return {
         ...state,
@@ -57,6 +63,7 @@ export function queueReducer(
       };
 
     case QueueActionTypes.LoadQueueFail:
+    case QueueActionTypes.PlayNextFail:
       return {
         ...state,
         error: action.payload

@@ -32,7 +32,7 @@ export class PlayerHanlder {
     this.playerService.init(tracks);
   }
 
-  play(index = "0") {
+  play(index= "") {
     if (this.router.url !== "/queue") this.store.dispatch(new LoadQueue());
     isNaN(parseFloat(index))
       ? this.playerService.play(this.trackList)
@@ -86,7 +86,10 @@ export class PlayerHanlder {
       this.store.dispatch(
         new fromSharedActions.SetCurrentlyPlayingTrack(tracks[trackIndex])
       );
-    else {
+    else if (type === "playNext") {
+        if (!tracks[trackIndex].album)
+      tracks[trackIndex].album = album;
+      } else {
       tracks.map(playlistTrack => (playlistTrack.album = album));
       this.store.dispatch(
         new fromSharedActions.SetCurrentlyPlayingTrack(tracks[trackIndex])

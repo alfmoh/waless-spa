@@ -1,5 +1,6 @@
 import * as fromRoot from "src/app/state/app.state";
 import * as fromPlaylist from "src/app/core/components/state/playlist/playlist.reducer";
+import * as fromQueueAction from "src/app/core/components/state/queue/queue.actions";
 import { Component, OnInit, Input } from "@angular/core";
 import { NgbPopover, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Track } from "../../models/Track";
@@ -20,6 +21,7 @@ export class TrackEllipsisComponent implements OnInit {
   @Input("track") track;
   @Input("isArtist") isArtist: boolean;
 
+  currentQueue$: Observable<Track[]>;
   playlists$: Observable<Playlist[]>;
 
   constructor(
@@ -58,6 +60,16 @@ export class TrackEllipsisComponent implements OnInit {
 
   addToPlaylist(playlistId: number, track: any) {
     this.walessService.addToPlaylist(playlistId, track).subscribe();
+  }
+
+  onPlayNext(event: any, element: NgbPopover) {
+    this.onListItemClick(event, element);
+    this.store.dispatch(
+      new fromQueueAction.PlayNext({
+        track: this.track,
+        album: this.src
+      })
+    );
   }
 
   private addTrackAlbum(track: any) {

@@ -21,7 +21,7 @@
             </span>
             <div class="queue-content-list-item-tracks-track-dur-more">
               <span class="queue-content-list-item-tracks-track-dur-more__duration">
-                {{(track.duration /60 | number: '1.2-2') | trackDuration}}
+                {{track.duration | trackDuration}}
               </span>
               <i class="queue-content-list-item-tracks-track-dur-more__more fa fa-ellipsis-h"></i>
             </div>

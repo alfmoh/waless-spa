@@ -4,7 +4,7 @@
 
 <ng-template #ellipsisContent>
   <ul class="ws-ellipsis-icon-items">
-    <li (click)="onListItemClick($event,p)" class="ws-ellipsis-icon-items__item">Play Next</li>
+    <li (click)="onPlayNext($event,p)" class="ws-ellipsis-icon-items__item">Play Next</li>
     <li class="ws-ellipsis-icon-items__item" #x="ngbPopover" [ngbPopover]="addToPlaylist"
       (click)="$event.stopPropagation()" triggers="click" popoverClass="ws-add-playlist-container" placement="left">
       <i class="fa fa-angle-left ws-btn"></i>

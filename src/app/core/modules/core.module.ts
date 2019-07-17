@@ -21,6 +21,7 @@ import { coreModuleFeature } from "src/app/shared/helpers/constants";
 import { ArtistEffects } from "../components/state/artist/artist.effects";
 import { PlaylistComponent } from "../components/playlist/playlist.component";
 import { PlaylistEffect } from "../components/state/playlist/playlist.effects";
+import { QueueEffects } from "../components/state/queue/queue.effects";
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { PlaylistEffect } from "../components/state/playlist/playlist.effects";
     AuthModule,
     SharedModule,
     StoreModule.forFeature(coreModuleFeature, coreReducer),
-    EffectsModule.forFeature([BrowseEffects, AlbumEffects, ArtistEffects, PlaylistEffect])
+    EffectsModule.forFeature([BrowseEffects, AlbumEffects, ArtistEffects, PlaylistEffect, QueueEffects])
   ],
   declarations: [
     NavbarComponent,
