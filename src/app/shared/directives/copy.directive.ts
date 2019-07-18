@@ -16,8 +16,9 @@ export class CopyDirective {
   }
 
   @HostListener("click") onClick() {
+    const navigator = this.window.navigator as any;
     if (this.element.link)
-      this.window.navigator.clipboard
+      navigator.clipboard
         .writeText(this.element.link)
         .then(() =>
           this.alertify.success(
