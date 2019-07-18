@@ -10,7 +10,7 @@
       <i class="fa fa-angle-left ws-btn"></i>
       Add to Playlist
     </li>
-    <li (click)="onListItemClick($event,p)" class="ws-ellipsis-icon-items__item">Share</li>
+    <li wsCopyClipboard [element]="track" (click)="onListItemClick($event,p)" class="ws-ellipsis-icon-items__item">Share</li>
   </ul>
 </ng-template>
 

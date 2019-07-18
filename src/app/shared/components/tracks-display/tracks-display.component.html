@@ -40,7 +40,7 @@
         <ul *ngIf="src?.type =='album'" class="ws-ellipsis-icon-items" (click)="onListItemClick($event,p)" >
           <li class="ws-ellipsis-icon-items__item">Play Album next</li>
           <li class="ws-ellipsis-icon-items__item">Add Album to Library</li>
-          <li class="ws-ellipsis-icon-items__item">Share Album</li>
+          <li wsCopyClipboard [element]="src" class="ws-ellipsis-icon-items__item">Share Album</li>
         </ul>
         <ul *ngIf="src?.type =='playlist'" class="ws-ellipsis-icon-items" (click)="onListItemClick($event,p)" >
           <li class="ws-ellipsis-icon-items__item">Play next</li>
