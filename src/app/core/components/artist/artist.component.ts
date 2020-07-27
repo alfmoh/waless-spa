@@ -80,7 +80,12 @@ export class ArtistComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentActive)
       )
       .subscribe(topTracks => {
-        this.artistAlbums = topTracks.map(track => track.album).slice(0, 8);
+        this.artistAlbums = topTracks
+          .map(track => track.album)
+          .filter(
+            (val, index, arr) =>
+              arr.findIndex(track => track.title === val.title) === index
+          );
         return (this.topTracks = topTracks.slice(0, 10));
       });
 

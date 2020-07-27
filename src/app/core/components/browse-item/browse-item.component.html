@@ -3,8 +3,13 @@
 </ng-template>
 
 <div class="browse-item-container">
-    <ul *ngIf="isLoaded; else loading" class="browse-albums" wsCarousel [carouselActive]="caroActive" >
-        <li *ngFor="let item of items" class="browse-albums__album" [ngStyle]="{'margin-right': caroActive ? '25px':''}">
+  <div *ngIf="caroActive" class="browse-item-btns">
+    <i class="browse-item-btns__btn-left fa fa-angle-left ws-btn browse-item-btns__btn" (click)="artistMoveLeft()"></i>
+    <i class="browse-item-btns__btn-right fa fa-angle-right ws-btn browse-item-btns__btn" (click)="artistMoveRight()"></i>
+  </div>
+    <ul *ngIf="isLoaded; else loading" class="browse-albums" [class.ws-carousel]="caroActive">
+      <drag-scroll #dragParent *ngIf="caroActive; else verticalScroll">
+      <li drag-scroll-item *ngFor="let item of items" class="browse-albums__album" [ngStyle]="{'margin-right': caroActive ? '25px':''}">
           <ng-template #playlistNum>
             <span class="browse-albums__album__artist-name ws-focus-border" [ngStyle]="{'text-decoration':'none'}">
               {{item.nb_tracks + " tracks"}}
@@ -47,6 +52,54 @@
             <span title="songs may contain explicit words" *ngIf="item.explicit_lyrics"
               class="browse-albums__album__details__exp">Explicit</span>
           </div>
-        </li>
+      </li>
+      </drag-scroll>
+
+        <ng-template #verticalScroll>
+          <li drag-scroll-item *ngFor="let item of items" class="browse-albums__album" [ngStyle]="{'margin-right': caroActive ? '25px':''}">
+            <ng-template #playlistNum>
+              <span class="browse-albums__album__artist-name ws-focus-border" [ngStyle]="{'text-decoration':'none'}">
+                {{item.nb_tracks + " tracks"}}
+              </span>
+            </ng-template>
+            <div class="browse-albums__img-play" [ngStyle]="{
+              'border-radius':item.type == 'artist' ? '50%' : '15px'}" >
+              <img [src]="item.cover_medium || item.picture_medium || '/assets/images/playlist/playlist.jpg'"
+              class="browse-albums__album__pic" alt=""
+              [ngStyle]="{
+                'border-radius':item.type == 'artist' ? '50%' : '15px',
+                'box-shadow':item.type == 'artist' ? '0 10px 13px 0px #100d0da3;' : '',
+                'border':item.type == 'artist' ? 'solid 3px #754c11' : ''}">
+              <button class="browse-albums__album__btn ws-focus-border" (click)="playerHandler.startAlbum(item)">
+                <i class="fa fa-play"></i>
+              </button>
+            </div>
+            <div class="browse-albums__album__details" [ngStyle]="{'justify-content':item.type == 'artist' ? 'center' : 'space-between'}" >
+              <div class="browse-albums__album__details__names">
+                <ng-container [ngSwitch]="item.type" >
+                    <span *ngSwitchCase="'album'" class="browse-albums__album__name ws-focus-border"
+                    [routerLink]="['/album', item.id]">
+                    {{item.title | titlecase}}
+                  </span>
+                    <span *ngSwitchCase="'artist'" class="browse-albums__album__name ws-focus-border"
+                    [routerLink]="['/artist', item.id]">
+                    {{item.name | titlecase}}
+                  </span>
+                    <span *ngSwitchCase="'playlist'" class="browse-albums__album__name ws-focus-border"
+                    [routerLink]="['/playlist',item.id || item.playlistId]"
+                    [queryParams]="{source: item.checksum ? 1 : 2}" >
+                    {{item.title | titlecase}}
+                  </span>
+                </ng-container>
+                <span *ngIf="item.type != 'playlist'; else playlistNum"
+                  class="browse-albums__album__artist-name ws-focus-border" [routerLink]="['/artist', item?.artist?.id]">
+                  {{item?.artist?.name | titlecase}}
+                </span>
+              </div>
+              <span title="songs may contain explicit words" *ngIf="item.explicit_lyrics"
+                class="browse-albums__album__details__exp">Explicit</span>
+            </div>
+          </li>
+        </ng-template>
       </ul>
 </div>

@@ -22,6 +22,7 @@ import { ArtistEffects } from "../components/state/artist/artist.effects";
 import { PlaylistComponent } from "../components/playlist/playlist.component";
 import { PlaylistEffect } from "../components/state/playlist/playlist.effects";
 import { QueueEffects } from "../components/state/queue/queue.effects";
+import { DragScrollModule } from "ngx-drag-scroll";
 
 @NgModule({
   imports: [
@@ -29,8 +30,15 @@ import { QueueEffects } from "../components/state/queue/queue.effects";
     CoreRoutingModule,
     AuthModule,
     SharedModule,
+    DragScrollModule,
     StoreModule.forFeature(coreModuleFeature, coreReducer),
-    EffectsModule.forFeature([BrowseEffects, AlbumEffects, ArtistEffects, PlaylistEffect, QueueEffects])
+    EffectsModule.forFeature([
+      BrowseEffects,
+      AlbumEffects,
+      ArtistEffects,
+      PlaylistEffect,
+      QueueEffects,
+    ]),
   ],
   declarations: [
     NavbarComponent,
@@ -42,8 +50,8 @@ import { QueueEffects } from "../components/state/queue/queue.effects";
     HomeComponent,
     PlaylistComponent,
     PlaylistDetailComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
-  exports: [NavbarComponent, AuthModule, NotFoundComponent]
+  exports: [NavbarComponent, AuthModule, NotFoundComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

@@ -99,6 +99,7 @@
     display: flex !important;
     flex-wrap: nowrap !important;
     transition-duration: 1s;
+    cursor: pointer;
 }
 
 .ws-ellipsis-icon {
@@ -232,6 +233,10 @@ div.modal-content {
 
 .bs-popover-bottom .arrow::after {
     display: none;
+}
+
+.drag-scroll-content {
+  overflow: hidden !important;
 }
 
 /*Animations*/
